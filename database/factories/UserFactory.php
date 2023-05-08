@@ -17,7 +17,7 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return[
+        return [
             'first_name' => '',
             'last_name' => '',
             'email_verified_at' => now(),
