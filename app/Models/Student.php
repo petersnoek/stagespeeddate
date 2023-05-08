@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Teacher;
 
-class Students extends Model
+class Student extends Model
 {
     use HasFactory;
 
@@ -19,4 +20,12 @@ class Students extends Model
         'teacher_id',
         'CV',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function teacher(){
+        return $this->belongsTo(Teacher::class);
+    }
 }
