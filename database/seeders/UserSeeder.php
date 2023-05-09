@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -12,35 +14,35 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'first_name' => 'Admin',
-            'last_name' => 'Admin',
+            'last_name' => 'admin',
             'email' => 'admin@gmail.com',
-            'password' => 'admin123',
+            'password' => Hash::make('Admin123'),
             'role' => 'admin',
         ]);
 
-        \App\Models\User::factory()->create([
+        User::factory()->create([
             'first_name' => 'Teacher',
-            'last_name' => 'Teacher',
-            'email' => 'Teacher@gmail.com',
-            'password' => 'Teacher123',
-            'role' => 'Teacher',
+            'last_name' => 'teacher',
+            'email' => 'teacher@gmail.com',
+            'password' => Hash::make('Teacher123'),
+            'role' => 'teacher',
         ]);
 
-        \App\Models\User::factory()->create([
-            'first_name' => 'company',
+        User::factory()->create([
+            'first_name' => 'Company',
             'last_name' => 'company',
-            'email' => 'company1@gmail.com',
-            'password' => 'company123',
+            'email' => 'company@gmail.com',
+            'password' => Hash::make('Company123'),
             'role' => 'company',
         ]);
 
-        \App\Models\User::factory()->create([
-            'first_name' => 'student',
+        User::factory()->create([
+            'first_name' => 'Student',
             'last_name' => 'student',
             'email' => 'student@gmail.com',
-            'password' => 'student123',
+            'password' => Hash::make('Student123'),
             'role' => 'student',
         ]);
     }
