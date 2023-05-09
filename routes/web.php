@@ -32,6 +32,8 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::view('/blank', 'pages.blank');
     });
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); //directed to after login (laravel layout with pretty empty page)
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::get('/updateProfile', [App\Http\Controllers\ProfileController::class, 'update'])->name('Students.update');
     
 });
 
