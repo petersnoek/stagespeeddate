@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Model\Company;
+use App\Models\Company;
 use App\Models\Application;
 
 class Vacancy extends Model
