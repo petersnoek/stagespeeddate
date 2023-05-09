@@ -12,6 +12,18 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $teacherIds = \App\Models\Teacher::pluck('id')->toArray();
+        $userIds = \App\Models\User::where('role','student')->pluck('id')->toArray();
+        
+        foreach(range(1,4) as $index){
+            \App\Models\Student::factory()->create([
+                'id' => $index,
+                'user_id' => $userIds[array_rand($userIds)],
+                'teacher_id' => $teacherIds[array_rand($teacherIds)],
+                'cv' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }
