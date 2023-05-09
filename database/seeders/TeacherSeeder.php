@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Teacher;
 
 class TeacherSeeder extends Seeder
 {
@@ -12,10 +14,10 @@ class TeacherSeeder extends Seeder
      */
     public function run(): void
     {   
-        $userIds = \App\Models\User::where('role','teacher')->pluck('id')->toArray();
+        $userIds = User::where('role','teacher')->pluck('id')->toArray();
         
         foreach($userIds as $userId){    
-            \App\Models\Teacher::factory()->create([
+            Teacher::factory()->create([
                 'user_id' => $userId,
             ]);
         }

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes(['verify' => true]);//default laravel ui auth routes (it's not very insightful I know. use php artisan route:list for all of them)
 
 
-    Route::view('/landing', 'landing'); //one ui landing page (pretty empty page I don't like it)
+Route::view('/landing', 'landing'); //one ui landing page (pretty empty page I don't like it)
 
 Route::middleware('verified')->group(function () {//if user verified their email
 

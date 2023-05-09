@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id');
             $table->string('name');
             $table->string('bio');
-            $table->foreignId('company_id');
             $table->timestamps();
         });
     }

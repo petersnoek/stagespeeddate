@@ -17,9 +17,9 @@ class Vacancy extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'company_id',
         'name',
         'bio',
-        'company_id',
     ];
 
     public function company(){

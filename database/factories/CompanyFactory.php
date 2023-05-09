@@ -17,9 +17,9 @@ class CompanyFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id' => '',
             'name' => '',
             'bio' => '',
-            'user_id' => '',
         ];
     }
 }

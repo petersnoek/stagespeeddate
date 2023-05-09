@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use App\Models\Company;
+use App\Models\Vacancy;
 
 class VacancySeeder extends Seeder
 {
@@ -13,11 +15,11 @@ class VacancySeeder extends Seeder
      */
     public function run(): void
     {
-        $companyIds = \App\Models\Company::pluck('id')->toArray();
+        $companyIds = Company::pluck('id')->toArray();
 
         foreach($companyIds as $companyId){    
-            \App\Models\Vacancy::factory()->create([
-                'name' => str::random(8),
+            Vacancy::factory()->create([
+                'name' => 'Vacancy Examp.'/* str::random(8) */,
                 'bio' => str::random(30),
                 'company_id' => $companyId,
             ]);

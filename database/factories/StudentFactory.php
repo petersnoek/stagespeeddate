@@ -19,7 +19,7 @@ class StudentFactory extends Factory
         return [
             'user_id' => '',
             'teacher_id' => '',
-            'cv' => '',
+            'CV' => '',
         ];
     }
 }

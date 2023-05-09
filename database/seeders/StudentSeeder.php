@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Student;
+use App\Models\Teacher;
 
 class StudentSeeder extends Seeder
 {
@@ -12,17 +15,15 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        $teacherIds = \App\Models\Teacher::pluck('id')->toArray();
-        $userIds = \App\Models\User::where('role','student')->pluck('id')->toArray();
+        $teacherIds = Teacher::pluck('id')->toArray();
+        $userIds = User::where('role','student')->pluck('id')->toArray();
         
-        foreach(range(1,4) as $index){
-            \App\Models\Student::factory()->create([
+        foreach(range(1,1) as $index){
+            Student::factory()->create([
                 'id' => $index,
                 'user_id' => $userIds[array_rand($userIds)],
                 'teacher_id' => $teacherIds[array_rand($teacherIds)],
-                'cv' => '',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'CV' => '',
             ]);
         }
     }
