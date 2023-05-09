@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\Company;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -43,4 +46,22 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function fullname(){
+        return $this->first_name .' '. $this->last_name;
+    }
+
+    public function sub_user(){
+        if($this->role == 'student'){
+            return $this->hasOne(Student::class);
+        }
+        else if($this->role == 'teacher'){
+            return $this->hasOne(Teacher::class);
+        }
+        else if($this->role == 'company'){
+            return $this->hasOne(Company::class);
+        }
+    }
+
+
 }

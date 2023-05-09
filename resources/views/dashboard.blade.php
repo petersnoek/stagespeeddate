@@ -10,7 +10,7 @@
             Dashboard
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Welcome Admin, everything looks great.
+            Welcome {{Auth::user()->first_name}}, everything looks great.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -56,7 +56,7 @@
           </div>
           <div class="block-content fs-sm text-muted">
             <p>
-              ...
+              ...{{-- {{Auth::user()->sub_user->vacancies}} --}}
             </p>
           </div>
         </div>
