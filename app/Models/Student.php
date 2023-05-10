@@ -11,6 +11,8 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $table = 'students';
+
     /**
      * The attributes that are mass assignable.
      *

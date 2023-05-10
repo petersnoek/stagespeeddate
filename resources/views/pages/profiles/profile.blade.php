@@ -34,14 +34,13 @@
 <!-- Page Content -->
 <div class="content">
     <div class="card-body">
-        <form method="POST" action="{{ route('Students.update') }}">
+        <form method="POST" action="{{ route('Students.update')}}">
             @csrf
-            {{method_field('PUT')}}
             <div class="row mb-3">
                 <label for="first_name" class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
 
                 <div class="col-md-6">
-                    <input id="first_name" type="text" placeholder="{{Auth::user()->first_name}}" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ $Student->first_name }}"  autocomplete="first_name" autofocus>
+                    <input id="first_name" type="text" placeholder="{{Auth::user()->first_name}}" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ Auth::user()->first_name }}"  autocomplete="first_name" autofocus>
 
                     @error('first_name')
                         <span class="invalid-feedback" role="alert">
@@ -55,7 +54,7 @@
                 <label for="last_name" class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
 
                 <div class="col-md-6">
-                    <input id="last_name" type="text" placeholder="{{Auth::user()->last_name}}" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ $Student->last_name }}" autocomplete="last_name" autofocus>
+                    <input id="last_name" type="text" placeholder="{{Auth::user()->last_name}}" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ Auth::user()->last_name }}" autocomplete="last_name" autofocus>
 
                     @error('last_name')
                         <span class="invalid-feedback" role="alert">
@@ -69,7 +68,7 @@
                 <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                 <div class="col-md-6">
-                    <input id="email" type="email" placeholder="{{Auth::user()->email}}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $Student->email }}" autocomplete="email">
+                    <input id="email" type="email" placeholder="{{Auth::user()->email}}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" autocomplete="email">
 
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -97,7 +96,7 @@
                 <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
 
                 <div class="col-md-6">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" value="{{ $Student->password }}" autocomplete="new-password">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
                 </div>
             </div>
 

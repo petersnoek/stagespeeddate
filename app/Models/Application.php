@@ -11,6 +11,9 @@ use App\Models\Student;
 class Application extends Model
 {
     use HasFactory;
+
+    protected $table = 'applications';
+
     protected $fillable = [
         'vacancy_id',
         'student_id',
