@@ -38,14 +38,13 @@
           <div class="block-header block-header-default">
             <h3 class="block-title">{{$vacancy->name}}</h3>
           </div>
-          <div class="px-4 bg-light">
-            <p class="">{{$vacancy->company->name}}</p>
+          <div class="px-4 py-1">
+            <p class="my-0 fs-sm">bij {{$vacancy->company->name}}</p>
           </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              {{$vacancy->bio}}
-            </p>
-          </div>
+          <div class="block-content px-2 py-2 fs-sm text-muted">
+            <p style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;" class="bg-light px-2 m-0 w-5 text-truncate text-wrap">{{$vacancy->bio}}</p>
+{{--             <p class="bg-light px-2 m-0 w-5">{{$vacancy->bio . ' ' . strlen($vacancy->bio)}}</p>
+ --}}          </div>
         </div>
       </div>
     

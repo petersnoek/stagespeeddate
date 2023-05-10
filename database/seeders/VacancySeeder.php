@@ -19,10 +19,15 @@ class VacancySeeder extends Seeder
 
         foreach($companyIds as $companyId){
             for ($i=1; $i < 6; $i++) { 
+                $bio = '';
+                //create a 'bio' with 10 to 30 random giberish 'words'
+                for ($x=0; $x < rand(50, 100); $x++) { 
+                    $bio = $bio . ' ' . str::random(rand(1,7));
+                }
                 Vacancy::factory()->create([
                     'company_id' => $companyId,
-                    'name' => 'Vacancy Examp.'.$i/* str::random(8) */,
-                    'bio' => str::random(30),
+                    'name' => 'Stage '.$i/* str::random(8) */,
+                    'bio' => $bio /* str::random(90) */,
                 ]);
             }    
             
