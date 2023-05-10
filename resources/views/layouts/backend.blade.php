@@ -313,6 +313,8 @@
                     {{-- <span class="badge rounded-pill bg-primary ms-2">1</span> --}}
                   </a>
                   <form id="profile-form" action="{{ route('profile') }}" method="GET" class="d-none">
+                    @csrf
+                  </form>
                   {{-- <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
                     <span class="fs-sm fw-medium">Settings</span>
                   </a> --}}

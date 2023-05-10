@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -22,7 +23,11 @@ class ProfileController extends Controller
     {   
         $id = Auth::user()->id;
         $student = User::where('id', $id)->first();
-        error_log($student);
+
+        $request->validate([
+            'password' =>['confirmed']
+        ]);
+
         if($request->first_name != '' || null ){
             $student->first_name = $request->first_name;
         }
@@ -33,11 +38,12 @@ class ProfileController extends Controller
             $student->email = $request->email;
         }
         if($request->password_confirmation != '' || null ){
-            $student->password = hased($request->password_confirmation);
+            $student->password = Hash::make($request['password_confirmation']);
         }
         $student->updated_at = now();
         $student->save();
 
         return redirect('/');
     }
+
 }
