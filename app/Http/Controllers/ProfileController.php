@@ -16,7 +16,7 @@ class ProfileController extends Controller
      */
     public function index(Request $request)
     {
-        return view('pages/profiles/profile');
+        return view('/profiles/profile');
     }
 
     public function update(Request $request)
