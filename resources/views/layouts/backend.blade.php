@@ -193,6 +193,10 @@
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Dashboard</span>
               </a>
+              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/companies">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Companies</span>
+              </a>
             </li>
             <li class="nav-main-heading">Various</li>
             <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">

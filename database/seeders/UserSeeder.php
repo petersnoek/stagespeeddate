@@ -29,14 +29,6 @@ class UserSeeder extends Seeder
             'password' => Hash::make('Teacher123'),
             'role' => 'teacher',
         ]);
-        /* User::factory()->create([
-            'first_name' => 'Teacher2',
-            'last_name' => 'teacher2',
-            'email' => 'teacher2@gmail.com',
-            'password' => Hash::make('Teacher123'),
-            'role' => 'teacher',
-        ]); */
-        
 
         User::factory()->create([
             'first_name' => 'Company',
