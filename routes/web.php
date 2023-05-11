@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +34,11 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::view('/blank', 'pages.blank');
     });
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); //directed to after login (laravel layout with pretty empty page)
+
     Route::get('/profiles/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::post('/updateProfile', [App\Http\Controllers\ProfileController::class, 'update'])->name('Students.update');
-    Route::get('companies', [CompanyController::class, 'index']);    
+    Route::get('/companies', [CompanyController::class, 'index']);
+    Route::get('/students', [StudentController::class, 'index'])
+        ->middleware('teacher');
 });
 
