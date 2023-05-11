@@ -24,10 +24,19 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         $student = User::where('id', $id)->first();
 
-        $request->validate([
-            'password' =>['confirmed']
-        ]);
+        if($student->email == $request->email){
+            // do nothing
+        }
+        else{
+            $request->validate([
+                'email' => ['email', 'strings', 'unique::user']
+            ]);
+        }
 
+        $request->validate([
+            'password' => ['confirmed']
+        ]);
+        
         if($request->first_name != '' || null ){
             $student->first_name = $request->first_name;
         }
