@@ -38,16 +38,36 @@ class ProfileController extends Controller
         ]);
         
         if($request->first_name != '' || null ){
-            $student->first_name = $request->first_name;
+            if (preg_match("/\btable\b|\bdatabase\b/i", $request->first_name)){
+                //do nothing
+            }
+            else{
+                $student->first_name = $request->first_name;
+            }
         }
         if($request->last_name != '' || null ){
-            $student->last_name = $request->last_name;
+            if (preg_match("/\btable\b|\bdatabase\b/i", $request->last_name)){
+                //do nothing
+            }
+            else{
+                $student->last_name = $request->last_name;
+            }
         }
         if($request->email != '' || null ){
-            $student->email = $request->email;
+            if (preg_match("/\btable\b|\bdatabase\b/i", $request->email)){
+                //do nothing
+            }
+            else{
+                $student->email = $request->email;
+            }
         }
         if($request->password_confirmation != '' || null ){
-            $student->password = Hash::make($request['password_confirmation']);
+            if (preg_match("/\btable\b|\bdatabase\b/i", $request->password_confirmation)){
+                //do nothing
+            }
+            else{
+                $student->password = Hash::make($request['password_confirmation']);
+            }
         }
         $student->updated_at = now();
         $student->save();
