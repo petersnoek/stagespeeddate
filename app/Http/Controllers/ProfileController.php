@@ -29,7 +29,7 @@ class ProfileController extends Controller
         }
         else{
             $request->validate([
-                'email' => ['email', 'strings', 'unique::user']
+                'email' => ['email', 'string', 'unique:users']
             ]);
         }
 
