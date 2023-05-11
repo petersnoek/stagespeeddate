@@ -33,6 +33,7 @@
 
 <!-- Page Content -->
 <div class="content">
+    @include('layouts.partials.messages')
     <div class="card-body">
         <form method="POST" action="{{ route('Students.update')}}">
             @csrf

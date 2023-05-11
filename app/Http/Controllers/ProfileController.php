@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Rules\LastNamePattern;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -21,58 +23,35 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {   
-        $id = Auth::user()->id;
-        $student = User::where('id', $id)->first();
-
-        if($student->email == $request->email){
-            // do nothing
-        }
-        else{
-            $request->validate([
-                'email' => ['email', 'string', 'unique:users']
-            ]);
-        }
+        $user = User::where('id', Auth::user()->id)->first();
 
         $request->validate([
-            'password' => ['confirmed']
+            'first_name' => ['nullable', 'max:255', 'alpha' ],
+            'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
+            'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id)],
+            'password' => ['confirmed'],
         ]);
-        
-        if($request->first_name != '' || null ){
-            if (preg_match("/\btable\b|\bdatabase\b/i", $request->first_name)){
-                //do nothing
-            }
-            else{
-                $student->first_name = $request->first_name;
-            }
-        }
-        if($request->last_name != '' || null ){
-            if (preg_match("/\btable\b|\bdatabase\b/i", $request->last_name)){
-                //do nothing
-            }
-            else{
-                $student->last_name = $request->last_name;
-            }
-        }
-        if($request->email != '' || null ){
-            if (preg_match("/\btable\b|\bdatabase\b/i", $request->email)){
-                //do nothing
-            }
-            else{
-                $student->email = $request->email;
-            }
-        }
-        if($request->password_confirmation != '' || null ){
-            if (preg_match("/\btable\b|\bdatabase\b/i", $request->password_confirmation)){
-                //do nothing
-            }
-            else{
-                $student->password = Hash::make($request['password_confirmation']);
-            }
-        }
-        $student->updated_at = now();
-        $student->save();
 
-        return redirect('/');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request['password']);
+        $user->updated_at = now();
+
+        // Als een request input null is pak dan de waarde van het database
+        if($request->first_name == null){
+            $user->first_name = Auth::user()->first_name;
+        }
+        if($request->last_name == null){
+            $user->last_name = Auth::user()->last_name;
+        }
+        if($request->email == null){
+            $user->email = Auth::user()->email;
+        }
+        
+        $user->save();
+
+        return redirect('/profiles/profile')->with('success', 'Profiel is ge-update');
     }
 
 }
