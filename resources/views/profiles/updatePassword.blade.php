@@ -10,10 +10,10 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Profile
+            Change your password
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Welcome to your profile {{Auth::user()->first_name}}, here you can see your credentials and change them if needed.
+            Here you can update your password, just click on the update button when you are done.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -22,7 +22,7 @@
               <a class="link-fx" href="javascript:void(0)">App</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              profile
+              Profile
             </li>
           </ol>
         </nav>

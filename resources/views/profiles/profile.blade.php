@@ -22,7 +22,7 @@
               <a class="link-fx" href="javascript:void(0)">App</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              profile
+              Profile
             </li>
           </ol>
         </nav>
