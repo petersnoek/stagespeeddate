@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id');
             $table->string('name');
-            $table->string('bio');
+            $table->tinyText('short_bio');
+            $table->text('bio');
+            $table->boolean('available');
             $table->timestamps();
         });
     }
