@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\LastNamePattern;
+use App\Rules\SchoolMailValidation;
 use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
@@ -28,7 +29,7 @@ class ProfileController extends Controller
         $request->validate([
             'first_name' => ['nullable', 'max:255', 'alpha' ],
             'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
-            'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id)],
+            'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
             'password' => ['confirmed'],
         ]);
 
