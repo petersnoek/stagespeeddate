@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Admin',
             'last_name' => 'de Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@mydavinci.nl',
             'password' => Hash::make('Admin123'),
             'role' => 'admin',
         ]);
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Teacher',
             'last_name' => 'de Teacher',
-            'email' => 'teacher@gmail.com',
+            'email' => 'teacher@mydavinci.nl',
             'password' => Hash::make('Teacher123'),
             'role' => 'teacher',
         ]);
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Company',
             'last_name' => 'de Company',
-            'email' => 'company@gmail.com',
+            'email' => 'company@mydavinci.nl',
             'password' => Hash::make('Company123'),
             'role' => 'company',
         ]);
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Student',
             'last_name' => 'de Student',
-            'email' => 'student@gmail.com',
+            'email' => 'student@mydavinci.nl',
             'password' => Hash::make('Student123'),
             'role' => 'student',
         ]);
