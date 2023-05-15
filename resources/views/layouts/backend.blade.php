@@ -317,7 +317,8 @@
                     <span class="fs-sm fw-medium">Inbox</span>
                     <span class="badge rounded-pill bg-primary ms-2">3</span>
                   </a> --}}
-                  <a class="dropdown-item d-flex align-items-center justify-content-between" onclick="event.preventDefault();
+                  <a class="dropdown-item d-flex align-items-center justify-content-between" 
+                    onclick="event.preventDefault();
                       document.getElementById('profile-form').submit();">
                     <span class="fs-sm fw-medium">Profile</span>
                     {{-- <span class="badge rounded-pill bg-primary ms-2">1</span> --}}

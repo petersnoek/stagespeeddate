@@ -55,4 +55,14 @@ class ProfileController extends Controller
         return redirect('/profiles/profile')->with('success', 'Profiel is ge-update');
     }
 
+    public function updateCredentialForm(Request $request)
+    {
+        return view('/profiles/updateCredentials');
+    }
+
+    public function updatePasswordForm(Request $request)
+    {
+        return view('/profiles/updatePassword');
+    }
+
 }
