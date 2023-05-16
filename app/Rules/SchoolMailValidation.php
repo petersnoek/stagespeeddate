@@ -20,6 +20,6 @@ class SchoolMailValidation implements ValidationRule
             if ($domainPart != 'mydavinci.nl') {
               $fail('email must be your school mail');
             }
-          }
+        }
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\SchoolMailValidation;
 use Illuminate\Validation\Rule;
+use App\Models\Student;
 
 class RegisterController extends Controller
 {
@@ -67,7 +68,7 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
+    {    
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
@@ -75,5 +76,25 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'role' => 'student',
         ]);
+        
+    }
+
+    public function createStudent($data, $id)
+    {   
+        $check = Student::where('user_id', $id)->first();
+        
+        if ($check == null) {
+            $user = User::where('email', $data)->first();
+            $student = new Student([
+                'user_id' => $user->id,
+                'teacher_id' => null,
+                'CV' => '',
+            ]);
+            $student->save();
+            return;
+        }
+        else {
+            return;
+        }
     }
 }
