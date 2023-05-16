@@ -9,7 +9,7 @@
                     <div class="card-body">
                         @foreach($companies as $company)
                             <div class="card p-3 mb-1">
-                                <h2>{{$company->name}}</h2>
+                                <h2><a href="{{ route('company.vacancy.index', ['company_id' => Crypt::encrypt($company->id)]) }}">{{$company->name}}</a></h2>
                                 <p>{{$company->bio}}</p>
                             </div>
                         @endforeach                         
