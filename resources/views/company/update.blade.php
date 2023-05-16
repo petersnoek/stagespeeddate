@@ -29,11 +29,14 @@
     <!-- END Hero -->
 
     <!-- Page Content -->
+    {{-- @if(session('success'))
+    {{dd(session('success'))}}
+    @endif --}}
     <div class="content">
         <div class="block block-rounded px-5 py-3">
             <div class="block-content block-content-full">
                 <div >
-                    <form method="POST" action="{{route('Company.save')}}" class="d-flex justify-content-evenly">
+                    <form method="POST" action="{{route('Company.save')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="col-sm-8 col-xl-6">
@@ -81,7 +84,7 @@
                                 
                                 <div style="overflow-y:hidden; height:11.75rem" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">
                                     <div style="overflow:hidden; height:11.75rem;" class="position-relative">
-                                        <img id='headerPreview' style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" class="w-100 position-absolute" src="{{asset('media/photos/photo2@2x.jpg')}}" alt="kan afbeelding niet inladen.">
+                                        <img id='headerPreview' style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" class="w-100 position-absolute" src="{{asset($company->image)}}" alt="kan afbeelding niet inladen.">
                                         {{-- image still stretches a bit cuz I can't not give it a width or height; this is like near impossible --}}
                                     </div>                                
                                 </div>

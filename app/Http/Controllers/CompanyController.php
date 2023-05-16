@@ -32,28 +32,32 @@ class CompanyController extends Controller
     public function saveChanges(Request $request) {
 
 
-        Validator::make($request->all(), [
+        $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'bio' => ['required', 'string', 'max:255'],
             'description' => ['string', 'max:255'],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
-
+        if($validate->fails()){
+            return redirect()->route('Company.update')->with('errors', $validate->errors()->getmessages());
+        }
         if(isset($request->image)){
-            // $request->image->store('CompanyImage', 'public');
-
-            $request->image->move(public_path('CompanyImages'), $request->image);
-            $company->image = $request->image->hashName();
-            $company->save();
+            $imageName = $request->image->hashName();
+            $request->image->move(public_path('CompanyImage'), $imageName);
+            $imagePath = 'CompanyImage/' . $imageName;
+        }
+        else{
+            $imagePath = Company::where('user_id', Auth::user()->id)->image;
         }
 
         Company::where('user_id', Auth::user()->id)->update([
             'name' => $request->name,
             'bio' => $request->bio,
             'description' => $request->description,
+            'image' => $imagePath,
             'updated_at' => now(),
         ]);
         
-        return redirect()->back();
+        return redirect()->back()->with('success', 'it works wow');
     }
 }
