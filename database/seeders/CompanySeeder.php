@@ -18,10 +18,12 @@ class CompanySeeder extends Seeder
         $userIds = User::where('role','company')->pluck('id')->toArray();
 
         foreach($userIds as $userId){    
-            Company::factory()->create([
+            Company::factory(10)->create([
                 'name' => 'Big Corp.'/* str::random(8) */,
                 'bio' => str::random(30),
+                'description' => str::random(60),
                 'user_id' => $userId,
+                'image' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
             ]);
         }
     }
