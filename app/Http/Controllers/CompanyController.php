@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\NamePattern;
+use App\Rules\DescriptionPattern;
 
 
 class CompanyController extends Controller
@@ -32,10 +34,10 @@ class CompanyController extends Controller
     public function saveChanges(Request $request) {
 
         $validate = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', new NamePattern()],
             'email' => ['nullable', 'email'],
-            'bio' => ['nullable', 'max:255'],
-            'description' => ['nullable', 'max:255'],
+            'bio' => ['nullable', 'max:255', new DescriptionPattern()],
+            'description' => ['nullable', 'max:255', new DescriptionPattern()],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){
