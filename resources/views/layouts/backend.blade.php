@@ -203,6 +203,12 @@
                 <span class="nav-main-link-name">Students</span>
               </a>
               @endif
+              @if(Auth::user()->role == 'company')
+              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/company/update">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Update Company</span>
+              </a>
+              @endif
             </li>
             <li class="nav-main-item">
               <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/vacatures">
