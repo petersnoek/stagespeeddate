@@ -42,7 +42,7 @@
                         <div class="col-sm-8 col-xl-6">
                             <div class="mb-4">
                                 <label for="">Name: </label>
-                                <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="Company name*"  value="{{$company->name}}" required>
+                                <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="Company name*"  value="@if(old()){{old('name')}}@else{{$company->name}}@endif" required>
                             
                                 @if (count($errors) > 0 && array_key_exists("name",$errors))
                                     @foreach($errors['name'] as $error)
@@ -55,9 +55,9 @@
 
                             <div class="mb-4">
                                 <label for="">E-mail: </label>
-                                <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("email",$errors)) {{'is-invalid'}} @endif" name="email" placeholder="Company E-mail"  value="{{$company->email}}" required>
+                                <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("email",$errors)) {{'is-invalid'}} @endif" name="email" placeholder="Company E-mail"  value="@if(old()){{old('email')}}@else{{$company->email}}@endif">
                             
-                                @if (count($errors) > 0 && array_key_exists("name",$errors))
+                                @if (count($errors) > 0 && array_key_exists("email",$errors))
                                     @foreach($errors['email'] as $error)
                                         <div class="invalid-feedback">
                                             {{$error}}
@@ -68,10 +68,10 @@
 
                             <div class="mb-4">
                                 <label for="">Bio: </label>
-                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("bio",$errors)) {{'is-invalid'}} @endif" name="bio" placeholder="Bio">{{$company->bio}}</textarea>
+                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("bio",$errors)) {{'is-invalid'}} @endif" name="bio" placeholder="Bio">@if(old()){{old('bio')}}@else{{$company->bio}}@endif</textarea>
                                 
                                 @if (count($errors) > 0 && array_key_exists("bio",$errors))
-                                    @foreach($errors['description'] as $error)
+                                    @foreach($errors['bio'] as $error)
                                         <div class="invalid-feedback">
                                             {{$error}}
                                         </div>
@@ -81,7 +81,7 @@
 
                             <div class="mb-4">
                                 <label for="">Description: </label>
-                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("description",$errors)) {{'is-invalid'}} @endif" name="description" placeholder="Description">{{$company->description}}</textarea>
+                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("description",$errors)) {{'is-invalid'}} @endif" name="description" placeholder="Description">@if(old()){{old('description')}}@else{{$company->description}}@endif</textarea>
                                 
                                 @if (count($errors) > 0 && array_key_exists("description",$errors))
                                     @foreach($errors['description'] as $error)

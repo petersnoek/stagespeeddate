@@ -33,13 +33,13 @@ class CompanyController extends Controller
 
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['email', 'string'],
+            'email' => ['email'],
             'bio' => ['required', 'string', 'max:255'],
-            'description' => ['string', 'max:255'],
+            'description' => ['required','string', 'max:255'],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){
-            return redirect()->route('Company.update')->with('errors', $validate->errors()->getmessages());
+            return redirect()->route('Company.update')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
         if(isset($request->image)){
             $imageName = $request->image->hashName();
