@@ -7,7 +7,7 @@ use App\Models\Vacancy;
 use App\Models\Company;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Crypt;
+use Vinkla\Hashids\Facades\Hashids;
 
 
 class VacancyController extends Controller
@@ -19,7 +19,7 @@ class VacancyController extends Controller
     }
 
     public function indexCompany($company_id){
-        $company_id = ['company_id' => Crypt::decrypt($company_id)];
+        $company_id = ['company_id' => Hashids::decode($company_id,5)];
         $validator = Validator::make($company_id, [
             'company_id' => ['required', Rule::exists(Company::class, 'id')]
         ]);
