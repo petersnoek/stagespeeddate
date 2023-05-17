@@ -37,16 +37,28 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::view('/blank', 'pages.blank');
     });
 
-    Route::group(['prefix'=> '/vacatures'], function(){
+    Route::group(['prefix' => '/vacatures'], function(){
         Route::get('', [VacancyController::class, 'index']);
+    });
+
+    Route::group(['prefix' => '/companies'], function(){
+        Route::get('/', [CompanyController::class, 'index']);
+        Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
     });
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); //directed to after login (laravel layout with pretty empty page)
 
     Route::get('/profiles/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::post('/updateProfile', [App\Http\Controllers\ProfileController::class, 'update'])->name('Students.update');
+
     Route::get('/companies', [CompanyController::class, 'index'])
         ->middleware('admin');
+
+    Route::middleware('company')->group(function () {
+        Route::get('/company/update', [CompanyController::class, 'update'])->name('Company.update');
+        Route::post('/company/save', [CompanyController::class, 'saveChanges'])->name('Company.save');
+    });
+
     Route::get('/students', [StudentController::class, 'index'])
         ->middleware('teacher');
 });

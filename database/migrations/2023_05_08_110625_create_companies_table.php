@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('bio');
+            $table->string('email')->unique()->nullable();
+            $table->string('bio')->nullable();
+            $table->string('description')->nullable();
+            $table->string('image');
             $table->timestamps();
         });
     }
