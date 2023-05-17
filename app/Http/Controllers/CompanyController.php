@@ -34,8 +34,8 @@ class CompanyController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['email'],
-            'bio' => ['required', 'string', 'max:255'],
-            'description' => ['required','string', 'max:255'],
+            'bio' => ['nullable', 'max:255'],
+            'description' => ['nullable', 'max:255'],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){

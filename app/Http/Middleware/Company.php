@@ -18,7 +18,7 @@ class Company
     {
         $user = Auth::user();
         
-        if($user->role == 'company'){
+        if($user->role == 'company' || 'admin'){
             return $next($request);
         }
         else{
