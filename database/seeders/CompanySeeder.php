@@ -19,7 +19,7 @@ class CompanySeeder extends Seeder
 
         foreach($userIds as $userId){    
             Company::factory()->create([
-                'name' => 'Big Corp.'/* str::random(8) */,
+                'name' => 'Big Corp ' . str::random(2),
                 'bio' => str::random(30),
                 'user_id' => $userId,
             ]);
