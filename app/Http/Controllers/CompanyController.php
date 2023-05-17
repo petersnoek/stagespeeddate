@@ -31,9 +31,9 @@ class CompanyController extends Controller
     //validates the input data and saves the changes that the user mad
     public function saveChanges(Request $request) {
 
-
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
+            'email' => ['email', 'string'],
             'bio' => ['required', 'string', 'max:255'],
             'description' => ['string', 'max:255'],
             'image' => ['image','mimes:jpeg,png,jpg'],
@@ -47,11 +47,12 @@ class CompanyController extends Controller
             $imagePath = 'CompanyImage/' . $imageName;
         }
         else{
-            $imagePath = Company::where('user_id', Auth::user()->id)->image;
+            $imagePath = Company::where('user_id', Auth::user()->id)->first()->image;
         }
 
         Company::where('user_id', Auth::user()->id)->update([
             'name' => $request->name,
+            'email' => $request->email,
             'bio' => $request->bio,
             'description' => $request->description,
             'image' => $imagePath,

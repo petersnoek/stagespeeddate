@@ -54,6 +54,19 @@
                             </div>
 
                             <div class="mb-4">
+                                <label for="">E-mail: </label>
+                                <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("email",$errors)) {{'is-invalid'}} @endif" name="email" placeholder="Company E-mail"  value="{{$company->email}}" required>
+                            
+                                @if (count($errors) > 0 && array_key_exists("name",$errors))
+                                    @foreach($errors['email'] as $error)
+                                        <div class="invalid-feedback">
+                                            {{$error}}
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+
+                            <div class="mb-4">
                                 <label for="">Bio: </label>
                                 <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("bio",$errors)) {{'is-invalid'}} @endif" name="bio" placeholder="Bio">{{$company->bio}}</textarea>
                                 
