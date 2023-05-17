@@ -1,6 +1,22 @@
 @extends('layouts.backend')
 
 @section('content')
+    <style>
+        small {
+            position: absolute;
+            color: whitesmoke;
+            background: #1F2937;
+            padding: 4px;
+            margin: 4px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        label:hover small{
+            display: initial;
+        }
+    </style>
+
     <!-- Hero -->
     <div class="bg-body-light">
         <div class="content content-full">
@@ -64,9 +80,12 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="">Bio: </label>
+                                <label for="">Bio: 
+                                    <i class="fa-circle-info fa-sharp fa-solid"></i>
+                                    <br>
+                                    <small>Tell us about your company in a short description.</small>
+                                </label>
                                 <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("bio",$errors)) {{'is-invalid'}} @endif" name="bio" placeholder="Bio">@if(old()){{old('bio')}}@else{{$company->bio}}@endif</textarea>
-                                
                                 @if (count($errors) > 0 && array_key_exists("bio",$errors))
                                     @foreach($errors['bio'] as $error)
                                         <div class="invalid-feedback">
@@ -77,9 +96,12 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="">Description: </label>
+                                <label for="">Description: 
+                                    <i class="fa-circle-info fa-sharp fa-solid"></i>
+                                    <br>
+                                    <small style="">Here you write all the information and details of your company.</small>
+                                </label>
                                 <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("description",$errors)) {{'is-invalid'}} @endif" name="description" placeholder="Description">@if(old()){{old('description')}}@else{{$company->description}}@endif</textarea>
-                                
                                 @if (count($errors) > 0 && array_key_exists("description",$errors))
                                     @foreach($errors['description'] as $error)
                                         <div class="invalid-feedback">
