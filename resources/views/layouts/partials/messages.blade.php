@@ -22,19 +22,19 @@
 @if(Session::get('error', false))
     <?php $data = Session::get('error'); ?>
     @if (is_array($data))
-        <ul style="list-style-type:none" class="alert alert-alert">
-            <button class="alert-alert" style="float:right; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
+        <ul style="list-style-type:none" class="alert alert-danger">
+            <button class="alert-danger" style="float:right; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
             @foreach ($data as $msg)
             <li>
-                <i class="fa fa-alert"></i>
+                <i class="fa fa-x"></i>
                 {{ $msg }}
             </li>
             @endforeach
         </ul>
     @else
-        <div class="alert alert-alert" >
-            <button class="alert-alert" style="float:right; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
-            <i class="fa fa-check"></i>
+        <div class="alert alert-danger" >
+            <button class="alert-danger" style="float:right; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
+            <i class="fa fa-x"></i>
             {{ $data }}
         </div>
     @endif

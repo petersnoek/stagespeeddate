@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
+
 class Company
 {
     /**
@@ -16,6 +17,7 @@ class Company
      */
     public function handle(Request $request, Closure $next): Response
     {
+
         $user = Auth::user();
         
         if($user->role == 'company' || 'admin'){
