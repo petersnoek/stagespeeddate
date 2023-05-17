@@ -45,7 +45,8 @@ Route::middleware('verified')->group(function () {//if user verified their email
 
     Route::get('/profiles/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::post('/updateProfile', [App\Http\Controllers\ProfileController::class, 'update'])->name('Students.update');
-    Route::get('/companies', [CompanyController::class, 'index']);
+    Route::get('/companies', [CompanyController::class, 'index'])
+        ->middleware('admin');
     Route::get('/students', [StudentController::class, 'index'])
         ->middleware('teacher');
 });

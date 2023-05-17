@@ -193,11 +193,15 @@
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Dashboard</span>
               </a>
+
+              @if((Auth::user()->role == 'admin'))
               <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/companies">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Companies</span>
               </a>
-              @if(Auth::user()->role == 'teacher')
+              @endif
+
+              @if(Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
               <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/students">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Students</span>
