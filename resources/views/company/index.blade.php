@@ -2,11 +2,9 @@
 
 @section('content')
     <div class="container">
-    @if(session('error'))
-        {{session('error')}}
-    @endif
         <div class="row justify-content-center">
             <div class="col-md-8">
+                @include('layouts.partials.messages')
                 <div class="card">
                     <h1 class="card-header fw-bold mb-2">All companies</h1>
                     <div class="card-body">
