@@ -59,6 +59,6 @@ class CompanyController extends Controller
             'updated_at' => now(),
         ]);
         
-        return redirect()->back()->with('success', 'it works wow');
+        return redirect()->back()->with('success', 'Bedrijf gegevens geupdate');
     }
 }

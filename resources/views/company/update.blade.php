@@ -28,14 +28,11 @@
     </div>
     <!-- END Hero -->
 
-    <!-- Page Content -->
-    {{-- @if(session('success'))
-    {{dd(session('success'))}}
-    @endif --}}
     <div class="content">
         <div class="block block-rounded px-5 py-3">
             <div class="block-content block-content-full">
                 <div >
+                    @include('layouts.partials.messages')
                     <form method="POST" action="{{route('Company.save')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                         @csrf
                         
