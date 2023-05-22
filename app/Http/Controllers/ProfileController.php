@@ -39,11 +39,10 @@ class ProfileController extends Controller
             return redirect()->route('Students.updateCredentails')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
-        if(isset($request->image)){
-            $imageName = $request->image->hashName();
-            $request->image->move(public_path('ProfilePicture'), $imageName);
+        if(isset($request->profilePicture)){
+            $imageName = $request->profilePicture->hashName();
+            $request->profilePicture->move(public_path('ProfilePicture'), $imageName);
             $imagePath = 'ProfilePicture/' . $imageName;
-            dd($request->image);
         }
 
         else{
