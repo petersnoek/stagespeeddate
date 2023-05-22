@@ -61,9 +61,9 @@
                     <div class="col-sm-8 col-xl-6">
                         <div class="mb-4">
                             <label for="">First Name: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("first_name",$errors)) {{'is-invalid'}} @endif" name="first_name" placeholder="{{Auth::user()->first_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="{{Auth::user()->first_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
                         
-                            @if (count($errors) > 0 && array_key_exists("first_name",$errors))
+                            @if (count($errors) > 0 && array_key_exists("name",$errors))
                                 @foreach($errors['first_name'] as $error)
                                     <div class="invalid-feedback">
                                         {{$error}}
@@ -74,9 +74,9 @@
 
                         <div class="mb-4">
                             <label for="">Last Name: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("last_name",$errors)) {{'is-invalid'}} @endif" name="last_name" placeholder="lastname*"  value="@if(old()){{old('last_name')}}@else{{ Auth::user()->last_name }}@endif" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="{{Auth::user()->last_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->last_name }}@endif" required>
                         
-                            @if (count($errors) > 0 && array_key_exists("last_name",$errors))
+                            @if (count($errors) > 0 && array_key_exists("name",$errors))
                                 @foreach($errors['last_name'] as $error)
                                     <div class="invalid-feedback">
                                         {{$error}}
@@ -99,16 +99,15 @@
                         </div>
                     </div>
                     <div class="col-sm-8 col-xl-5">
-                        <div class="mb-4">
-                            
-                            <div style="overflow-y:hidden; height:18rem" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">
+                    <div class="mb-4"> <!-- to change the postion of the picture frame, change the translate in the first div below this line, first % is horizontal movement, second % is vertical movement -->
+                        <div style="overflow-y:hidden; transform: translate(40%,0%); height:18rem; width: 18rem;" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">
                                 <div style="overflow:hidden; height:16rem;" class="position-relative">
                                     <img id='headerPreview' style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" class="w-100 position-absolute" src="{{ asset(Auth::user()->profilePicture) }}" alt="kan afbeelding niet inladen.">
                                     {{-- image still stretches a bit cuz I can't not give it a width or height; this is like near impossible --}}
                                 </div>                                
                             </div>
-                            <label for="imageInput" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal w-100 @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif">upload a profile picture</label>
-                            <input id="imageInput" class="visually-hidden" type="file" name="profilePicture" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="image/png, image/jpg, image/jpeg">
+                            <label for="profilePictureInput" style="transform: translate(40%,0%); width:18rem;" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif">upload a profile picture</label>
+                            <input id="profilePictureInput" class="visually-hidden" type="file" name="profilePicture" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="profilePicture/png, profilePicture/jpg, profilePicture/jpeg">
                         </div>
                         @if (count($errors) > 0 && array_key_exists("profilePicture",$errors))
                             @foreach($errors['profilePicture'] as $error)

@@ -2,7 +2,7 @@
     <?php $data = Session::get('success'); ?>
     @if (is_array($data))
         <ul style="list-style-type:none" class="alert alert-success">
-            <button class="alert-success" style="float:right; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
+            <button class="alert-success" style="float:right; margin:12px; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
             @foreach ($data as $msg)
             <li>
                 <i class="fa fa-check"></i>
@@ -12,7 +12,7 @@
         </ul>
     @else
         <div class="alert alert-success">
-            <button class="alert-success" style="float:right; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
+            <button class="alert-success" style="float:right; margin:12px; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
             <i class="fa fa-check"></i>
             {{ $data }}
         </div>
@@ -23,7 +23,7 @@
     <?php $data = Session::get('error'); ?>
     @if (is_array($data))
         <ul style="list-style-type:none" class="alert alert-alert">
-            <button class="alert-alert" style="float:right; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
+            <button class="alert-alert" style="float:right; margin:12px; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
             @foreach ($data as $msg)
             <li>
                 <i class="fa fa-alert"></i>
@@ -33,7 +33,7 @@
         </ul>
     @else
         <div class="alert alert-alert" >
-            <button class="alert-alert" style="float:right; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
+            <button class="alert-alert" style="float:right; margin:12px; border:none; box-shadow:none" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
             <i class="fa fa-check"></i>
             {{ $data }}
         </div>

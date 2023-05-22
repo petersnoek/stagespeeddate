@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('Admin123'),
             'role' => 'admin',
+            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
         ]);
 
         User::factory()->create([
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
             'email' => 'teacher@gmail.com',
             'password' => Hash::make('Teacher123'),
             'role' => 'teacher',
+            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
         ]);
 
         User::factory()->create([
@@ -36,12 +38,13 @@ class UserSeeder extends Seeder
             'email' => 'company@gmail.com',
             'password' => Hash::make('Company123'),
             'role' => 'company',
+            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
         ]);
 
         User::factory()->create([
             'first_name' => 'Student',
             'last_name' => 'de Student',
-            'email' => 'student@gmail.com',
+            'email' => 'student@mydavinci.nl',
             'password' => Hash::make('Student123'),
             'role' => 'student',
             'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
