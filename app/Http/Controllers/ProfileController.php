@@ -36,14 +36,16 @@ class ProfileController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect()->route('profile')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect()->route('Students.updateCredentails')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         if(isset($request->image)){
             $imageName = $request->image->hashName();
             $request->image->move(public_path('ProfilePicture'), $imageName);
             $imagePath = 'ProfilePicture/' . $imageName;
+            dd($request->image);
         }
+
         else{
             $imagePath = User::where('id', Auth::user()->id)->first()->profilePicture;
         }

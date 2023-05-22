@@ -51,46 +51,22 @@
 <div class="content">
     <div class="block block-rounded px-5 py-3">
         <div class="block-content block-content-full">
+        @include('layouts.partials.messages')
             <div class="d-flex justify-content-evenly">
-                @include('layouts.partials.messages')
                 <div class="col-sm-8 col-xl-6">
                     <div class="mb-4">
                         <label for="">First Name: </label>
                         <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->first_name}} </a>
-                    
-                        @if (count($errors) > 0 && array_key_exists("name",$errors))
-                            @foreach($errors['first_name'] as $error)
-                                <div class="invalid-feedback">
-                                    {{$error}}
-                                </div>
-                            @endforeach
-                        @endif
                     </div>
 
                     <div class="mb-4">
                         <label for="">Last Name: </label>
                         <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->last_name}} </a>
-                    
-                        @if (count($errors) > 0 && array_key_exists("name",$errors))
-                            @foreach($errors['last_name'] as $error)
-                                <div class="invalid-feedback">
-                                    {{$error}}
-                                </div>
-                            @endforeach
-                        @endif
                     </div>
 
                     <div class="mb-4">
                         <label for="">E-mail: </label>
                         <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{ Auth::user()->email }} </a>
-                    
-                        @if (count($errors) > 0 && array_key_exists("email",$errors))
-                            @foreach($errors['email'] as $error)
-                                <div class="invalid-feedback">
-                                    {{$error}}
-                                </div>
-                            @endforeach
-                        @endif
                     </div>
                 </div>
                 <div class="col-sm-8 col-xl-5">

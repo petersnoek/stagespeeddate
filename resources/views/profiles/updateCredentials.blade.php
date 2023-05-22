@@ -61,9 +61,9 @@
                     <div class="col-sm-8 col-xl-6">
                         <div class="mb-4">
                             <label for="">First Name: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="{{Auth::user()->first_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("first_name",$errors)) {{'is-invalid'}} @endif" name="first_name" placeholder="{{Auth::user()->first_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
                         
-                            @if (count($errors) > 0 && array_key_exists("name",$errors))
+                            @if (count($errors) > 0 && array_key_exists("first_name",$errors))
                                 @foreach($errors['first_name'] as $error)
                                     <div class="invalid-feedback">
                                         {{$error}}
@@ -74,9 +74,9 @@
 
                         <div class="mb-4">
                             <label for="">Last Name: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="{{Auth::user()->last_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->last_name }}@endif" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("last_name",$errors)) {{'is-invalid'}} @endif" name="last_name" placeholder="lastname*"  value="@if(old()){{old('last_name')}}@else{{ Auth::user()->last_name }}@endif" required>
                         
-                            @if (count($errors) > 0 && array_key_exists("name",$errors))
+                            @if (count($errors) > 0 && array_key_exists("last_name",$errors))
                                 @foreach($errors['last_name'] as $error)
                                     <div class="invalid-feedback">
                                         {{$error}}
@@ -107,10 +107,10 @@
                                     {{-- image still stretches a bit cuz I can't not give it a width or height; this is like near impossible --}}
                                 </div>                                
                             </div>
-                            <label for="imageInput" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal w-100 @if (count($errors) > 0 && array_key_exists("image",$errors)) {{'is-invalid'}} @endif">upload a profile picture</label>
-                            <input id="imageInput" class="visually-hidden" type="file" name="image" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="image/png, image/jpg, image/jpeg">
+                            <label for="imageInput" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal w-100 @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif">upload a profile picture</label>
+                            <input id="imageInput" class="visually-hidden" type="file" name="profilePicture" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="image/png, image/jpg, image/jpeg">
                         </div>
-                        @if (count($errors) > 0 && array_key_exists("image",$errors))
+                        @if (count($errors) > 0 && array_key_exists("profilePicture",$errors))
                             @foreach($errors['profilePicture'] as $error)
                                 <div class="invalid-feedback">
                                     {{$error}}
