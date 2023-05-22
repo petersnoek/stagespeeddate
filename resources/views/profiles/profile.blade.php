@@ -2,6 +2,22 @@
 <!-- nav bar linked -->
 @extends('layouts.backend')
 
+<style>
+  small {
+      position: absolute;
+      color: whitesmoke;
+      background: #1F2937;
+      padding: 4px;
+      margin: 4px;
+      border-radius: 5px;
+      display: none;
+  }
+
+  label:hover small{
+      display: initial;
+  }
+
+</style>
 
 @section('content')
 <!-- header -->
@@ -19,10 +35,10 @@
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-alt">
             <li class="breadcrumb-item">
-              <a class="link-fx" href="javascript:void(0)">App</a>
+              <a class="link-fx" href="/">Dashboard</a>
             </li>
-            <li class="breadcrumb-item" aria-current="page">
-              Profile
+            <li class="breadcrumb-item">
+              <a class="link-fx" href="/profiles/profile">Profile</a>
             </li>
           </ol>
         </nav>
@@ -33,51 +49,78 @@
 
 <!-- Page Content -->
 <div class="content">
-    @include('layouts.partials.messages')
-    <div class="card-body">
-        <div class="row mb-3">
-            <label for="first_name" class="col-md-1 col-form-label text-md-end">{{ __('First Name') }}</label>
-            
-            <div class="col-md-4 col-form-label">
-                <a>{{Auth::user()->first_name}}</a>
-            </div>
-        </div>
+    <div class="block block-rounded px-5 py-3">
+        <div class="block-content block-content-full">
+            <div class="d-flex justify-content-evenly">
+                @include('layouts.partials.messages')
+                <div class="col-sm-8 col-xl-6">
+                    <div class="mb-4">
+                        <label for="">First Name: </label>
+                        <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->first_name}} </a>
+                    
+                        @if (count($errors) > 0 && array_key_exists("name",$errors))
+                            @foreach($errors['first_name'] as $error)
+                                <div class="invalid-feedback">
+                                    {{$error}}
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
 
-        <div class="row mb-3">
-            <label for="last_name" class="col-md-1 col-form-label text-md-end">{{ __('Last Name') }}</label>
+                    <div class="mb-4">
+                        <label for="">Last Name: </label>
+                        <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->last_name}} </a>
+                    
+                        @if (count($errors) > 0 && array_key_exists("name",$errors))
+                            @foreach($errors['last_name'] as $error)
+                                <div class="invalid-feedback">
+                                    {{$error}}
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
 
-            <div class="col-md-4 col-form-label">
-                <a>{{Auth::user()->last_name}}</a>
-            </div>
-        </div>
+                    <div class="mb-4">
+                        <label for="">E-mail: </label>
+                        <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{ Auth::user()->email }} </a>
+                    
+                        @if (count($errors) > 0 && array_key_exists("email",$errors))
+                            @foreach($errors['email'] as $error)
+                                <div class="invalid-feedback">
+                                    {{$error}}
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+                <div class="col-sm-8 col-xl-5">
+                    <div class="mb-4">
+                        <div style="overflow-y:hidden; height:18rem" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">
+                            <div style="overflow:hidden; height:16rem;" class="position-relative">
+                                <img id='headerPreview' style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" class="w-100 position-absolute" src="{{ asset(Auth::user()->profilePicture) }}" alt="kan afbeelding niet inladen.">
+                                {{-- image still stretches a bit cuz I can't not give it a width or height; this is like near impossible --}}
+                            </div>                                
+                        </div>
+                    </div>
 
-        <div class="row mb-3">
-            <label for="email" class="col-md-1 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                    <div class="d-flex justify-content-center">
+                        <form action="{{ route('Students.updateCredentails') }}">
+                            <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-right: 2.5px">
+                                update credentials
+                            </button>
+                        </form>
 
-            <div class="col-md-4 col-form-label">
-                <a>{{Auth::user()->email}}</a>
-            </div>
-        </div>
-        
-        <div class="row mb-0">
-            <div class="col-md-2">
-                <form action="{{ route('Students.updateCredentails') }}">
-                    <button class="btn btn-primary">
-                        {{ __('update credentials') }}
-                    </button>
-                </form>
-            </div>
-        </div>
-        <br>
-        <div class="row mb-0">
-            <div class="col-md-2" >
-                <form action="{{ route('Students.updatePassword') }}">
-                    <button class="btn btn-primary">
-                        {{ __('update password') }}
-                    </button>
-                </form>
+                        <form action="{{ route('Students.updatePassword') }}">
+                            <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-left: 2.5px">
+                                update password
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <!-- END Dynamic Table with Export Buttons -->
 </div>
+<!-- END Page Content -->
 @endsection

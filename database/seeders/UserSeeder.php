@@ -44,6 +44,7 @@ class UserSeeder extends Seeder
             'email' => 'student@gmail.com',
             'password' => Hash::make('Student123'),
             'role' => 'student',
+            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
         ]);
     }
 }

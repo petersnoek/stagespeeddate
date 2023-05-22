@@ -4,6 +4,24 @@
 
 
 @section('content')
+
+<style>
+  small {
+      position: absolute;
+      color: whitesmoke;
+      background: #1F2937;
+      padding: 4px;
+      margin: 4px;
+      border-radius: 5px;
+      display: none;
+  }
+
+  label:hover small{
+      display: initial;
+  }
+
+</style>
+
 <!-- header -->
 <div class="bg-body-light">
     <div class="content content-full">
@@ -19,10 +37,10 @@
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-alt">
             <li class="breadcrumb-item">
-              <a class="link-fx" href="javascript:void(0)">App</a>
+              <a class="link-fx" href="/">Dashboard</a>
             </li>
-            <li class="breadcrumb-item" aria-current="page">
-              Profile
+            <li class="breadcrumb-item">
+              <a class="link-fx" href="/profiles/profile">Profile</a>
             </li>
           </ol>
         </nav>
@@ -33,60 +51,83 @@
 
 <!-- Page Content -->
 <div class="content">
-    @include('layouts.partials.messages')
-    <div class="card-body">
-        <form method="POST" action="{{ route('Students.update')}}">
-            @csrf
-            <div class="row mb-3">
-                <label for="first_name" class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
+    <div class="block block-rounded px-5 py-3">
+        <div class="block-content block-content-full">
+            <div>
+                @include('layouts.partials.messages')
+                <form method="POST" action="{{route('Students.update')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                    @csrf
+                    
+                    <div class="col-sm-8 col-xl-6">
+                        <div class="mb-4">
+                            <label for="">First Name: </label>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="{{Auth::user()->first_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
+                        
+                            @if (count($errors) > 0 && array_key_exists("name",$errors))
+                                @foreach($errors['first_name'] as $error)
+                                    <div class="invalid-feedback">
+                                        {{$error}}
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
 
-                <div class="col-md-6">
-                    <input id="first_name" type="text" placeholder="{{Auth::user()->first_name}}" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ Auth::user()->first_name }}"  autocomplete="first_name" autofocus>
+                        <div class="mb-4">
+                            <label for="">Last Name: </label>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="{{Auth::user()->last_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->last_name }}@endif" required>
+                        
+                            @if (count($errors) > 0 && array_key_exists("name",$errors))
+                                @foreach($errors['last_name'] as $error)
+                                    <div class="invalid-feedback">
+                                        {{$error}}
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
 
-                    @error('first_name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
+                        <div class="mb-4">
+                            <label for="">E-mail: </label>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("email",$errors)) {{'is-invalid'}} @endif" name="email" placeholder="{{ Auth::user()->email }}"  value="@if(old()){{old('email')}}@else{{ Auth::user()->email }}@endif">
+                        
+                            @if (count($errors) > 0 && array_key_exists("email",$errors))
+                                @foreach($errors['email'] as $error)
+                                    <div class="invalid-feedback">
+                                        {{$error}}
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-xl-5">
+                        <div class="mb-4">
+                            
+                            <div style="overflow-y:hidden; height:18rem" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">
+                                <div style="overflow:hidden; height:16rem;" class="position-relative">
+                                    <img id='headerPreview' style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" class="w-100 position-absolute" src="{{ asset(Auth::user()->profilePicture) }}" alt="kan afbeelding niet inladen.">
+                                    {{-- image still stretches a bit cuz I can't not give it a width or height; this is like near impossible --}}
+                                </div>                                
+                            </div>
+                            <label for="imageInput" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal w-100 @if (count($errors) > 0 && array_key_exists("image",$errors)) {{'is-invalid'}} @endif">upload a profile picture</label>
+                            <input id="imageInput" class="visually-hidden" type="file" name="image" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="image/png, image/jpg, image/jpeg">
+                        </div>
+                        @if (count($errors) > 0 && array_key_exists("image",$errors))
+                            @foreach($errors['profilePicture'] as $error)
+                                <div class="invalid-feedback">
+                                    {{$error}}
+                                </div>
+                            @endforeach
+                        @endif
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-lg btn-alt-primary">
+                                Save changes
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <div class="row mb-3">
-                <label for="last_name" class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
-
-                <div class="col-md-6">
-                    <input id="last_name" type="text" placeholder="{{Auth::user()->last_name}}" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ Auth::user()->last_name }}" autocomplete="last_name" autofocus>
-
-                    @error('last_name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                <div class="col-md-6">
-                    <input id="email" type="email" placeholder="{{Auth::user()->email}}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" autocomplete="email">
-
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('update') }}
-                    </button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
+    <!-- END Dynamic Table with Export Buttons -->
 </div>
+<!-- END Page Content -->
 @endsection

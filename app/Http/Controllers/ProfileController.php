@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\LastNamePattern;
 use App\Rules\SchoolMailValidation;
 use Illuminate\Validation\Rule;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -26,17 +27,32 @@ class ProfileController extends Controller
     {   
         $user = User::where('id', Auth::user()->id)->first();
 
-        $request->validate([
+        $validate = Validator::make($request->all(), [
             'first_name' => ['nullable', 'max:255', 'alpha' ],
             'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
             'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
             'password' => ['confirmed'],
+            'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
         ]);
+
+        if($validate->fails()){
+            return redirect()->route('profile')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+        }
+
+        if(isset($request->image)){
+            $imageName = $request->image->hashName();
+            $request->image->move(public_path('ProfilePicture'), $imageName);
+            $imagePath = 'ProfilePicture/' . $imageName;
+        }
+        else{
+            $imagePath = User::where('id', Auth::user()->id)->first()->profilePicture;
+        }
 
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request['password']);
+        $user->profilePicture = $imagePath;
         $user->updated_at = now();
 
         // Als een request input null is pak dan de waarde van het database
