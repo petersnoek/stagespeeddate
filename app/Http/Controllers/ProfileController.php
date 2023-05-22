@@ -40,6 +40,16 @@ class ProfileController extends Controller
         }
 
         if(isset($request->profilePicture)){
+            $oldpfp = Auth::user()->profilePicture;
+            $check = explode('/', $oldpfp)[0] ?? null;
+            if($check == 'media'){
+                //
+            }
+            else{
+                unlink($oldpfp);
+            }
+            
+
             $imageName = $request->profilePicture->hashName();
             $request->profilePicture->move(public_path('ProfilePicture'), $imageName);
             $imagePath = 'ProfilePicture/' . $imageName;
