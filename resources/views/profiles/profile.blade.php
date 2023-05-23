@@ -2,6 +2,34 @@
 <!-- nav bar linked -->
 @extends('layouts.backend')
 
+<style>
+  small {
+      position: absolute;
+      color: whitesmoke;
+      background: #1F2937;
+      padding: 4px;
+      margin: 4px;
+      border-radius: 5px;
+      display: none;
+  }
+
+  label:hover small{
+      display: initial;
+  }
+
+</style>
+
+<!-- cleans up the cv parameter to make it more user friendly, it has some protection build in when saving to prefent repeates and this cleans that off. -->
+@php
+    $value = Auth::user()->sub_user->CV;
+    if($value != ""){
+      $cv = explode('/', $value)[1] ?? null;
+      $cv = explode(',', $cv)[1] ?? null;
+    }
+    else{
+      $cv = "there is nothing here";
+    }
+@endphp
 
 @section('content')
 <!-- header -->
@@ -10,19 +38,19 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Dashboard
+            Profile
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Welcome {{Auth::user()->first_name}}, welcome to your profile.
+            Welcome to your profile {{Auth::user()->first_name}}, here you can see your credentials and change them if needed.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-alt">
             <li class="breadcrumb-item">
-              <a class="link-fx" href="javascript:void(0)">App</a>
+              <a class="link-fx" href="/">Dashboard</a>
             </li>
-            <li class="breadcrumb-item" aria-current="page">
-              profile
+            <li class="breadcrumb-item">
+              <a class="link-fx" href="/profiles/profile">Profile</a>
             </li>
           </ol>
         </nav>
@@ -33,81 +61,58 @@
 
 <!-- Page Content -->
 <div class="content">
-    <div class="card-body">
-        <form method="POST" action="{{ route('Students.update')}}">
-            @csrf
-            <div class="row mb-3">
-                <label for="first_name" class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
+    <div class="block block-rounded px-5 py-3">
+        <div class="block-content block-content-full">
+        @include('layouts.partials.messages')
+            <div class="d-flex justify-content-evenly">
+                <div class="col-sm-8 col-xl-6">
+                    <div class="mb-4">
+                        <label for="">First Name: </label>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->first_name}} </p>
+                    </div>
 
-                <div class="col-md-6">
-                    <input id="first_name" type="text" placeholder="{{Auth::user()->first_name}}" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ Auth::user()->first_name }}"  autocomplete="first_name" autofocus>
+                    <div class="mb-4">
+                        <label for="">Last Name: </label>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->last_name}} </p>
+                    </div>
 
-                    @error('first_name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <div class="mb-4">
+                        <label for="">E-mail: </label>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ Auth::user()->email }} </p>
+                    </div>
+                    <div class="mb-4">
+                        <label for="">CV: </label>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-8 col-xl-5">
+                    <div class="mb-4"> <!-- to change the postion of the picture frame, change the translate in the first div below this line, first % is horizontal movement, second % is vertical movement -->
+                        <div style="overflow-y:hidden; transform: translate(40%,0%); height:18rem; width: 18rem;" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">
+                            <div style="overflow:hidden; height:16rem;" class="position-relative">
+                                <img id='headerPreview' style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" class="w-100 position-absolute" src="{{ asset(Auth::user()->profilePicture) }}" alt="kan afbeelding niet inladen.">
+                                {{-- image still stretches a bit cuz I can't not give it a width or height; this is like near impossible --}}
+                            </div>                                
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <form action="{{ route('Students.updateCredentailsForm') }}">
+                            <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-right: 2.5px">
+                                update credentials
+                            </button>
+                        </form>
+                        <form action="{{ route('Students.updatePasswordForm') }}">
+                            <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-left: 2.5px">
+                                update password
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-
-            <div class="row mb-3">
-                <label for="last_name" class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
-
-                <div class="col-md-6">
-                    <input id="last_name" type="text" placeholder="{{Auth::user()->last_name}}" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ Auth::user()->last_name }}" autocomplete="last_name" autofocus>
-
-                    @error('last_name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                <div class="col-md-6">
-                    <input id="email" type="email" placeholder="{{Auth::user()->email}}" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}" autocomplete="email">
-
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('new Password') }}</label>
-
-                <div class="col-md-6">
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" confirmed autocomplete="new-password">
-
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                <div class="col-md-6">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password">
-                </div>
-            </div>
-
-            <div class="row mb-0">
-                <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        {{ __('update') }}
-                    </button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
+    <!-- END Dynamic Table with Export Buttons -->
 </div>
+<!-- END Page Content -->
 @endsection

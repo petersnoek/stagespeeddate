@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\SchoolMailValidation;
+use Illuminate\Validation\Rule;
+use App\Models\Student;
+use App\Rules\LastNamePattern;
 
 class RegisterController extends Controller
 {
@@ -50,9 +54,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'first_name' => ['required', 'string', 'max:255', 'alpha'],
+            'last_name' => ['required', 'string', 'max:255', new LastNamePattern()],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new SchoolMailValidation],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['string'],
         ]);
@@ -65,13 +69,38 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {
-        return User::create([
+    {    
+        $u = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => 'student',
+            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
         ]);
+        
+        $s = Student::create([
+            'user_id' => $u->id,
+        ]);
+        return $u;
+    }
+
+    public function createStudent($data, $id)
+    {   
+        $check = Student::where('user_id', $id)->first();
+        
+        if ($check == null) {
+            $user = User::where('email', $data)->first();
+            $student = new Student([
+                'user_id' => $user->id,
+                'teacher_id' => null,
+                'CV' => '',
+            ]);
+            $student->save();
+            return;
+        }
+        else {
+            return;
+        }
     }
 }
