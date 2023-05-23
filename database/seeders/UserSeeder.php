@@ -46,6 +46,7 @@ class UserSeeder extends Seeder
             'email' => 'company2@gmail.com',
             'password' => Hash::make('Company123'),
             'role' => 'company',
+            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
         ]);
 
         User::factory()->create([
