@@ -17,10 +17,9 @@ class Company
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         $user = Auth::user();
         
-        if($user->role == 'company' || 'admin'){
+        if($user->role == 'company' || $user->role == 'admin'){
             return $next($request);
         }
         else{
