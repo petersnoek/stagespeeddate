@@ -38,8 +38,8 @@
               <h3 class="block-title">{{$company->name}}</h3>
             </div>
             <div class="text-muted">
-              <div>
-                <img class="img-fluid" src="{{$company->image}}" alt="">
+              <div style="overflow:hidden; height:11.75rem;" class="position-relative">
+                <img class="img-fluid w-100 position-absolute"  style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" src="{{$company->image}}" alt="">
               </div>
               <div class="p-3">
                 <p class="lh-sm m-0 overflow-hidden">
