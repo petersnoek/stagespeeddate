@@ -109,7 +109,6 @@ $role = Auth::user()->role;
                                 <div class="form-control form-control-alt rounded-0 rounded-top py-3 ">
                                     <input id="cvInput" type="file" name="CV" accept="application/pdf">
                                 </div>
-                            </div>
                             @if (count($errors) > 0 && array_key_exists("CV",$errors))
                                 @foreach($errors['CV'] as $error)
                                     <div class="invalid-feedback">

@@ -45,10 +45,7 @@ class ProfileController extends Controller
         $validate = Validator::make($request->all(), [
             'first_name' => ['nullable', 'max:255', 'alpha' ],
             'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
-            'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), function(){
-                if(Auth::user()->role == 'student'){
-                    new SchoolMailValidation;
-                }}],
+            'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
             'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
             'CV' => ['mimes:pdf'],
         ]); 
