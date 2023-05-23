@@ -21,6 +21,8 @@
 
 <!-- cleans up the cv parameter to make it more user friendly, it has some protection build in when saving to prefent repeates and this cleans that off. -->
 @php
+  if(Auth::user()->role == 'student')
+  {
     $value = Auth::user()->sub_user->CV;
     if($value != ""){
       $cv = explode('/', $value)[1] ?? null;
@@ -29,6 +31,7 @@
     else{
       $cv = "there is nothing here";
     }
+  }
 @endphp
 
 @section('content')
@@ -80,10 +83,12 @@
                         <label for="">E-mail: </label>
                         <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ Auth::user()->email }} </p>
                     </div>
+                    @if( Auth::user()->role == 'student' )
                     <div class="mb-4">
                         <label for="">CV: </label>
                         <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </p>
                     </div>
+                    @endif
                 </div>
 
                 <div class="col-sm-8 col-xl-5">
@@ -97,12 +102,12 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <form action="{{ route('Students.updateCredentailsForm') }}">
+                        <form action="{{ route('profile.updateCredentailsForm') }}">
                             <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-right: 2.5px">
                                 update credentials
                             </button>
                         </form>
-                        <form action="{{ route('Students.updatePasswordForm') }}">
+                        <form action="{{ route('profile.updatePasswordForm') }}">
                             <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-left: 2.5px">
                                 update password
                             </button>

@@ -55,25 +55,25 @@
         <div class="block-content block-content-full">
             <div>
                 @include('layouts.partials.messages')
-                <form method="POST" action="{{route('Students.updatePassword')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                <form method="POST" action="{{route('profile.updatePassword')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                 @csrf
                 <div class="col-sm-8 col-xl-6">
                     <div class="mb-4">
                         <label for="">New password: </label>
-                        <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="password" placeholder="new password" confirmed autocomplete="new-password" required>
+                        <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("password",$errors)) {{'is-invalid'}} @endif" name="password" placeholder="new password" confirmed autocomplete="new-password" required>
+                    </div>
 
-                        @if (count($errors) > 0 && array_key_exists("passowrd",$errors))
+                    <div class="mb-4">
+                        <label for="">Confirm password: </label>
+                        <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("password",$errors)) {{'is-invalid'}} @endif" name="password_confirmation" placeholder="confirm password" autocomplete="new-password" required>
+                        
+                        @if (count($errors) > 0 && array_key_exists("password",$errors))
                             @foreach($errors['password'] as $error)
                                 <div class="invalid-feedback">
                                     {{$error}}
                                 </div>
                             @endforeach
                         @endif
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="">Confirm password: </label>
-                        <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="password_confirmation" placeholder="confirm password" autocomplete="new-password" required>
                     </div>
                 
                     <div class="d-flex justify-content-center">
