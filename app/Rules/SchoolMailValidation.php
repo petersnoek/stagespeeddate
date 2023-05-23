@@ -20,6 +20,10 @@ class SchoolMailValidation implements ValidationRule
             if ($domainPart != 'mydavinci.nl') {
               $fail('email must be your school mail');
             }
+            if(!preg_match('/^[A-Za-z0-9._%+-]+@mydavinci\.nl$/'
+            , $value)){
+                $fail('email is invalid');
+            }
         }
     }
 }

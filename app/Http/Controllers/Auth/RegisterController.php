@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Rules\SchoolMailValidation;
 use Illuminate\Validation\Rule;
 use App\Models\Student;
+use App\Rules\LastNamePattern;
 
 class RegisterController extends Controller
 {
@@ -53,8 +54,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255', 'alpha'],
+            'last_name' => ['required', 'string', 'max:255', new LastNamePattern()],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new SchoolMailValidation],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['string'],
@@ -69,7 +70,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {    
-         $u = User::create([
+        $u = User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
