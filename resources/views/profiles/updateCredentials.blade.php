@@ -61,9 +61,9 @@
                     <div class="col-sm-8 col-xl-6">
                         <div class="mb-4">
                             <label for="">First Name: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="{{Auth::user()->first_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("first_name",$errors)) {{'is-invalid'}} @endif" name="first_name" placeholder="{{Auth::user()->first_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
                         
-                            @if (count($errors) > 0 && array_key_exists("name",$errors))
+                            @if (count($errors) > 0 && array_key_exists("first_name",$errors))
                                 @foreach($errors['first_name'] as $error)
                                     <div class="invalid-feedback">
                                         {{$error}}
@@ -74,9 +74,9 @@
 
                         <div class="mb-4">
                             <label for="">Last Name: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="{{Auth::user()->last_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->last_name }}@endif" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("last_name",$errors)) {{'is-invalid'}} @endif" name="last_name" placeholder="{{Auth::user()->last_name}} name*"  value="@if(old()){{old('last_name')}}@else{{ Auth::user()->last_name }}@endif" required>
                         
-                            @if (count($errors) > 0 && array_key_exists("name",$errors))
+                            @if (count($errors) > 0 && array_key_exists("last_name",$errors))
                                 @foreach($errors['last_name'] as $error)
                                     <div class="invalid-feedback">
                                         {{$error}}
