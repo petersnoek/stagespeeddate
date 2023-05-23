@@ -40,6 +40,13 @@ class UserSeeder extends Seeder
             'role' => 'company',
             'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
         ]);
+        User::factory()->create([
+            'first_name' => 'Company2',
+            'last_name' => 'company',
+            'email' => 'company2@gmail.com',
+            'password' => Hash::make('Company123'),
+            'role' => 'company',
+        ]);
 
         User::factory()->create([
             'first_name' => 'Student',

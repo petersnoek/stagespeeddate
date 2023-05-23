@@ -193,16 +193,32 @@
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Dashboard</span>
               </a>
+
+              @if((Auth::user()->role == 'admin'))
               <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/companies">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Companies</span>
               </a>
-              @if(Auth::user()->role == 'teacher')
+              @endif
+
+              @if(Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
               <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/students">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Students</span>
               </a>
               @endif
+              @if(Auth::user()->role == 'company')
+              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/company/update">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Update Company</span>
+              </a>
+              @endif
+            </li>
+            <li class="nav-main-item">
+              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/vacatures">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Vacatures</span>
+              </a>
             </li>
             <li class="nav-main-heading">Various</li>
             <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
