@@ -18,7 +18,7 @@ class CompanySeeder extends Seeder
         $userIds = User::where('role','company')->pluck('id')->toArray();
 
         foreach($userIds as $userId){    
-            Company::factory(10)->create([
+            Company::factory()->create([
                 'name' => 'Big Corp ' . str::random(2),
                 'bio' => str::random(150),
                 'description' => str::random(250),
