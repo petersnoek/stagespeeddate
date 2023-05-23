@@ -57,9 +57,10 @@ class ProfileController extends Controller
             $oldpfp = Auth::user()->profilePicture;
             $check = explode('/', $oldpfp)[0] ?? null;
             if($check == 'media'){
-                //
+                // do nothing
             }
             else{
+                // deletes the old custom pfp of that user
                 unlink($oldpfp);
             }
             // pushes the picture into storage and sets the path for the db push
@@ -68,8 +69,8 @@ class ProfileController extends Controller
             $imagePath = 'ProfilePicture/' . $imageName;
         }
         else{
-            // same function ass above, just with 
-            $imagePath = $User->profilePicture;
+            // sets up the push back into the db with the same location as is already there
+            $imagePath = $user->profilePicture;
         }
 
         $oldCV = $student->CV;
