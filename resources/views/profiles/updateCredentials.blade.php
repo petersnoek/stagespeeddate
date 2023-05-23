@@ -97,6 +97,19 @@
                                 @endforeach
                             @endif
                         </div>
+                        <div class="mb-4">
+                        <label >CV: (must be a pdf)</label>
+                            <div class="form-control form-control-alt rounded-0 rounded-top py-3 ">
+                                <input id="cvInput" type="file" name="CV" accept="application/pdf">
+                            </div>
+                        </div>
+                        @if (count($errors) > 0 && array_key_exists("CV",$errors))
+                            @foreach($errors['CV'] as $error)
+                                <div class="invalid-feedback">
+                                    {{$error}}
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                     <div class="col-sm-8 col-xl-5">
                     <div class="mb-4"> <!-- to change the postion of the picture frame, change the translate in the first div below this line, first % is horizontal movement, second % is vertical movement -->
@@ -107,7 +120,7 @@
                                 </div>                                
                             </div>
                             <label for="profilePictureInput" style="transform: translate(40%,0%); width:18rem;" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif">upload a profile picture</label>
-                            <input id="profilePictureInput" class="visually-hidden" type="file" name="profilePicture" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="profilePicture/png, profilePicture/jpg, profilePicture/jpeg">
+                            <input id="profilePictureInput" class="visually-hidden" type="file" name="profilePicture" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="image/png, image/jpg, image/jpeg">
                         </div>
                         @if (count($errors) > 0 && array_key_exists("profilePicture",$errors))
                             @foreach($errors['profilePicture'] as $error)

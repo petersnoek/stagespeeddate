@@ -10,6 +10,8 @@ use App\Rules\LastNamePattern;
 use App\Rules\SchoolMailValidation;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use App\Models\Student;
+use Vinkla\Hashids\Facades\Hashids;
 
 class ProfileController extends Controller
 {
@@ -26,6 +28,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {   
         $user = User::where('id', Auth::user()->id)->first();
+        $student = Student::where('user_id', Auth::user()->id)->first();
 
         $validate = Validator::make($request->all(), [
             'first_name' => ['nullable', 'max:255', 'alpha' ],
@@ -33,12 +36,14 @@ class ProfileController extends Controller
             'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
             'password' => ['confirmed'],
             'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
+            'CV' => ['mimes:pdf'],
         ]);
 
         if($validate->fails()){
             return redirect()->route('Students.updateCredentails')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
+        // checks if the pfp of the user is a stock pfp so it can keep those, if it isn't one the server knows it can delete it
         if(isset($request->profilePicture)){
             $oldpfp = Auth::user()->profilePicture;
             $check = explode('/', $oldpfp)[0] ?? null;
@@ -49,15 +54,27 @@ class ProfileController extends Controller
                 unlink($oldpfp);
             }
             
-
             $imageName = $request->profilePicture->hashName();
             $request->profilePicture->move(public_path('ProfilePicture'), $imageName);
             $imagePath = 'ProfilePicture/' . $imageName;
         }
-
         else{
             $imagePath = User::where('id', Auth::user()->id)->first()->profilePicture;
         }
+
+        $oldCV = $student->CV;
+        if($oldCV != null){
+            $check = explode('/', $oldCV)[1] ?? null;
+            unlink($oldCV);
+        }
+        
+        $getcv = $request->CV->getClientOriginalName();
+        $now = date('his', time());
+        $now = Hashids::encode($now);
+        
+        $CVname = $now . ',' . $getcv;
+        $request->CV->move(public_path('CV'), $CVname);
+        $CVPath = 'CV/' . $CVname;
 
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
@@ -65,6 +82,8 @@ class ProfileController extends Controller
         $user->password = Hash::make($request['password']);
         $user->profilePicture = $imagePath;
         $user->updated_at = now();
+
+        $student->CV = $CVPath;
 
         // Als een request input null is pak dan de waarde van het database
         if($request->first_name == null){
@@ -78,6 +97,7 @@ class ProfileController extends Controller
         }
         
         $user->save();
+        $student->save();
 
         return redirect('/profiles/profile')->with('success', 'Profiel is ge-update');
     }

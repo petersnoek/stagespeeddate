@@ -19,6 +19,13 @@
 
 </style>
 
+<!-- cleans up the cv parameter to make it more user friendly, it has some protection build in when saving to prefent repeates and this cleans that off. -->
+@php
+    $value = Auth::user()->sub_user->CV;
+    $cv = explode('/', $value)[1] ?? null;
+    $cv = explode(',', $cv)[1] ?? null;
+@endphp
+
 @section('content')
 <!-- header -->
 <div class="bg-body-light">
@@ -68,7 +75,12 @@
                         <label for="">E-mail: </label>
                         <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{ Auth::user()->email }} </a>
                     </div>
+                    <div class="mb-4">
+                        <label for="">CV: </label>
+                        <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </a>
+                    </div>
                 </div>
+                
                 <div class="col-sm-8 col-xl-5">
                     <div class="mb-4"> <!-- to change the postion of the picture frame, change the translate in the first div below this line, first % is horizontal movement, second % is vertical movement -->
                         <div style="overflow-y:hidden; transform: translate(40%,0%); height:18rem; width: 18rem;" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">
