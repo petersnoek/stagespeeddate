@@ -31,120 +31,25 @@
   <!-- Page Content -->
   <div class="content">
     <div class="row items-push">
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Welcome</h3>
+      @foreach($companies as $company)
+        <a href="{{ route('company.vacancy.index', ['company_id' => Hashids::encode($company->id)]) }}" class="col-md-6 col-xl-4 mb-4" style="color: initial">
+          <div class="block block-rounded h-100">
+            <div class="block-header block-header-default">
+              <h3 class="block-title">{{$company->name}}</h3>
+            </div>
+            <div class="text-muted">
+              <div style="overflow:hidden; height:11.75rem;" class="position-relative">
+                <img class="img-fluid w-100 position-absolute"  style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" src="{{$company->image}}" alt="">
+              </div>
+              <div class="p-3">
+                <p class="lh-sm m-0 overflow-hidden">
+                  {{$company->bio}}
+                </p>
+              </div>
+            </div>
           </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              We’ve put everything together, so you can start working on your Laravel project as soon as possible! OneUI assets are integrated and work seamlessly with Laravel Vite, so you can use the npm scripts as you would in any other Laravel project.
-            </p>
-            <p>
-              Feel free to use any examples you like from the full HTML version to build your own pages.
-            </p>
-            <p>
-              <strong>Wish you all the best and happy coding!</strong>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Block Title</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              ...{{-- {{Auth::user()->sub_user->vacancies}} --}}
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Block Title</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              ...
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Block Title</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              ...
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Block Title</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              ...
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Block Title</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              ...
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Block Title</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              ...
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Block Title</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              ...
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100 mb-0">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">Block Title</h3>
-          </div>
-          <div class="block-content fs-sm text-muted">
-            <p>
-              ...
-            </p>
-          </div>
-        </div>
-      </div>
+        </a>
+      @endforeach
     </div>
   </div>
   <!-- END Page Content -->

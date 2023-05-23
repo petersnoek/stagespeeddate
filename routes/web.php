@@ -28,10 +28,6 @@ Route::view('/landing', 'landing'); //one ui landing page (pretty empty page I d
 
 Route::middleware('verified')->group(function () {//if user verified their email
 
-    Route::match(['get', 'post'], '/', function(){ //one ui backend layout dashboard page with some card previews
-        return view('dashboard');
-    });
-
     Route::group(['prefix'=> '/pages'], function(){ //one ui backend layout page previews
         Route::view('/slick', 'pages.slick');
         Route::view('/datatables', 'pages.datatables');
@@ -47,7 +43,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
     });
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); //directed to after login (laravel layout with pretty empty page)
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); //directed to after login (laravel layout with pretty empty page)
 
     Route::group(['prefix'=> '/profiles'], function(){
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
