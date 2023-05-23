@@ -22,8 +22,13 @@
 <!-- cleans up the cv parameter to make it more user friendly, it has some protection build in when saving to prefent repeates and this cleans that off. -->
 @php
     $value = Auth::user()->sub_user->CV;
-    $cv = explode('/', $value)[1] ?? null;
-    $cv = explode(',', $cv)[1] ?? null;
+    if($value != ""){
+      $cv = explode('/', $value)[1] ?? null;
+      $cv = explode(',', $cv)[1] ?? null;
+    }
+    else{
+      $cv = "there is nothing here";
+    }
 @endphp
 
 @section('content')
@@ -63,24 +68,24 @@
                 <div class="col-sm-8 col-xl-6">
                     <div class="mb-4">
                         <label for="">First Name: </label>
-                        <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->first_name}} </a>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->first_name}} </p>
                     </div>
 
                     <div class="mb-4">
                         <label for="">Last Name: </label>
-                        <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->last_name}} </a>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->last_name}} </p>
                     </div>
 
                     <div class="mb-4">
                         <label for="">E-mail: </label>
-                        <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{ Auth::user()->email }} </a>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ Auth::user()->email }} </p>
                     </div>
                     <div class="mb-4">
                         <label for="">CV: </label>
-                        <a type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </a>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </p>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-8 col-xl-5">
                     <div class="mb-4"> <!-- to change the postion of the picture frame, change the translate in the first div below this line, first % is horizontal movement, second % is vertical movement -->
                         <div style="overflow-y:hidden; transform: translate(40%,0%); height:18rem; width: 18rem;" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">
@@ -92,13 +97,12 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <form action="{{ route('Students.updateCredentails') }}">
+                        <form action="{{ route('Students.updateCredentailsForm') }}">
                             <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-right: 2.5px">
                                 update credentials
                             </button>
                         </form>
-
-                        <form action="{{ route('Students.updatePassword') }}">
+                        <form action="{{ route('Students.updatePasswordForm') }}">
                             <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-left: 2.5px">
                                 update password
                             </button>

@@ -38,8 +38,9 @@ Route::middleware('verified')->group(function () {//if user verified their email
 
     Route::group(['prefix'=> '/profiles'], function(){
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-        Route::get('/updateCredentials', [ProfileController::class, 'updateCredentialForm'])->name('Students.updateCredentails');
-        Route::get('/updatePassword', [ProfileController::class, 'updatePasswordForm'])->name('Students.updatePassword');
+        Route::get('/updateCredentialsForm', [ProfileController::class, 'updateCredentialForm'])->name('Students.updateCredentailsForm');
+        Route::get('/updatePasswordForm', [ProfileController::class, 'updatePasswordForm'])->name('Students.updatePasswordForm');
+        Route::post('/updatePassword', [ProfileController::class, 'updatePassword'])->name('Students.updatePassword');
         Route::post('/updateProfile', [ProfileController::class, 'update'])->name('Students.update');
     });
     

@@ -27,20 +27,29 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {   
+
+        /**
+         * Get all the information that is needed in this function from the database
+         * 
+         * $user is all the data from the user table,
+         * $student is all the data from the student table
+         * 
+         */
         $user = User::where('id', Auth::user()->id)->first();
         $student = Student::where('user_id', Auth::user()->id)->first();
 
+
+        // this function checks all the incoming information for complients with the rules, if it fails the users page is reloaded and a error msg is given.
         $validate = Validator::make($request->all(), [
             'first_name' => ['nullable', 'max:255', 'alpha' ],
             'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
             'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
-            'password' => ['confirmed'],
             'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
             'CV' => ['mimes:pdf'],
-        ]);
+        ]); 
 
         if($validate->fails()){
-            return redirect()->route('Students.updateCredentails')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect()->route('Students.updateCredentailsForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         // checks if the pfp of the user is a stock pfp so it can keep those, if it isn't one the server knows it can delete it
@@ -53,13 +62,14 @@ class ProfileController extends Controller
             else{
                 unlink($oldpfp);
             }
-            
+            // pushes the picture into storage and sets the path for the db push
             $imageName = $request->profilePicture->hashName();
             $request->profilePicture->move(public_path('ProfilePicture'), $imageName);
             $imagePath = 'ProfilePicture/' . $imageName;
         }
         else{
-            $imagePath = User::where('id', Auth::user()->id)->first()->profilePicture;
+            // same function ass above, just with 
+            $imagePath = $User->profilePicture;
         }
 
         $oldCV = $student->CV;
@@ -67,23 +77,27 @@ class ProfileController extends Controller
             $check = explode('/', $oldCV)[1] ?? null;
             unlink($oldCV);
         }
-        
-        $getcv = $request->CV->getClientOriginalName();
-        $now = date('his', time());
-        $now = Hashids::encode($now);
-        
-        $CVname = $now . ',' . $getcv;
-        $request->CV->move(public_path('CV'), $CVname);
-        $CVPath = 'CV/' . $CVname;
+
+        if($request->CV != null){
+            $getcv = $request->CV->getClientOriginalName();
+            $now = date('his', time());
+            $now = Hashids::encode($now);
+            
+            $CVname = $now . ',' . $getcv;
+            $request->CV->move(public_path('CV'), $CVname);
+            $CVPath = 'CV/' . $CVname;
+
+            $student->CV = $CVPath;
+        }
+
 
         $user->first_name = $request->input('first_name');
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
-        $user->password = Hash::make($request['password']);
         $user->profilePicture = $imagePath;
         $user->updated_at = now();
 
-        $student->CV = $CVPath;
+        
 
         // Als een request input null is pak dan de waarde van het database
         if($request->first_name == null){
@@ -100,6 +114,26 @@ class ProfileController extends Controller
         $student->save();
 
         return redirect('/profiles/profile')->with('success', 'Profiel is ge-update');
+    }
+
+    public function updatePassword(Request $request)
+    {
+
+        $user = User::where('id', Auth::user()->id)->first();
+
+        $validate = Validator::make($request->all(), [
+        'password' => ['confirmed'],
+        ]);
+
+        if($validate->fails()){
+            return redirect()->route('Students.updatePasswordForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+        }
+
+        $user->password = Hash::make($request['password']);
+
+        $user->save();
+
+        return redirect('/profiles/profile')->with('success', 'Password is ge-update');
     }
 
     public function updateCredentialForm(Request $request)

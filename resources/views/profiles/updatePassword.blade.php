@@ -55,7 +55,7 @@
         <div class="block-content block-content-full">
             <div>
                 @include('layouts.partials.messages')
-                <form method="POST" action="{{route('Students.update')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                <form method="POST" action="{{route('Students.updatePassword')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                 @csrf
                 <div class="col-sm-8 col-xl-6">
                     <div class="mb-4">
