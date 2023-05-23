@@ -22,6 +22,12 @@
 
 </style>
 
+@php
+
+$role = Auth::user()->role;
+
+@endphp
+
 <!-- header -->
 <div class="bg-body-light">
     <div class="content content-full">
@@ -55,7 +61,7 @@
         <div class="block-content block-content-full">
             <div>
                 @include('layouts.partials.messages')
-                <form method="POST" action="{{route('Students.update')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                <form method="POST" action="{{route('profile.update')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="col-sm-8 col-xl-6">
@@ -97,18 +103,20 @@
                                 @endforeach
                             @endif
                         </div>
-                        <div class="mb-4">
-                        <label >CV: (must be a pdf)</label>
-                            <div class="form-control form-control-alt rounded-0 rounded-top py-3 ">
-                                <input id="cvInput" type="file" name="CV" accept="application/pdf">
-                            </div>
-                        </div>
-                        @if (count($errors) > 0 && array_key_exists("CV",$errors))
-                            @foreach($errors['CV'] as $error)
-                                <div class="invalid-feedback">
-                                    {{$error}}
+                        @if( $role == 'student' )
+                            <div class="mb-4">
+                            <label >CV: (must be a pdf)</label>
+                                <div class="form-control form-control-alt rounded-0 rounded-top py-3 ">
+                                    <input id="cvInput" type="file" name="CV" accept="application/pdf">
                                 </div>
-                            @endforeach
+                            @if (count($errors) > 0 && array_key_exists("CV",$errors))
+                                @foreach($errors['CV'] as $error)
+                                    <div class="invalid-feedback">
+                                        {{$error}}
+                                    </div>
+                                @endforeach
+                            @endif
+                            </div>
                         @endif
                     </div>
                     <div class="col-sm-8 col-xl-5">

@@ -36,8 +36,10 @@ class ProfileController extends Controller
          * 
          */
         $user = User::where('id', Auth::user()->id)->first();
-        $student = Student::where('user_id', Auth::user()->id)->first();
-
+        
+        if(Auth::user()->role == 'student'){
+            $student = Student::where('user_id', Auth::user()->id)->first();
+        }
 
         // this function checks all the incoming information for complients with the rules, if it fails the users page is reloaded and a error msg is given.
         $validate = Validator::make($request->all(), [
@@ -49,7 +51,7 @@ class ProfileController extends Controller
         ]); 
 
         if($validate->fails()){
-            return redirect()->route('Students.updateCredentailsForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect()->route('profile.updateCredentailsForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         // checks if the pfp of the user is a stock pfp so it can keep those, if it isn't one the server knows it can delete it
@@ -73,10 +75,12 @@ class ProfileController extends Controller
             $imagePath = $user->profilePicture;
         }
 
-        $oldCV = $student->CV;
-        if($oldCV != null){
-            $check = explode('/', $oldCV)[1] ?? null;
-            unlink($oldCV);
+        if(Auth::user()->role == 'student'){
+            $oldCV = $student->CV;
+            if($oldCV != null){
+                $check = explode('/', $oldCV)[1] ?? null;
+                unlink($oldCV);
+            }
         }
 
         if($request->CV != null){
@@ -112,7 +116,9 @@ class ProfileController extends Controller
         }
         
         $user->save();
-        $student->save();
+        if(Auth::user()->role == 'student'){
+            $student->save();
+        }
 
         return redirect('/profiles/profile')->with('success', 'Profiel is ge-update');
     }
@@ -127,7 +133,7 @@ class ProfileController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect()->route('Students.updatePasswordForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect()->route('profile.updatePasswordForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         $user->password = Hash::make($request['password']);
