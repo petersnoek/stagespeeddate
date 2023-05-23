@@ -32,23 +32,23 @@
   <div class="content">
     <div class="row items-push">
       @foreach($companies as $company)
-      <div class="col-md-6 col-xl-4">
-        <div class="block block-rounded h-100">
-          <div class="block-header block-header-default">
-            <h3 class="block-title">{{$company->name}}</h3>
-          </div>
-          <div class="text-muted">
-            <div>
-              <img class="img-fluid" src="{{$company->image}}" alt="">
+        <a href="{{ route('company.vacancy.index', ['company_id' => Hashids::encode($company->id)]) }}" class="col-md-6 col-xl-4 mb-4" style="color: initial">
+          <div class="block block-rounded h-100">
+            <div class="block-header block-header-default">
+              <h3 class="block-title">{{$company->name}}</h3>
             </div>
-            <div class="p-3">
-              <p class="lh-sm m-0 overflow-hidden">
-                {{$company->bio}}
-  	          </p>
+            <div class="text-muted">
+              <div>
+                <img class="img-fluid" src="{{$company->image}}" alt="">
+              </div>
+              <div class="p-3">
+                <p class="lh-sm m-0 overflow-hidden">
+                  {{$company->bio}}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </a>
       @endforeach
     </div>
   </div>
