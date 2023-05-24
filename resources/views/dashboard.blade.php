@@ -30,6 +30,7 @@
 
   <!-- Page Content -->
   <div class="content">
+  @include('layouts.partials.messages')
     <div class="row items-push">
       @foreach($companies as $company)
         <a href="{{ route('company.vacancy.index', ['company_id' => Hashids::encode($company->id)]) }}" class="col-md-6 col-xl-4 mb-4" style="color: initial">
