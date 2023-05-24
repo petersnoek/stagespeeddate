@@ -42,14 +42,23 @@ class ProfileController extends Controller
         }
 
         // this function checks all the incoming information for complients with the rules, if it fails the users page is reloaded and a error msg is given.
-        $validate = Validator::make($request->all(), [
-            'first_name' => ['nullable', 'max:255', 'alpha' ],
-            'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
-            'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
-            'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
-            'CV' => ['mimes:pdf'],
-        ]); 
-
+        if(Auth::user()->role == 'student'){
+            $validate = Validator::make($request->all(), [
+                'first_name' => ['nullable', 'max:255', 'alpha' ],
+                'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
+                'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
+                'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
+                'CV' => ['mimes:pdf'],
+            ]); 
+        }
+        else{
+            $validate = Validator::make($request->all(), [
+                'first_name' => ['nullable', 'max:255', 'alpha' ],
+                'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
+                'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id)],
+                'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
+            ]); 
+        }
         if($validate->fails()){
             return redirect()->route('profile.updateCredentailsForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
