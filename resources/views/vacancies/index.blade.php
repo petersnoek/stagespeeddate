@@ -7,10 +7,18 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
+          @if($vacancies->first()->company->name == $vacancies->last()->company->name)
+            {{$vacancies->first()->company->name}}
+          @else
+            Alle
+          @endif
             Vacatures
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
           Een overzicht van alle beschikbare vacatures
+          @if($vacancies->first()->company->name == $vacancies->last()->company->name)
+            bij {{$vacancies->first()->company->name}}
+          @endif
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -44,7 +52,7 @@
             </div>
           </div>
           <div class="block-content px-2 py-2 fs-sm text-muted">
-            <p style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;" class="px-2 m-0 w-5 text-truncate text-wrap">{{$vacancy->short_bio}}</p>
+            <p style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;" class="px-2 m-0 w-5 text-truncate text-wrap">{{$vacancy->bio}}</p>
           </div>
         </div>
       </div>

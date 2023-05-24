@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\NamePattern;
 use App\Rules\DescriptionPattern;
+use Illuminate\Validation\Rule;
 
 
 class CompanyController extends Controller
@@ -35,7 +36,7 @@ class CompanyController extends Controller
 
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
-            'email' => ['nullable', 'email'],
+            'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->sub_user->id),],
             'bio' => ['nullable', 'max:255', new DescriptionPattern()],
             'description' => ['nullable', 'max:255', new DescriptionPattern()],
             'image' => ['image','mimes:jpeg,png,jpg'],

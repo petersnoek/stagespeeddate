@@ -84,23 +84,5 @@ class RegisterController extends Controller
         ]);
         return $u;
     }
-
-    public function createStudent($data, $id)
-    {   
-        $check = Student::where('user_id', $id)->first();
-        
-        if ($check == null) {
-            $user = User::where('email', $data)->first();
-            $student = new Student([
-                'user_id' => $user->id,
-                'teacher_id' => null,
-                'CV' => '',
-            ]);
-            $student->save();
-            return;
-        }
-        else {
-            return;
-        }
-    }
+    
 }

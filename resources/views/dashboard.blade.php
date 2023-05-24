@@ -10,7 +10,7 @@
             Dashboard
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Welcome {{Auth::user()->first_name}}, everything looks great.
+            Welcome {{Auth::user()->first_name}}, hier is een overzicht van alle bedrijven.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -30,6 +30,7 @@
 
   <!-- Page Content -->
   <div class="content">
+  @include('layouts.partials.messages')
     <div class="row items-push">
       @foreach($companies as $company)
         <a href="{{ route('company.vacancy.index', ['company_id' => Hashids::encode($company->id)]) }}" class="col-md-6 col-xl-4 mb-4" style="color: initial">

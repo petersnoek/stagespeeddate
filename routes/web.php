@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\VacancyController;
+
+use Illuminate\Support\Facades\Artisan;
+
 
 
 /*
@@ -62,5 +64,11 @@ Route::middleware('verified')->group(function () {//if user verified their email
     });
     Route::get('/students', [StudentController::class, 'index'])
         ->middleware('teacher');
+});
+
+// link afbeeldingen opslag ÉÉNMALIG BIJ ELKE LIVESERVER UPLOAD
+Route::get('console/storagelink', function () {
+    Artisan::call('storage:link');
+    return redirect()->route('home')->with('success','storage has been linked');
 });
 

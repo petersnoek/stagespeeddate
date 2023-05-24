@@ -20,7 +20,7 @@ class CompanySeeder extends Seeder
         foreach($userIds as $userId){    
             Company::factory()->create([
                 'name' => 'Big Corp ' . str::random(2),
-                'bio' => str::random(150),
+                'bio' => 'This is an example of a company bio, this is test data don\'t think too much about it',
                 'description' => str::random(250),
                 'user_id' => $userId,
                 'image' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
@@ -31,7 +31,7 @@ class CompanySeeder extends Seeder
             'name' => 'Xlab Cloud Services B.V.',
             'bio' => 'Ontwikkelen, produceren en uitgeven van software.',
             'description' => str::random(250),
-            'user_id' => '1',
+            'user_id' => '11',
             'image' => 'media/photos/xlab.jpg',
         ]);
 
@@ -39,7 +39,7 @@ class CompanySeeder extends Seeder
             'name' => 'Koen Pack B.V.',
             'bio' => 'Groothandel in emballage.',
             'description' => str::random(250),
-            'user_id' => '2',
+            'user_id' => '12',
             'image' => 'media/photos/koen.jpg',
         ]);
 
@@ -47,7 +47,7 @@ class CompanySeeder extends Seeder
             'name' => 'MKB Voice',
             'bio' => 'Reclamebureaus',
             'description' => str::random(250),
-            'user_id' => '3',
+            'user_id' => '13',
             'image' => 'media/photos/mkb.jpg',
         ]);
 
@@ -55,7 +55,7 @@ class CompanySeeder extends Seeder
             'name' => 'COERS Online branding',
             'bio' => 'Ontwikkelen, produceren en uitgeven van software.',
             'description' => str::random(250),
-            'user_id' => '4',
+            'user_id' => '14',
             'image' => 'media/photos/coers.jpg',
         ]);
 
@@ -63,7 +63,7 @@ class CompanySeeder extends Seeder
             'name' => 'Movella',
             'bio' => 'Groothandel in elektronische en telecommunicatieapparatuur en bijbehorende onderdelen.',
             'description' => str::random(250),
-            'user_id' => '5',
+            'user_id' => '15',
             'image' => 'media/photos/movella.jpg',
         ]);
     }
