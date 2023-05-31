@@ -19,7 +19,7 @@ class VacancyController extends Controller
     }
 
     public function indexCompany($company_id){
-        $company_id = ['company_id' => Hashids::decode($company_id,5)];
+        $company_id = ['company_id' => Hashids::decode($company_id)];
         $validator = Validator::make($company_id, [
             'company_id' => ['required', Rule::exists(Company::class, 'id')]
         ]);

@@ -55,13 +55,18 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::post('/updateProfile', [ProfileController::class, 'update'])->name('profile.update');
     });
     
-     Route::get('/companies', [CompanyController::class, 'index'])
+    Route::get('/companies', [CompanyController::class, 'index'])
         ->middleware('admin');
 
     Route::middleware('company')->group(function () {
         Route::get('/company/update', [CompanyController::class, 'update'])->name('Company.update');
         Route::post('/company/save', [CompanyController::class, 'saveChanges'])->name('Company.save');
     });
+    Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create')
+        ->middleware('admin');
+    Route::post('/company/sendLogin', [CompanyController::class, 'sendLogin'])->name('company.sendLogin')
+        ->middleware('admin');
+
     Route::get('/students', [StudentController::class, 'index'])
         ->middleware('teacher');
 });
