@@ -70,6 +70,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
     Route::get('/students', [StudentController::class, 'index'])
         ->middleware('teacher');
 });
+/* Route::view('/test', 'emails.companyLogin'); */
 
 // link afbeeldingen opslag ÉÉNMALIG BIJ ELKE LIVESERVER UPLOAD
 Route::get('console/storagelink', function () {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CompanyCredentials;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
@@ -60,10 +61,18 @@ class CompanyController extends Controller
             'image' => $image,
         ]);
 
+        $mailInfo = [
+            'userEmail' => $request->email,
+            'password' => $tempPassword,
+            'url' => Route('login')
+        ];
+
+        Mail::to($request->email)->send(new CompanyCredentials($mailInfo));
+
         //Mail::to($request->email)->send();
 
 
-        return redirect()->back()->with('success', ['user created'/* ,'email with login details has been sent to '.$request->email */]);
+        return redirect()->back()->with('success', ['user created','Email with login details has been sent to '.$request->email]);
 
     }
 
