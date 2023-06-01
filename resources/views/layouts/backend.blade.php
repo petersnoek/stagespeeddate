@@ -212,6 +212,10 @@
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Update Company</span>
               </a>
+              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/vacancy/create">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Create Vacancy</span>
+              </a>
               @endif
             </li>
             <li class="nav-main-item">
