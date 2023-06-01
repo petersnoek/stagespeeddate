@@ -35,7 +35,7 @@ class ProfileController extends Controller
                 'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
                 'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
                 'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
-                'CV' => ['mimes:pdf'],
+                'CV' => ['mimes:pdf,doc,docx'],
             ]); 
         }
         else{
