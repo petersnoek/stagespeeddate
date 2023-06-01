@@ -20,7 +20,7 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index()
     {
         return view('/profiles/profile');
     }
@@ -161,17 +161,17 @@ class ProfileController extends Controller
         return redirect('/profiles/profile')->with('success', 'Password is ge-update');
     }
 
-    public function updateCredentialForm(Request $request)
+    public function updateCredentialForm()
     {
         return view('/profiles/updateCredentials');
     }
 
-    public function updatePasswordForm(Request $request)
+    public function updatePasswordForm()
     {
         return view('/profiles/updatePassword');
     }
 
-    public function downloadCv(Request $request)
+    public function downloadCv()
     {
         $student = Student::where('user_id', Auth::user()->id)->first();
 
