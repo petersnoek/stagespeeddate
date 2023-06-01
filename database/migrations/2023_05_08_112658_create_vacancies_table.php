@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id');
             $table->string('name');
-            $table->tinyText('bio');
-            $table->text('description');
-            $table->boolean('available');
+            $table->tinyText('bio')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('available')->nullable();
             $table->timestamps();
         });
     }

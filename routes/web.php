@@ -61,6 +61,8 @@ Route::middleware('verified')->group(function () {//if user verified their email
     Route::middleware('company')->group(function () {
         Route::get('/company/update', [CompanyController::class, 'update'])->name('Company.update');
         Route::post('/company/save', [CompanyController::class, 'saveChanges'])->name('Company.save');
+        Route::get('/vacancy/create', [VacancyController::class, 'create'])->name('Vacancy.create');
+        Route::post('/vacancy/store', [VacancyController::class, 'store'])->name('Vacancy.store');
     });
     Route::get('/students', [StudentController::class, 'index'])
         ->middleware('teacher');
