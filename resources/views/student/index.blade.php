@@ -74,8 +74,8 @@
           <tbody>
             @foreach($students as $student)
               <tr>
-                <td class="fw-semibold d-flex justify-content-center">
-                  <img class="rounded-circle" style="width: 50px; height: 50px" src="{{$student->profilePicture}}" alt="">
+                <td style="padding: 3px;" class="fw-semibold d-flex justify-content-center">
+                  <img class="" style="width: 60px; height: 60px" src="{{$student->profilePicture}}" alt="">
                 </td>
                 <td class="fw-semibold">
                   <a href="javascript:void(0)">{{$student->first_name}}</a>
