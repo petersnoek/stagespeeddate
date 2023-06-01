@@ -63,6 +63,7 @@
         <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
           <thead>
             <tr>
+              <th>Image</th>
               <th>First Name</th>
               <th>Last Name</th>
               <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
@@ -73,6 +74,9 @@
           <tbody>
             @foreach($students as $student)
               <tr>
+                <td class="fw-semibold d-flex justify-content-center">
+                  <img class="rounded-circle" style="width: 50px; height: 50px" src="{{$student->profilePicture}}" alt="">
+                </td>
                 <td class="fw-semibold">
                   <a href="javascript:void(0)">{{$student->first_name}}</a>
                 </td>
