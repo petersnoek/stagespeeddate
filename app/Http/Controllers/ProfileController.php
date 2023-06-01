@@ -35,7 +35,7 @@ class ProfileController extends Controller
                 'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
                 'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
                 'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
-                'CV' => ['mimes:pdf,doc,docx'],
+                'CV' => ['mimes:pdf,doc,docx,zip'],
             ]); 
         }
         else{
@@ -169,6 +169,16 @@ class ProfileController extends Controller
     public function updatePasswordForm(Request $request)
     {
         return view('/profiles/updatePassword');
+    }
+
+    public function downloadCv(Request $request)
+    {
+        $student = Student::where('user_id', Auth::user()->id)->first();
+
+        $cv = public_path($student->CV);
+        
+        // atm it downloads your own cv, and removes the hash used when storing when giving the name that is going to show up on the users pc.
+        return response()->download($cv, substr($cv, 34));
     }
 
 }

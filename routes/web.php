@@ -53,6 +53,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::get('/updatePasswordForm', [ProfileController::class, 'updatePasswordForm'])->name('profile.updatePasswordForm');
         Route::post('/updatePassword', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
         Route::post('/updateProfile', [ProfileController::class, 'validateRequest'])->name('profile.updateStudent');
+        Route::get('/downloadCV', [ProfileController::class, 'downloadCv'])->name('profile.downloadCv');
     });
     
      Route::get('/companies', [CompanyController::class, 'index'])

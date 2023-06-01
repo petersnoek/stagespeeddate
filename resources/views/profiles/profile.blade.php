@@ -86,7 +86,12 @@
                     @if( Auth::user()->role == 'student' )
                     <div class="mb-4">
                         <label for="">CV: </label>
-                        <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </p>
+                        @if($cv == 'there is nothing here')
+                          <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </p>
+                        @endif
+                        @if($cv != 'there is nothing here')
+                          <a type="text" class="form-control form-control-lg form-control-alt py-3" href="{{ route('profile.downloadCv') }}"> {{ $cv }} </a>
+                        @endif
                     </div>
                     @endif
                 </div>
