@@ -11,8 +11,7 @@
                 $bullet = 'x';
             }
         ?>
-
-
+    
     <div class="alert alert-{{$style}}">
         <button class="alert-{{$style}}" style="float:right; border:none; box-shadow:none; height:24px;" onclick="this.parentElement.remove();"><i class="fa fa-x fa-sm"></i></button>
         @if (is_array($data))
@@ -20,7 +19,7 @@
                     @foreach ($data as $msg)
                     <li>
                         <i class="fa fa-{{$bullet}}"></i>
-                        {{ $msg }}
+                        {{ $msg[0] }}
                     </li>
                     @endforeach
                 </ul>

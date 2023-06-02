@@ -61,13 +61,15 @@ $role = Auth::user()->role;
         <div class="block-content block-content-full">
             <div>
                 @include('layouts.partials.messages')
-                <form method="POST" action="{{route('profile.update')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                @if(Auth::user()->role = 'student')
+                <form method="POST" action="{{route('profile.updateStudent')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                @endif
                     @csrf
                     
                     <div class="col-sm-8 col-xl-6">
                         <div class="mb-4">
                             <label for="">First Name: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("first_name",$errors)) {{'is-invalid'}} @endif" name="first_name" placeholder="{{Auth::user()->first_name}} name*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("first_name",$errors)) {{'is-invalid'}} @endif" name="first_name" placeholder="{{Auth::user()->first_name}}*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
                         
                             @if (count($errors) > 0 && array_key_exists("first_name",$errors))
                                 @foreach($errors['first_name'] as $error)
@@ -80,7 +82,7 @@ $role = Auth::user()->role;
 
                         <div class="mb-4">
                             <label for="">Last Name: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("last_name",$errors)) {{'is-invalid'}} @endif" name="last_name" placeholder="{{Auth::user()->last_name}} name*"  value="@if(old()){{old('last_name')}}@else{{ Auth::user()->last_name }}@endif" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("last_name",$errors)) {{'is-invalid'}} @endif" name="last_name" placeholder="{{Auth::user()->last_name}}*"  value="@if(old()){{old('last_name')}}@else{{ Auth::user()->last_name }}@endif" required>
                         
                             @if (count($errors) > 0 && array_key_exists("last_name",$errors))
                                 @foreach($errors['last_name'] as $error)
@@ -105,10 +107,12 @@ $role = Auth::user()->role;
                         </div>
                         @if( $role == 'student' )
                             <div class="mb-4">
-                            <label >CV: (must be a pdf)</label>
-                                <div class="form-control form-control-alt rounded-0 rounded-top py-3 ">
-                                    <input id="cvInput" type="file" name="CV" accept="application/pdf">
-                                </div>
+                            <label >CV:</label>
+                                <div>
+                                    <label for="cvInput" style="float:left;" class="btn btn-lg btn-alt-primary text-muted py-3">Choose File</label>
+                                    <label id="cvLabel" style="max-width:70%; margin-left: 10px;" class="text-truncate py-3">@if(Auth::user()->sub_user->CV != ''){{explode(',', explode('/', Auth::user()->sub_user->CV)[1])[1]}} @else No file chosen @endif</label>
+                                    <input id="cvInput" class="invisible" type="file" name="CV" onchange="cvLabel.innerHTML=this.files[0]['name']" accept="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                </div>                                                                                                 
                             @if (count($errors) > 0 && array_key_exists("CV",$errors))
                                 @foreach($errors['CV'] as $error)
                                     <div class="invalid-feedback">
