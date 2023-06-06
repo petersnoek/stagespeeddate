@@ -18,14 +18,15 @@
 
   <!-- Modules -->
   @yield('css')
-  <!--use in both backend and simple layout-->
-  <!--//instead of vite-->
   {{-- @vite(['resources/sass/main.scss', 'resources/js/oneui/app.js']) --}}
-  <!--//use (the hash string is gonna be different with each build so that's a bit annoying)-->
-  <!--//just load the main-xxxxx.css and both app-xxxxx.js in the public/build/assets folder-->
-  <link rel="stylesheet" href="{{ asset('build/assets/main-0fad32d9.css') }}">
-  <script type="module" src="{{ asset('build/assets/app-ca7bfba6.js') }}"></script>
-  <script type="module" src="{{ asset('build/assets/app-e08ee194.js') }}"></script>
+    {{-- instead of vite use vvv (the hash string is gonna be different with each dev so that's a bit annoying) --}}
+    {{-- just load the main-xxxxx.css and both app-xxxxx.js that are in the public/build/assets folder --}}
+    <link rel="stylesheet" href="{{ asset('build/assets/main-0fad32d9.css') }}">
+    <script type="module" src="{{ asset('build/assets/app-e08ee194.js') }}"></script>
+    <script type="module" src="{{ asset('build/assets/app-ca7bfba6.js') }}"></script>
+
+  <!-- Alternatively, you can also include a specific color theme after the main stylesheet to alter the default color theme of the template -->
+  {{-- @vite(['resources/sass/main.scss', 'resources/sass/oneui/themes/amethyst.scss', 'resources/js/oneui/app.js']) --}}
   @yield('js')
 </head>
 
@@ -107,13 +108,13 @@
           @else
             <div class="dropdown d-inline-block ms-2">
               <button type="button" class="btn btn-sm btn-alt-secondary d-flex align-items-center" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img class="rounded-circle" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="Header Avatar" style="width: 21px;">
+                <img class="rounded-circle" src="{{ asset(Auth::user()->profilePicture) }}" alt="Header Avatar" style="width: 21px; height: 21px;">
                 <span class="d-none d-sm-inline-block ms-2">{{ Auth::user()->first_name }}</span>
                 <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block ms-1 mt-1"></i>
               </button>
               <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown">
                 <div class="p-3 text-center bg-body-light border-bottom rounded-top">
-                  <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
+                  <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset(Auth::user()->profilePicture) }}" alt="">
                   <p class="mt-2 mb-0 fw-medium">{{ Auth::user()->first_name }}</p>
                   <p class="mb-0 text-muted fs-sm fw-medium">{{ Auth::user()->email }}</p>
                 </div>

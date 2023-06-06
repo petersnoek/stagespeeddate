@@ -6,6 +6,7 @@ export default defineConfig({
     plugins: [
         laravel({
             input: [
+                'resources/sass/app.scss',
                 'resources/sass/main.scss',
                 'resources/sass/oneui/themes/amethyst.scss',
                 'resources/sass/oneui/themes/city.scss',

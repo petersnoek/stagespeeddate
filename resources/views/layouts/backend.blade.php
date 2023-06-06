@@ -18,14 +18,15 @@
 
   <!-- Modules -->
   @yield('css')
-  <!--use in both backend and simple layout-->
-  <!--//instead of vite-->
   {{-- @vite(['resources/sass/main.scss', 'resources/js/oneui/app.js']) --}}
-  <!--//use (the hash string is gonna be different with each build so that's a bit annoying)-->
-  <!--//just load the main-xxxxx.css and both app-xxxxx.js in the public/build/assets folder-->
-  <link rel="stylesheet" href="{{ asset('build/assets/main-0fad32d9.css') }}">
-  <script type="module" src="{{ asset('build/assets/app-ca7bfba6.js') }}"></script>
-  <script type="module" src="{{ asset('build/assets/app-e08ee194.js') }}"></script>
+      {{-- instead of vite use vvv (the hash string is gonna be different with each dev so that's a bit annoying) --}}
+      {{-- just load the main-xxxxx.css and both app-xxxxx.js that are in the public/build/assets folder --}}
+      <link rel="stylesheet" href="{{ asset('build/assets/main-0fad32d9.css') }}">
+      <script type="module" src="{{ asset('build/assets/app-e08ee194.js') }}"></script>
+      <script type="module" src="{{ asset('build/assets/app-ca7bfba6.js') }}"></script>
+
+  <!-- Alternatively, you can also include a specific color theme after the main stylesheet to alter the default color theme of the template -->
+  {{-- @vite(['resources/sass/main.scss', 'resources/sass/oneui/themes/amethyst.scss', 'resources/js/oneui/app.js']) --}}
   @yield('js')
 </head>
 
