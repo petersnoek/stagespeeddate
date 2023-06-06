@@ -213,8 +213,14 @@
                 <span class="nav-main-link-name">Update Company</span>
               </a>
               @endif
-            </li>
-            <li class="nav-main-item">
+
+              @if((Auth::user()->role == 'admin'))
+              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/company/create">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Create Company Account</span>
+              </a>
+              @endif
+
               <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/vacatures">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Vacatures</span>

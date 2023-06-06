@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CompanyCredentials;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,11 @@ use Illuminate\Support\Facades\Validator;
 use App\Rules\NamePattern;
 use App\Rules\DescriptionPattern;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
+use Hashids\Hashids;
+
+use App\Models\User;
+
 
 
 class CompanyController extends Controller
@@ -20,6 +26,54 @@ class CompanyController extends Controller
         return view('company/index', [
             'companies' => $companies
         ]);
+    }
+
+    public function create() {
+        return view('company.create');
+    }
+
+    public function sendLogin(Request $request) {
+        $email = ['email' => $request->email];
+        $validator = Validator::make($email, [
+            'email' => ['required', 'email', Rule::unique('users')]
+        ]);
+        if($validator->fails()){
+            return redirect()->route('company.create')->withinput($request->all())->with('errors', $validator->errors()->getmessages());
+        }
+
+        
+        $hashids = new Hashids('', 8); // pad to length 8
+        $tempPassword = $hashids->encode(rand(1,10000)); 
+
+        $user = User::create([
+            'first_name' => 'Guest',
+            'last_name' => 'User',
+            'email' => $request->email,
+            'password' => Hash::make($tempPassword),
+            'role' => 'company',
+            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'email_verified_at' => now(),
+        ]);
+        $image = 'media/photos/photo' . random_int(1, 37) . '.jpg';
+        Company::create([
+            'user_id' => $user->id,
+            'name' => 'New Company',
+            'image' => $image,
+        ]);
+
+        $mailInfo = [
+            'userEmail' => $request->email,
+            'password' => $tempPassword,
+            'url' => Route('login')
+        ];
+
+        Mail::to($request->email)->send(new CompanyCredentials($mailInfo));
+
+        //Mail::to($request->email)->send();
+
+
+        return redirect()->back()->with('success', ['user created','Email with login details has been sent to '.$request->email]);
+
     }
 
 
