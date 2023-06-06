@@ -25,6 +25,11 @@ class ProfileController extends Controller
         return view('/profiles/profile');
     }
 
+    public function update()
+    {
+        return view('/profiles/updateCredentials');
+    }
+
     public function validateRequest(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();
@@ -140,6 +145,10 @@ class ProfileController extends Controller
         return redirect('profiles/profile')->with('success', 'Profiel is ge-update');
     }
 
+    public function updatePasswordForm()
+    {
+        return view('/profiles/updatePassword');
+    }
 
     public function updatePassword(Request $request)
     {
@@ -159,16 +168,6 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect('/profiles/profile')->with('success', 'Password is ge-update');
-    }
-
-    public function updateCredentialForm()
-    {
-        return view('/profiles/updateCredentials');
-    }
-
-    public function updatePasswordForm()
-    {
-        return view('/profiles/updatePassword');
     }
 
     public function downloadCv()

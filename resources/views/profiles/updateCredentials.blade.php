@@ -62,7 +62,7 @@ $role = Auth::user()->role;
             <div>
                 @include('layouts.partials.messages')
                 @if(Auth::user()->role = 'student')
-                <form method="POST" action="{{route('profile.updateStudent')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                <form method="POST" action="{{route('profile.update')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                 @endif
                     @csrf
                     
