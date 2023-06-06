@@ -60,6 +60,7 @@ class VacancyController extends Controller
             'name' => $request->name,
             'bio' => $request->bio,
             'description' => $request->description,
+            'available' => true
         ]);
 
         return redirect()->back()->with('success', 'Vacancy Aangemaakt.');

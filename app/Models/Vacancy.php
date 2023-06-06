@@ -20,7 +20,8 @@ class Vacancy extends Model
         'company_id',
         'name',
         'bio',
-        'description'
+        'description',
+        'available'
     ];
 
     public function company(){
