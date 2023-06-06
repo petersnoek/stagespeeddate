@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->tinyText('bio')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('available')->nullable();
+            $table->boolean('available');
             $table->timestamps();
         });
     }
