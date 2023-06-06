@@ -52,7 +52,7 @@ class ProfileController extends Controller
             ]); 
         }
         if($validate->fails()){
-            return redirect()->route('profile.updateCredentailsForm')->withinput($request->all())->with('error', $validate->errors()->getmessages());
+            return redirect()->route('profile.update')->withinput($request->all())->with('error', $validate->errors()->getmessages());
         }
         else{
             return $this->updateUser($request);

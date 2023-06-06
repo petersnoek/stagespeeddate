@@ -194,43 +194,44 @@
         <div class="content-side">
           <ul class="nav-main">
             <li class="nav-main-item">
-              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/">
+            
+              <a class="nav-main-link{{ request()->is('/') ? ' active' : '' }}" href="{{route('home')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Dashboard</span>
               </a>
 
               @if((Auth::user()->role == 'admin'))
-              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/companies">
+              <a class="nav-main-link{{ request()->is(substr(route('company.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Companies</span>
               </a>
               @endif
 
               @if(Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
-              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/students">
+              <a class="nav-main-link{{ request()->is(substr(route('students.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('students.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Students</span>
               </a>
               @endif
               @if(Auth::user()->role == 'company')
-              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/company/update">
+              <a class="nav-main-link{{ request()->is(substr(route('company.update'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.update')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Update Company</span>
               </a>
-              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/vacancy/create">
+              <a class="nav-main-link{{ request()->is(substr(route('vacancy.create'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('vacancy.create')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Create Vacancy</span>
               </a>
               @endif
 
               @if((Auth::user()->role == 'admin'))
-              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/company/create">
+              <a class="nav-main-link{{ request()->is(substr(route('company.create'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.create')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Create Company Account</span>
               </a>
               @endif
 
-              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/vacatures">
+              <a class="nav-main-link{{ request()->is(substr(route('vacancy.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('vacancy.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Vacatures</span>
               </a>

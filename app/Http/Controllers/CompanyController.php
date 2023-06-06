@@ -96,7 +96,7 @@ class CompanyController extends Controller
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){
-            return redirect()->route('Company.update')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect()->route('company.update')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
         if(isset($request->image)){
             $imageName = $request->image->hashName();

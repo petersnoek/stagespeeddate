@@ -39,22 +39,22 @@ Route::middleware('verified')->group(function () {//if user verified their email
     });
 
     Route::group(['prefix' => '/vacatures'], function(){
-        Route::get('', [VacancyController::class, 'index']);
+        Route::get('', [VacancyController::class, 'index'])->name('vacancy.index');
     });
 
     Route::group(['prefix' => '/companies'], function(){
         Route::middleware('admin')->group(function () {
-            Route::get('/', [CompanyController::class, 'index']);
+            Route::get('/', [CompanyController::class, 'index'])->name('company.index');
             Route::get('/create', [CompanyController::class, 'create'])->name('company.create');
             Route::post('/sendLogin', [CompanyController::class, 'sendLogin'])->name('company.sendLogin');
         });
         
         Route::middleware('company')->group(function () {/* idealy these would also pass a hashed id or even make it a group prefix*/
-            Route::get('/myCompany/update', [CompanyController::class, 'update'])->name('Company.update');
-            Route::post('/myCompany/save', [CompanyController::class, 'saveChanges'])->name('Company.save'); 
+            Route::get('/myCompany/update', [CompanyController::class, 'update'])->name('company.update');
+            Route::post('/myCompany/save', [CompanyController::class, 'saveChanges'])->name('company.save'); 
 
-            Route::get('/myCompany/vacancy/create', [VacancyController::class, 'create'])->name('Vacancy.create');
-            Route::post('/myCompany/vacancy/store', [VacancyController::class, 'store'])->name('Vacancy.store');
+            Route::get('/myCompany/vacancy/create', [VacancyController::class, 'create'])->name('vacancy.create');
+            Route::post('/myCompany/vacancy/store', [VacancyController::class, 'store'])->name('vacancy.store');
         });
         Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
 
@@ -71,7 +71,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::get('/downloadCV', [ProfileController::class, 'downloadCv'])->name('profile.downloadCv');
     });
     
-    Route::get('/students', [StudentController::class, 'index'])
+    Route::get('/students', [StudentController::class, 'index'])->name('students.index')
         ->middleware('teacher');
 });
 

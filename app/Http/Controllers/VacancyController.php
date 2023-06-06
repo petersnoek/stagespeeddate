@@ -52,7 +52,7 @@ class VacancyController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect()->route('Vacancy.create')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect()->route('vacancy.create')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         Vacancy::create([

@@ -48,7 +48,7 @@
             <div class="block-content block-content-full">
                 <div >
                     @include('layouts.partials.messages')
-                    <form method="POST" action="{{route('Vacancy.store')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('vacancy.store')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="col-sm-8 col-xl-6">

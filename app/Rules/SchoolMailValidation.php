@@ -18,7 +18,7 @@ class SchoolMailValidation implements ValidationRule
     {
         {
             if(!preg_match('/^[A-Za-z0-9._%+-]+@mydavinci\.nl$/', $value)){
-                $fail('email is invalid');
+                $fail('mail domain needs to be @mydavinci.nl');
             }
         }
     }
