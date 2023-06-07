@@ -51,7 +51,7 @@ class CompanyController extends Controller
             'email' => $request->email,
             'password' => Hash::make($tempPassword),
             'role' => 'company',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
             'email_verified_at' => now(),
         ]);
         $image = 'media/photos/photo' . random_int(1, 37) . '.jpg';

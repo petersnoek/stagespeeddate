@@ -76,7 +76,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => 'student',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
         ]);
         
         $s = Student::create([
