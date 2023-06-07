@@ -52,7 +52,7 @@ class ProfileController extends Controller
             ]); 
         }
         if($validate->fails()){
-            return redirect()->route('profile.update')->withinput($request->all())->with('error', $validate->errors()->getmessages());
+            return redirect()->route('profile.updateCredentialsForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
         else{
             return $this->updateUser($request);
@@ -114,7 +114,7 @@ class ProfileController extends Controller
             return $this->updateStudent($request);
         }
         else{
-            return redirect('profiles/profile')->with('success', 'Profiel is ge-update');
+            return redirect(route('profile'))->with('success', 'Profiel is ge-update');
         }
     }
 

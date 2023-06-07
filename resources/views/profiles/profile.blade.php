@@ -107,7 +107,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <form action="{{ route('profile.update') }}">
+                        <form action="{{ route('profile.updateCredentialsForm') }}">
                             <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-right: 2.5px">
                                 update credentials
                             </button>
