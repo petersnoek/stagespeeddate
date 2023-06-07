@@ -50,11 +50,13 @@ Route::middleware('verified')->group(function () {//if user verified their email
         });
         
         Route::middleware('company')->group(function () {/* idealy these would also pass a hashed id or even make it a group prefix*/
-            Route::get('/myCompany/update', [CompanyController::class, 'update'])->name('company.update');
-            Route::post('/myCompany/save', [CompanyController::class, 'saveChanges'])->name('company.save'); 
+            Route::group(['prefix' => '/myCompany'], function(){
+                Route::get('/update', [CompanyController::class, 'update'])->name('company.update');
+                Route::post('/save', [CompanyController::class, 'saveChanges'])->name('company.save'); 
 
-            Route::get('/myCompany/vacancy/create', [VacancyController::class, 'create'])->name('vacancy.create');
-            Route::post('/myCompany/vacancy/store', [VacancyController::class, 'store'])->name('vacancy.store');
+                Route::get('/vacancy/create', [VacancyController::class, 'create'])->name('vacancy.create');
+                Route::post('/vacancy/store', [VacancyController::class, 'store'])->name('vacancy.store');
+            });
         });
         Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
 
