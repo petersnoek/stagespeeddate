@@ -28,7 +28,7 @@ class VacancyController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect('/companies')->with('error', 'Bedrijf bestaat niet');;
+            return redirect(route('çompany.index'))->with('error', 'Bedrijf bestaat niet');;
         }
 
         $company_id = $company_id['company_id'];
@@ -53,17 +53,18 @@ class VacancyController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect()->route('vacancy.create')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('vacancy.create'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
+        $company_id = Company::where('user_id', Auth::user()->id)->first()->id;
         Vacancy::create([
-            'company_id' => Company::where('user_id', Auth::user()->id)->first()->id,
+            'company_id' => $company_id,
             'name' => $request->name,
             'bio' => $request->bio,
             'description' => $request->description,
             'available' => true
         ]);
 
-        return redirect()->back()->with('success', 'Vacancy Aangemaakt.');
+        return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacancy Aangemaakt.');
     }
 }

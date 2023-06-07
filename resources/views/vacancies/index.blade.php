@@ -38,6 +38,7 @@
 
   <!-- Page Content -->
   <div class="content">
+    @include('layouts.partials.messages')
     <div class="row items-push">
     @foreach($vacancies as $vacancy)
 

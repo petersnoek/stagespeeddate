@@ -54,7 +54,7 @@
                         <div class="col-sm-8 col-xl-6">
                             <div class="mb-4">
                                 <label for="">Name: </label>
-                                <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="Vacancy name*" required>
+                                <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="Vacancy name*" value="@if(old()){{old('name')}}@endif" required>
                             
                                 @if (count($errors) > 0 && array_key_exists("name",$errors))
                                     @foreach($errors['name'] as $error)
@@ -71,7 +71,7 @@
                                     <br>
                                     <small>Tell us about your vacancy in a short description.</small>
                                 </label>
-                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("bio",$errors)) {{'is-invalid'}} @endif" name="bio" placeholder="Bio"></textarea>
+                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("bio",$errors)) {{'is-invalid'}} @endif" name="bio" placeholder="Bio">@if(old()){{old('bio')}}@endif</textarea>
                                 @if (count($errors) > 0 && array_key_exists("bio",$errors))
                                     @foreach($errors['bio'] as $error)
                                         <div class="invalid-feedback">
@@ -87,7 +87,7 @@
                                     <br>
                                     <small style="">Here you write all the information and details of your vacancy.</small>
                                 </label>
-                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("description",$errors)) {{'is-invalid'}} @endif" name="description" placeholder="Description"></textarea>
+                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("description",$errors)) {{'is-invalid'}} @endif" name="description" placeholder="Description">@if(old()){{old('description')}}@endif</textarea>
                                 @if (count($errors) > 0 && array_key_exists("description",$errors))
                                     @foreach($errors['description'] as $error)
                                         <div class="invalid-feedback">

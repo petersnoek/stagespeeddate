@@ -52,7 +52,7 @@ class ProfileController extends Controller
             ]); 
         }
         if($validate->fails()){
-            return redirect()->route('profile.updateCredentialsForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('profile.updateCredentialsForm'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
         else{
             return $this->updateUser($request);
@@ -142,7 +142,7 @@ class ProfileController extends Controller
         
         $student->save();
 
-        return redirect('profiles/profile')->with('success', 'Profiel is ge-update');
+        return redirect(route('profile'))->with('success', 'Profiel is ge-update');
     }
 
     public function updatePasswordForm()
@@ -160,14 +160,14 @@ class ProfileController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect()->route('profile.updatePasswordForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('profile.updatePasswordForm'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         $user->password = Hash::make($request['password']);
 
         $user->save();
 
-        return redirect('/profiles/profile')->with('success', 'Password is ge-update');
+        return redirect(route('profile'))->with('success', 'Password is ge-update');
     }
 
     public function downloadCv()
