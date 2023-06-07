@@ -19,7 +19,7 @@
                     @foreach ($data as $msg)
                     <li>
                         <i class="fa fa-{{$bullet}}"></i>
-                        {{ $msg[0] }}
+                        {{ $msg }}
                     </li>
                     @endforeach
                 </ul>

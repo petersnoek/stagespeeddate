@@ -38,7 +38,7 @@ class CompanyController extends Controller
             'email' => ['required', 'email', Rule::unique('users')]
         ]);
         if($validator->fails()){
-            return redirect()->route('company.create')->withinput($request->all())->with('errors', $validator->errors()->getmessages());
+            return redirect(route('company.create'))->withinput($request->all())->with('errors', $validator->errors()->getmessages());
         }
 
         
@@ -51,7 +51,7 @@ class CompanyController extends Controller
             'email' => $request->email,
             'password' => Hash::make($tempPassword),
             'role' => 'company',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
             'email_verified_at' => now(),
         ]);
         $image = 'media/photos/photo' . random_int(1, 37) . '.jpg';
@@ -96,7 +96,7 @@ class CompanyController extends Controller
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){
-            return redirect()->route('Company.update')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('company.update'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
         if(isset($request->image)){
             $imageName = $request->image->hashName();

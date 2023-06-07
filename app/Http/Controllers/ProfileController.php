@@ -25,6 +25,11 @@ class ProfileController extends Controller
         return view('/profiles/profile');
     }
 
+    public function update()
+    {
+        return view('/profiles/updateCredentials');
+    }
+
     public function validateRequest(Request $request)
     {
         $user = User::where('id', Auth::user()->id)->first();
@@ -47,7 +52,7 @@ class ProfileController extends Controller
             ]); 
         }
         if($validate->fails()){
-            return redirect()->route('profile.updateCredentailsForm')->withinput($request->all())->with('error', $validate->errors()->getmessages());
+            return redirect(route('profile.updateCredentialsForm'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
         else{
             return $this->updateUser($request);
@@ -109,7 +114,7 @@ class ProfileController extends Controller
             return $this->updateStudent($request);
         }
         else{
-            return redirect('profiles/profile')->with('success', 'Profiel is ge-update');
+            return redirect(route('profile'))->with('success', 'Profiel is ge-update');
         }
     }
 
@@ -137,9 +142,13 @@ class ProfileController extends Controller
         
         $student->save();
 
-        return redirect('profiles/profile')->with('success', 'Profiel is ge-update');
+        return redirect(route('profile'))->with('success', 'Profiel is ge-update');
     }
 
+    public function updatePasswordForm()
+    {
+        return view('/profiles/updatePassword');
+    }
 
     public function updatePassword(Request $request)
     {
@@ -151,24 +160,14 @@ class ProfileController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect()->route('profile.updatePasswordForm')->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('profile.updatePasswordForm'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         $user->password = Hash::make($request['password']);
 
         $user->save();
 
-        return redirect('/profiles/profile')->with('success', 'Password is ge-update');
-    }
-
-    public function updateCredentialForm()
-    {
-        return view('/profiles/updateCredentials');
-    }
-
-    public function updatePasswordForm()
-    {
-        return view('/profiles/updatePassword');
+        return redirect(route('profile'))->with('success', 'Password is ge-update');
     }
 
     public function downloadCv()
