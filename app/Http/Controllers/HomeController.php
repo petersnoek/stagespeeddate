@@ -24,9 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
         return view('dashboard', [
-            'companies' => $companies
+            'companies' => Company::where('bio', '!=' ,null)->get()
         ]);
     }
 }

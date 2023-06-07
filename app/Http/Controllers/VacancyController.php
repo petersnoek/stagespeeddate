@@ -34,7 +34,8 @@ class VacancyController extends Controller
         $company_id = $company_id['company_id'];
 
         return view('vacancies.index',[
-            'vacancies' => Vacancy::where('company_id', $company_id)->where('available', '=', true)->get()
+            'vacancies' => Vacancy::where('company_id', $company_id)->where('available', '=', true)->get(),
+            'company' => Company::where('id', $company_id)->get()
         ]);
     }
 
