@@ -90,7 +90,7 @@ class CompanyController extends Controller
 
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
-            'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->sub_user->id),],
+            'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->company->id),],
             'bio' => ['nullable', 'max:255', new DescriptionPattern()],
             'description' => ['nullable', 'max:255', new DescriptionPattern()],
             'image' => ['image','mimes:jpeg,png,jpg'],

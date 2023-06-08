@@ -73,7 +73,14 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::get('/downloadCV', [ProfileController::class, 'downloadCv'])->name('profile.downloadCv');
     });
     
-    Route::get('/students', [StudentController::class, 'index'])->name('students.index')
-        ->middleware('teacher');
+    Route::middleware('teacher')->group(function(){
+        Route::group(['prefix'=> '/students'], function(){
+            Route::get('/', [StudentController::class, 'index'])->name('student.index');
+            Route::get('/assign', [StudentController::class, 'assignTeacher'])->name('student.assign');
+            Route::post('/assign/claim', [StudentController::class, 'claimByTeacher'])->name('student.claim');
+        });
+    });
+    
+    
 });
 

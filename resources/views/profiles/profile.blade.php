@@ -23,7 +23,7 @@
 @php
   if(Auth::user()->role == 'student')
   {
-    $value = Auth::user()->sub_user->CV;
+    $value = Auth::user()->student->CV;
     if($value != ""){
       $cv = explode('/', $value)[1] ?? null;
       $cv = explode(',', $cv)[1] ?? null;

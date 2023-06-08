@@ -18,12 +18,18 @@ class StudentSeeder extends Seeder
         $teacherIds = Teacher::pluck('id')->toArray();
         $userIds = User::where('role','student')->pluck('id')->toArray();
         
-        foreach(range(1,1) as $index){
+        //create student row for first student user and asign them to the first teacher
+        Student::factory()->create([
+            'user_id' => $userIds[0],
+            'teacher_id' => $teacherIds[0],
+        ]);
+
+        array_shift($userIds); //gets rid of the first userid in the array
+        //create student rows for all other student users but don't assign a teacher
+        foreach($userIds as $userId){
             Student::factory()->create([
-                'id' => $index,
-                'user_id' => $userIds[array_rand($userIds)],
-                'teacher_id' => $teacherIds[array_rand($teacherIds)],
-                'CV' => '',
+                'user_id' => $userId,
+                'teacher_id' => null,
             ]);
         }
     }
