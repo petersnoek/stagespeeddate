@@ -52,8 +52,8 @@
             <li class="breadcrumb-item">
               <a class="link-fx" href="/">Dashboard</a>
             </li>
-            <li class="breadcrumb-item">
-              <a class="link-fx" href="/profiles/profile">Profile</a>
+            <li class="breadcrumb-item">  
+              <a class="link-fx" href="/profile">Profile</a>
             </li>
           </ol>
         </nav>
