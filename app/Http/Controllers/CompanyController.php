@@ -51,9 +51,12 @@ class CompanyController extends Controller
             'email' => $request->email,
             'password' => Hash::make($tempPassword),
             'role' => 'company',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
-            'email_verified_at' => now(),
+            'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
         ]);
+        $newUser = User::where('id', $user->id)->first();
+        $newUser->email_verified_at = now();
+        $newUser->save();
+        
         $image = 'media/photos/photo' . random_int(1, 37) . '.jpg';
         Company::create([
             'user_id' => $user->id,
