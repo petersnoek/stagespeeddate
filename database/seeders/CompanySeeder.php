@@ -31,7 +31,7 @@ class CompanySeeder extends Seeder
             'name' => 'Xlab Cloud Services B.V.',
             'bio' => 'Ontwikkelen, produceren en uitgeven van software.',
             'description' => str::random(250),
-            'user_id' => '11',
+            'user_id' => '110',
             'image' => 'media/photos/xlab.jpg',
         ]);
 
@@ -39,7 +39,7 @@ class CompanySeeder extends Seeder
             'name' => 'Koen Pack B.V.',
             'bio' => 'Groothandel in emballage.',
             'description' => str::random(250),
-            'user_id' => '12',
+            'user_id' => '120',
             'image' => 'media/photos/koen.jpg',
         ]);
 
@@ -47,7 +47,7 @@ class CompanySeeder extends Seeder
             'name' => 'MKB Voice',
             'bio' => 'Reclamebureaus',
             'description' => str::random(250),
-            'user_id' => '13',
+            'user_id' => '130',
             'image' => 'media/photos/mkb.jpg',
         ]);
 
@@ -55,7 +55,7 @@ class CompanySeeder extends Seeder
             'name' => 'COERS Online branding',
             'bio' => 'Ontwikkelen, produceren en uitgeven van software.',
             'description' => str::random(250),
-            'user_id' => '14',
+            'user_id' => '140',
             'image' => 'media/photos/coers.jpg',
         ]);
 
@@ -63,7 +63,7 @@ class CompanySeeder extends Seeder
             'name' => 'Movella',
             'bio' => 'Groothandel in elektronische en telecommunicatieapparatuur en bijbehorende onderdelen.',
             'description' => str::random(250),
-            'user_id' => '15',
+            'user_id' => '150',
             'image' => 'media/photos/movella.jpg',
         ]);
     }

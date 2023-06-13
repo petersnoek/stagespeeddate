@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('Admin123'),
             'role' => 'admin',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'profilePicture' => 'media/usericons/Icon4.png',
         ]);
 
         User::factory()->create([
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             'email' => 'teacher@gmail.com',
             'password' => Hash::make('Teacher123'),
             'role' => 'teacher',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'profilePicture' => 'media/usericons/Icon10.png',
         ]);
 
         User::factory()->create([
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             'email' => 'company@gmail.com',
             'password' => Hash::make('Company123'),
             'role' => 'company',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'profilePicture' => 'media/usericons/Icon7.png',
         ]);
         User::factory()->create([
             'first_name' => 'Company2',
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             'email' => 'company2@gmail.com',
             'password' => Hash::make('Company123'),
             'role' => 'company',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'profilePicture' => 'media/usericons/Icon8.png',
         ]);
 
         User::factory()->create([
@@ -55,7 +55,7 @@ class UserSeeder extends Seeder
             'email' => 'student@mydavinci.nl',
             'password' => Hash::make('Student123'),
             'role' => 'student',
-            'profilePicture' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
+            'profilePicture' => 'media/usericons/Icon9.png',
         ]);
     }
 }

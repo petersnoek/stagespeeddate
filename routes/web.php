@@ -30,6 +30,8 @@ Route::view('/landing', 'landing'); //one ui landing page (pretty empty page I d
 
 Route::middleware('verified')->group(function () {//if user verified their email
 
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::group(['prefix'=> '/pages'], function(){ //one ui backend layout page previews
         Route::view('/slick', 'pages.slick');
         Route::view('/datatables', 'pages.datatables');
@@ -37,43 +39,41 @@ Route::middleware('verified')->group(function () {//if user verified their email
     });
 
     Route::group(['prefix' => '/vacatures'], function(){
-        Route::get('', [VacancyController::class, 'index']);
+        Route::get('', [VacancyController::class, 'index'])->name('vacancy.index');
     });
 
     Route::group(['prefix' => '/companies'], function(){
-        Route::get('/', [CompanyController::class, 'index']);
+        Route::middleware('admin')->group(function () {
+            Route::get('/', [CompanyController::class, 'index'])->name('company.index');
+            Route::get('/create', [CompanyController::class, 'create'])->name('company.create');
+            Route::post('/sendLogin', [CompanyController::class, 'sendLogin'])->name('company.sendLogin');
+        });
+        
+        Route::middleware('company')->group(function () {/* idealy these would also pass a hashed id or even make it a group prefix*/
+            Route::group(['prefix' => '/myCompany'], function(){
+                Route::get('/update', [CompanyController::class, 'update'])->name('company.update');
+                Route::post('/save', [CompanyController::class, 'saveChanges'])->name('company.save'); 
+
+                Route::get('/vacancy/create', [VacancyController::class, 'create'])->name('vacancy.create');
+                Route::post('/vacancy/store', [VacancyController::class, 'store'])->name('vacancy.store');
+            });
+        });
         Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
+
     });
 
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); //directed to after login (laravel layout with pretty empty page)
+    Route::group(['prefix'=> '/profile'], function(){
+        Route::get('/', [ProfileController::class, 'index'])->name('profile');
 
-    Route::group(['prefix'=> '/profiles'], function(){
-        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-        Route::get('/updateCredentialsForm', [ProfileController::class, 'updateCredentialForm'])->name('profile.updateCredentailsForm');
-        Route::get('/updatePasswordForm', [ProfileController::class, 'updatePasswordForm'])->name('profile.updatePasswordForm');
-        Route::post('/updatePassword', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
-        Route::post('/updateProfile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/update', [ProfileController::class, 'update'])->name('profile.updateCredentialsForm');
+        Route::post('/updateStore', [ProfileController::class, 'validateRequest'])->name('profile.update');
+        Route::get('/updatePassword', [ProfileController::class, 'updatePasswordForm'])->name('profile.updatePasswordForm');
+        Route::post('/updatePasswordStore', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+
+        Route::get('/downloadCV', [ProfileController::class, 'downloadCv'])->name('profile.downloadCv');
     });
     
-    Route::get('/companies', [CompanyController::class, 'index'])
-        ->middleware('admin');
-
-    Route::middleware('company')->group(function () {
-        Route::get('/company/update', [CompanyController::class, 'update'])->name('Company.update');
-        Route::post('/company/save', [CompanyController::class, 'saveChanges'])->name('Company.save');
-    });
-    Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create')
-        ->middleware('admin');
-    Route::post('/company/sendLogin', [CompanyController::class, 'sendLogin'])->name('company.sendLogin')
-        ->middleware('admin');
-
-    Route::get('/students', [StudentController::class, 'index'])
+    Route::get('/students', [StudentController::class, 'index'])->name('students.index')
         ->middleware('teacher');
-});
-
-// link afbeeldingen opslag ÉÉNMALIG BIJ ELKE LIVESERVER UPLOAD
-Route::get('console/storagelink', function () {
-    Artisan::call('storage:link');
-    return redirect()->route('home')->with('success','storage has been linked');
 });
 

@@ -22,7 +22,8 @@
   <script src="{{ asset('js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
 
   <!-- Page JS Code -->
-  @vite(['resources/js/pages/datatables.js'])
+  {{-- @vite(['resources/js/pages/datatables.js']) --}}
+  <script type="module" src="{{ asset('build/assets/datatables-ad71b457.js') }}"></script>
 @endsection
 
 @section('content')
@@ -63,6 +64,7 @@
         <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
           <thead>
             <tr>
+              <th>Image</th>
               <th>First Name</th>
               <th>Last Name</th>
               <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
@@ -73,6 +75,9 @@
           <tbody>
             @foreach($students as $student)
               <tr>
+                <td style="padding: 3px;" class="fw-semibold d-flex justify-content-center">
+                  <img class="" style="width: 60px; height: 60px" src="{{$student->profilePicture}}" alt="">
+                </td>
                 <td class="fw-semibold">
                   <a href="javascript:void(0)">{{$student->first_name}}</a>
                 </td>
