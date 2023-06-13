@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Artisan;
 
@@ -75,5 +76,8 @@ Route::middleware('verified')->group(function () {//if user verified their email
     
     Route::get('/students', [StudentController::class, 'index'])->name('students.index')
         ->middleware('teacher');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index')
+        ->middleware('admin');
 });
 
