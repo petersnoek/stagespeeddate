@@ -37,10 +37,13 @@
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-alt">
             <li class="breadcrumb-item">
-              <a class="link-fx" href="/">Dashboard</a>
+              <a class="link-fx" href="{{route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-              <a class="link-fx" href="/profiles/profile">Profile</a>
+              <a class="link-fx" href="{{route('profile')}}">Profile</a>
+            </li>
+            <li class="breadcrumb-item">
+              Update Password
             </li>
           </ol>
         </nav>

@@ -55,6 +55,9 @@
           <div class="block-content px-2 py-2 fs-sm text-muted">
             <p style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;" class="px-2 m-0 w-5 text-truncate text-wrap">{{$vacancy->bio}}</p>
           </div>
+          @if(Auth::user()->role == "student")
+          <button class="btn btn-sm m-3 btn-alt-secondary d-flex align-items-center"><a style="color:black" href="{{route('application.index', ['vacancy_id' => Hashids::encode($vacancy->id)])}}">Aanmelden</a></button>
+          @endif
         </div>
       </div>
     

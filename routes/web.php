@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\ApplicationController;
 
 use Illuminate\Support\Facades\Artisan;
 
@@ -73,6 +74,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::get('/downloadCV', [ProfileController::class, 'downloadCv'])->name('profile.downloadCv');
     });
     
+
     Route::middleware('teacher')->group(function(){
         Route::group(['prefix'=> '/students'], function(){
             Route::get('/', [StudentController::class, 'index'])->name('student.index');
@@ -82,5 +84,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
     });
     
     
+    Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'index'])->name('application.index');
+    Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
 });
 
