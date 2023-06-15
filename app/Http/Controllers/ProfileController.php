@@ -127,7 +127,7 @@ class ProfileController extends Controller
             
             $oldCV = $student->CV;
             if($oldCV != null){
-                $check = explode('/', $oldCV)[1] ?? null;
+                explode('/', $oldCV)[1] ?? null;
                 unlink($oldCV);
             }
 
