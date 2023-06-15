@@ -57,5 +57,16 @@ class UserSeeder extends Seeder
             'role' => 'student',
             'profilePicture' => 'media/usericons/Icon9.png',
         ]);
+        
+        for($x=2; $x < 6; $x++){
+            User::factory()->create([
+                'first_name' => 'Student'.$x,
+                'last_name' => 'de Student',
+                'email' => 'student'.$x.'@mydavinci.nl',
+                'password' => Hash::make('Student123'),
+                'role' => 'student',
+                'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
+            ]);
+        }
     }
 }

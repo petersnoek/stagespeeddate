@@ -208,7 +208,7 @@
               @endif
 
               @if(Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
-              <a class="nav-main-link{{ request()->is(substr(route('students.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('students.index')}}">
+              <a class="nav-main-link{{ request()->is(substr(route('student.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('student.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Students</span>
               </a>
@@ -276,7 +276,7 @@
     <!-- END Sidebar -->
 
     <!-- Header -->
-    <header id="page-header">
+    <header id="page-header" style="position: absolute">
       <!-- Header Content -->
       <div class="content-header">
         <!-- Left Section -->
@@ -291,7 +291,7 @@
           <!-- Toggle Mini Sidebar -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
           <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
-            <i class="fa fa-fw fa-ellipsis-v"></i>
+            <i class="fa fa-fw fa-bars"></i>
           </button>
           <!-- END Toggle Mini Sidebar -->
 

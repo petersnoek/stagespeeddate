@@ -76,14 +76,19 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::get('/downloadCV', [ProfileController::class, 'downloadCv'])->name('profile.downloadCv');
     });
     
-    Route::get('/students', [StudentController::class, 'index'])->name('students.index')
-        ->middleware('teacher');
-
-    Route::get('/users', [UserController::class, 'index'])->name('users.index')
+    Route::middleware('teacher')->group(function(){
+        Route::group(['prefix'=> '/students'], function(){
+            Route::get('/', [StudentController::class, 'index'])->name('student.index');
+            Route::get('/assign', [StudentController::class, 'assignTeacher'])->name('student.assign');
+            Route::post('/assign/claim', [StudentController::class, 'claimByTeacher'])->name('student.claim');
+        });
+    });
+    
+  Route::get('/users', [UserController::class, 'index'])->name('users.index')
         ->middleware('admin');
-
-    Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'index'])->name('application.index');
-    Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
+  
+  Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'index'])->name('application.index');
+  Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
 
 });
 

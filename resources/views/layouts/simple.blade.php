@@ -79,7 +79,7 @@
   -->
   <div id="page-container" class="page-header-fixed">
 
-    <header id="page-header" class="shadow-sm">
+    <header id="page-header" class="shadow-sm; position:absolute;">
       <!-- Header Content -->
       <div class="content-header">
         <!-- Left Section -->
