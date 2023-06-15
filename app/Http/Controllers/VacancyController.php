@@ -28,7 +28,7 @@ class VacancyController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect(route('çompany.index'))->with('error', 'Bedrijf bestaat niet');;
+            return redirect(route('company.index'))->with('error', 'Bedrijf bestaat niet');;
         }
 
         $company_id = $company_id['company_id'];
@@ -67,4 +67,6 @@ class VacancyController extends Controller
 
         return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacancy Aangemaakt.');
     }
+
+
 }
