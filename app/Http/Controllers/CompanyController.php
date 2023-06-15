@@ -75,7 +75,7 @@ class CompanyController extends Controller
         //Mail::to($request->email)->send();
 
 
-        return redirect()->back()->with('success', ['user created','Email with login details has been sent to '.$request->email]);
+        return redirect(route('users.index'))->with('success', ['user created','Email with login details has been sent to '.$request->email]);
 
     }
 
