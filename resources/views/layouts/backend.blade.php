@@ -225,9 +225,9 @@
               @endif
 
               @if((Auth::user()->role == 'admin'))
-              <a class="nav-main-link{{ request()->is(substr(route('company.create'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.create')}}">
+              <a class="nav-main-link{{ request()->is(substr(route('users.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('users.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Create Company Account</span>
+                <span class="nav-main-link-name">Users</span>
               </a>
               @endif
 
