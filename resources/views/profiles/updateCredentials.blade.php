@@ -111,15 +111,14 @@ $role = Auth::user()->role;
                                 <div class="position-absolute">
                                     <label for="cvInput" style="float:left;" class="btn btn-lg btn-alt-primary text-muted py-3">Choose File</label>
                                     <label id="cvLabel" style="max-width:70%; margin-left: 10px;" class="text-truncate py-3">@if(Auth::user()->sub_user->CV != ''){{explode(',', explode('/', Auth::user()->sub_user->CV)[1])[1]}} @else No file chosen @endif</label>
-                                    <input id="cvInput" class="invisible position-absolute" type="file" name="CV" onchange="cvLabel.innerHTML=this.files[0]['name']" accept="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
-                                        @if (count($errors) > 0 && array_key_exists("CV",$errors))
-                                            @foreach($errors['CV'] as $error)
-                                                <div class="invalid-feedback">
-                                                    {{$error}}
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                    </input>
+                                    <input id="cvInput" class="invisible position-absolute @if (count($errors) > 0 && array_key_exists("CV",$errors)) {{'is-invalid'}} @endif" type="file" name="CV" onchange="cvLabel.innerHTML=this.files[0]['name']" accept="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                                    @if (count($errors) > 0 && array_key_exists("CV",$errors))
+                                        @foreach($errors['CV'] as $error)
+                                            <div class="invalid-feedback">
+                                                {{$error}}
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>                                                                                                 
                             </div>
                         @endif
@@ -134,15 +133,14 @@ $role = Auth::user()->role;
                                         </div>                                
                                 </div>
                                 <label for="profilePictureInput" style=" width:18rem;" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif">upload a profile picture</label>
-                                <input id="profilePictureInput" class="visually-hidden" type="file" name="profilePicture" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="image/png, image/jpg, image/jpeg">
-                                    @if (count($errors) > 0 && array_key_exists("profilePicture",$errors))
-                                        @foreach($errors['profilePicture'] as $error)
-                                            <div class="invalid-feedback">
-                                                {{$error}}
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                </input>
+                                <input id="profilePictureInput" class="visually-hidden @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif" type="file" name="profilePicture" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="image/png, image/jpg, image/jpeg">
+                                @if (count($errors) > 0 && array_key_exists("profilePicture",$errors))
+                                    @foreach($errors['profilePicture'] as $error)
+                                        <div class="invalid-feedback">
+                                            {{$error}}
+                                        </div>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                         <div class="d-flex justify-content-center">
