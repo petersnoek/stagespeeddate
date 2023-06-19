@@ -16,12 +16,12 @@ class ApplicationSeeder extends Seeder
      */
     public function run(): void
     {
-        $vacancyIds = Vacancy::pluck('id')->toArray();
-        $studentIds = Student::pluck('id')->toArray();
+        $vacancyIds = Vacancy::pluck('id')->first();
+        $studentIds = Student::pluck('id')->first();
     
         Application::factory()->create([
-            'vacancy_id' => $vacancyIds[array_rand($vacancyIds)],
-            'student_id' => $studentIds[array_rand($studentIds)],
+            'vacancy_id' => $vacancyIds,
+            'student_id' => $studentIds,
             'comment' => str::random(30),
         ]);
     }
