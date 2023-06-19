@@ -22,6 +22,31 @@ class StudentController extends Controller
         ]);
     }
 
+    public function downloadCv($student_id)
+    {
+        $student_id = ['student_id' => Hashids::decode($student_id)];
+        $validator = Validator::make($student_id, [
+            'student_id' => ['required', Rule::exists(Student::class, 'id')]
+        ]);
+        
+        if($validator->fails()){
+            return redirect()->back()->with('error', 'Student bestaat niet');;
+        }
+        
+        $student_id = $student_id['student_id'][0];
+        
+        $student = Student::where('id', $student_id)->first();
+    
+        $value = public_path($student->CV);
+
+        $cv = explode('/', $value)[1] ?? null;
+        $cv = explode(',', $cv)[1] ?? null;
+        
+        
+        // atm it downloads your own cv, and removes the hash used when storing when giving the name that is going to show up on the users pc.
+        return response()->download($value, $cv);
+    }
+
     public function assignTeacher() {
         $users = User::where('role','student')->get();
         $students = Student::whereBelongsTo($users)->where('teacher_id', null)->get();
