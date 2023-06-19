@@ -33,7 +33,7 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Aanmeldingen bij {{$applications->first()->vacancy->name}}
+            Aanmeldingen bij {{$applications->first()->vacancy->company->name}}
           </h1>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -42,7 +42,7 @@
               <a class="link-fx" href="{{Route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              Vacatures
+              {{$applications->first()->vacancy->company->name}}
             </li>
             <li class="breadcrumb-item" aria-current="page">
               Aanmeldingen
@@ -59,43 +59,29 @@
 
     <!-- Dynamic Table Full -->
     <div class="block block-rounded">
-      <div class="block-header block-header-default">
-        <h3 class="block-title">
-          Dynamic Table <small>Full</small>
-        </h3>
-      </div>
       <div class="block-content block-content-full">
+      @include('layouts.partials.messages')
         <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
         <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
           <thead>
             <tr>
               <th class="text-center sorting_asc_disabled sorting_desc_disabled" style="width: 80px;"></th>
-              <th>Name</th>
-              <th>CV</th>
-              <th style="width: fit-content">Control</th>
+              <th>Naam</th>
+              <th>Vacature</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($applications as $application)
-              <tr>
-                <td class="fw-semibold d-flex justify-content-center">
-                  <img style="width: 60px; height: 60px" src="{{asset($application->student->user->profilePicture)}}" alt="profile picture">
-                </td>
-                <td class="fw-semibold">
-                  <div href="javascript:void(0)">{{$application->student->user->fullname()}}</div>
-                </td>
-                <td class="text-muted">
-                @if($application->student->CV != null)               
-                  <a type="text" style="width: 200px" class="form-control form-control-lg form-control-alt text-truncate" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode($application->student->id)]) }}"> {{  explode(',', explode('/', $application->student->CV)[1])[1] }} </a>
-                @else
-                  N/A
-                @endif
-                </td>
-                <td>
-                  <div style="width: fit-content; height: fit-content;" class="form-control form-control-lg form-control-alt">
-                    <i class="fa fa-reply"></i>
-                  </div>
-                </td>
+              <tr style="cursor: pointer;" onclick="window.location='{{route('application.show', ['company_id' => Hashids::encode(Auth::user()->company->id), 'application_id' => Hashids::encode($application->id)] )}}'">
+                  <td class="d-flex justify-content-center">
+                    <img style="width: 60px; height: 60px" src="{{asset($application->student->user->profilePicture)}}" alt="profile picture">
+                  </td>
+                  <td class="text-muted">
+                    <div>{{$application->student->user->fullname()}}</div>
+                  </td>
+                  <td class="text-muted">
+                    {{$application->vacancy->name}}
+                  </td>
               </tr>
             @endforeach
           </tbody>
