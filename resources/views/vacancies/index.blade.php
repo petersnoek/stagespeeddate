@@ -45,7 +45,8 @@
       <div class="col-md-6 col-xl-4">
         <div class="block block-rounded h-100 mb-0 ">
           <div class="bg-gray my-0 block block-rounded">
-            @if($vacancy->application_count() != 0)<a class="p-1" href="{{ route('vacancy.application.index', ['vacancy_id' => Hashids::encode($vacancy->id)]) }}">{{$vacancy->application_count()}} Aanmeldingen</a>@endif
+            {{-- vv per vacancy application index route draft --}}
+            {{-- @if($vacancy->application_count() != 0)<a class="p-1" href="{{ route('vacancy.application.index', ['vacancy_id' => Hashids::encode($vacancy->id)]) }}">{{$vacancy->application_count()}} Aanmeldingen</a>@endif --}}
             <div class="bg-gray block-header w-2 py-0 px-2">
               <div>{{$vacancy->company->name}}</div>
             </div>
