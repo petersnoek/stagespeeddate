@@ -214,9 +214,9 @@
               </a>
               @endif
               @if(Auth::user()->role == 'company')
-              <a class="nav-main-link{{ request()->is(substr(route('company.update'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.update')}}">
+              <a class="nav-main-link{{ request()->is(substr(route('company.show'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.show')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Update Company</span>
+                <span class="nav-main-link-name">Mijn Bedrijf</span>
               </a>
               <a class="nav-main-link{{ request()->is(substr(route('vacancy.create'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('vacancy.create')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
