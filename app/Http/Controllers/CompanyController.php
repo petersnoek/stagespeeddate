@@ -28,6 +28,13 @@ class CompanyController extends Controller
         ]);
     }
 
+    public function show() {
+        
+        return view('company.show', [
+            'company' => Company::where('user_id', Auth::user()->id)->first()
+        ]);
+    }
+
     public function create() {
         return view('company.create');
     }
@@ -94,8 +101,8 @@ class CompanyController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
             'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->company->id),],
-            'bio' => ['nullable', 'max:255', new DescriptionPattern()],
-            'description' => ['nullable', 'max:255', new DescriptionPattern()],
+            'bio' => ['nullable', new DescriptionPattern()],
+            'description' => ['nullable', new DescriptionPattern()],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){

@@ -17,11 +17,21 @@ class CompanySeeder extends Seeder
     {
         $userIds = User::where('role','company')->pluck('id')->toArray();
 
+        $bio = '';
+        $description = '';
         foreach($userIds as $userId){    
+            //create a short 'bio' with 40 to 60 random giberish 'words'
+            for ($x=0; $x < rand(40, 60); $x++) { 
+                $bio = $bio . ' ' . str::random(rand(1,7));
+            }
+            //create a 'description' with 100 to 300 random giberish 'words'
+            for ($x=0; $x < rand(100, 300); $x++) { 
+                $description = $description . ' ' . str::random(rand(1,7));
+            }
             Company::factory()->create([
                 'name' => 'Big Corp ' . str::random(2),
                 'bio' => 'This is an example of a company bio, this is test data don\'t think too much about it',
-                'description' => str::random(250),
+                'description' => /* str::random(250) */ $description,
                 'user_id' => $userId,
                 'image' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
             ]);

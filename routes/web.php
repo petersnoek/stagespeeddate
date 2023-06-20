@@ -54,6 +54,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
         
         Route::middleware('company')->group(function () {/* idealy these would also pass a hashed id or even make it a group prefix*/
             Route::group(['prefix' => '/myCompany'], function(){
+                Route::get('/', [CompanyController::class, 'show'])->name('company.show');
                 Route::get('/update', [CompanyController::class, 'update'])->name('company.update');
                 Route::post('/save', [CompanyController::class, 'saveChanges'])->name('company.save'); 
 
@@ -86,13 +87,13 @@ Route::middleware('verified')->group(function () {//if user verified their email
         });
     });
     
-  Route::get('/users', [UserController::class, 'index'])->name('users.index')
-        ->middleware('admin');
-  
-  Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
-  Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
+    Route::get('/users', [UserController::class, 'index'])->name('users.index')
+            ->middleware('admin');
+    
+    Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
+    Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
 
-  Route::get('{student_id}/downloadCV', [StudentController::class, 'downloadCv'])->name('student.downloadCv');
+    Route::get('{student_id}/downloadCV', [StudentController::class, 'downloadCv'])->name('student.downloadCv');
 
 });
 
