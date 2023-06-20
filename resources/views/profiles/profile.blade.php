@@ -90,7 +90,7 @@
                           <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </p>
                         @endif
                         @if($cv != 'there is nothing here')
-                          <a type="text" class="form-control form-control-lg form-control-alt py-3" href="{{ route('profile.downloadCv') }}"> {{ $cv }} </a>
+                          <a type="text" class="form-control form-control-lg form-control-alt py-3" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode(Auth::user()->student->id)]) }}"> {{ $cv }} </a>
                         @endif
                     </div>
                     @endif

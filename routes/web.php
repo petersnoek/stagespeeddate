@@ -59,8 +59,12 @@ Route::middleware('verified')->group(function () {//if user verified their email
 
                 Route::get('/vacancy/create', [VacancyController::class, 'create'])->name('vacancy.create');
                 Route::post('/vacancy/store', [VacancyController::class, 'store'])->name('vacancy.store');
+
+                /* Route::get('/vacature/{vacancy_id}/aanmeldingen', [ApplicationController::class, 'indexVacancy'])->name('vacancy.application.index'); */
             });
         });
+        Route::get('/{company_id}/aanmeldingen', [ApplicationController::class, 'indexCompany'])->name('company.application.index');
+        Route::get('/{company_id}/aanmeldingen/{application_id}', [ApplicationController::class, 'show'])->name('application.show');
         Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
 
     });
@@ -72,8 +76,6 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::post('/updateStore', [ProfileController::class, 'validateRequest'])->name('profile.update');
         Route::get('/updatePassword', [ProfileController::class, 'updatePasswordForm'])->name('profile.updatePasswordForm');
         Route::post('/updatePasswordStore', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
-
-        Route::get('/downloadCV', [ProfileController::class, 'downloadCv'])->name('profile.downloadCv');
     });
     
     Route::middleware('teacher')->group(function(){
@@ -87,8 +89,10 @@ Route::middleware('verified')->group(function () {//if user verified their email
   Route::get('/users', [UserController::class, 'index'])->name('users.index')
         ->middleware('admin');
   
-  Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'index'])->name('application.index');
+  Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
   Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
+
+  Route::get('{student_id}/downloadCV', [StudentController::class, 'downloadCv'])->name('student.downloadCv');
 
 });
 

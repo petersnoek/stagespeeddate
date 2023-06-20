@@ -172,18 +172,4 @@ class ProfileController extends Controller
         return redirect(route('profile'))->with('success', 'Password is ge-update');
     }
 
-    public function downloadCv()
-    {
-        $student = Student::where('user_id', Auth::user()->id)->first();
-
-        $value = public_path($student->CV);
-
-        $cv = explode('/', $value)[1] ?? null;
-        $cv = explode(',', $cv)[1] ?? null;
-        
-        
-        // atm it downloads your own cv, and removes the hash used when storing when giving the name that is going to show up on the users pc.
-        return response()->download($value, $cv);
-    }
-
 }
