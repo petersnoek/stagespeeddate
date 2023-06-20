@@ -47,7 +47,7 @@
                       @if($application->student->CV != null)               
                         <a type="text" style="width: 200px" class="form-control form-control-lg form-control-alt text-truncate" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode($application->student->id)]) }}"> {{  explode(',', explode('/', $application->student->CV)[1])[1] }} </a>
                       @else
-                        N/A
+                        <p class="p-2">N/A</p>
                       @endif
                       </div>
                     </div>
