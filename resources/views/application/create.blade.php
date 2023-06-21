@@ -7,7 +7,7 @@
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
                 <div class="flex-grow-1">
                     <h1 class="h3 fw-bold mb-2">
-                        Aanmelden
+                        Aanmelden voor {{$vacancy->name}}
                     </h1>
                     <h2 class="fs-base lh-base fw-medium text-muted mb-0">
 
@@ -17,6 +17,12 @@
                     <ol class="breadcrumb breadcrumb-alt">
                         <li class="breadcrumb-item">
                             <a class="link-fx" href="{{ route('home') }}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item" aria-current="page">
+                            Vacatures
+                        </li>
+                        <li class="breadcrumb-item" aria-current="page">
+                            {{$vacancy->name}}
                         </li>
                         <li class="breadcrumb-item" aria-current="page">
                             Aanmelden
@@ -33,7 +39,7 @@
             <div class="block-content block-content-full">
                 <div class="col-sm-8 col-xl-6">
                 @include('layouts.partials.messages')
-                    <form method="POST" action="{{route('application.send', ['vacancy_id' => $vacancy_id])}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('application.send', ['vacancy_id' => Hashids::encode($vacancy->id)])}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
                             <h3>Motivatie</h3>
@@ -45,7 +51,7 @@
                             </ul>
                                 <label for="">Jouw motivatie:</label>
                                 <br>
-                                <textarea class='form-control form-control-lg form-control-alt @if (count($errors) > 0 && array_key_exists("comment",$errors)) {{'is-invalid'}} @endif' required type="text" name="comment"></textarea>
+                                <textarea spellcheck='true' class='form-control form-control-lg form-control-alt @if (count($errors) > 0 && array_key_exists("comment",$errors)) {{'is-invalid'}} @endif' required type="text" name="comment"></textarea>
                                 @if (count($errors) > 0 && array_key_exists("comment",$errors))
                                     @foreach($errors['comment'] as $error)
                                         <div class="invalid-feedback">
