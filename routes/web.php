@@ -6,7 +6,9 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacancyController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ApplicationController;
+
 
 use Illuminate\Support\Facades\Artisan;
 
@@ -52,13 +54,18 @@ Route::middleware('verified')->group(function () {//if user verified their email
         
         Route::middleware('company')->group(function () {/* idealy these would also pass a hashed id or even make it a group prefix*/
             Route::group(['prefix' => '/myCompany'], function(){
+                Route::get('/', [CompanyController::class, 'show'])->name('company.show');
                 Route::get('/update', [CompanyController::class, 'update'])->name('company.update');
                 Route::post('/save', [CompanyController::class, 'saveChanges'])->name('company.save'); 
 
                 Route::get('/vacancy/create', [VacancyController::class, 'create'])->name('vacancy.create');
                 Route::post('/vacancy/store', [VacancyController::class, 'store'])->name('vacancy.store');
+
+                /* Route::get('/vacature/{vacancy_id}/aanmeldingen', [ApplicationController::class, 'indexVacancy'])->name('vacancy.application.index'); */
             });
         });
+        Route::get('/{company_id}/aanmeldingen', [ApplicationController::class, 'indexCompany'])->name('company.application.index');
+        Route::get('/{company_id}/aanmeldingen/{application_id}', [ApplicationController::class, 'show'])->name('application.show');
         Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
 
     });
@@ -70,14 +77,23 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::post('/updateStore', [ProfileController::class, 'validateRequest'])->name('profile.update');
         Route::get('/updatePassword', [ProfileController::class, 'updatePasswordForm'])->name('profile.updatePasswordForm');
         Route::post('/updatePasswordStore', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
-
-        Route::get('/downloadCV', [ProfileController::class, 'downloadCv'])->name('profile.downloadCv');
     });
     
-    Route::get('/students', [StudentController::class, 'index'])->name('students.index')
-        ->middleware('teacher');
-
-    Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'index'])->name('application.index');
+    Route::middleware('teacher')->group(function(){
+        Route::group(['prefix'=> '/students'], function(){
+            Route::get('/', [StudentController::class, 'index'])->name('student.index');
+            Route::get('/assign', [StudentController::class, 'assignTeacher'])->name('student.assign');
+            Route::post('/assign/claim', [StudentController::class, 'claimByTeacher'])->name('student.claim');
+        });
+    });
+    
+    Route::get('/users', [UserController::class, 'index'])->name('users.index')
+            ->middleware('admin');
+    
+    Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
     Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
+
+    Route::get('{student_id}/downloadCV', [StudentController::class, 'downloadCv'])->name('student.downloadCv');
+
 });
 

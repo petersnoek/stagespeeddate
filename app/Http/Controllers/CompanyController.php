@@ -28,6 +28,13 @@ class CompanyController extends Controller
         ]);
     }
 
+    public function show() {
+        
+        return view('company.show', [
+            'company' => Company::where('user_id', Auth::user()->id)->first()
+        ]);
+    }
+
     public function create() {
         return view('company.create');
     }
@@ -52,8 +59,11 @@ class CompanyController extends Controller
             'password' => Hash::make($tempPassword),
             'role' => 'company',
             'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
-            'email_verified_at' => now(),
         ]);
+        $newUser = User::where('id', $user->id)->first();
+        $newUser->email_verified_at = now();
+        $newUser->save();
+        
         $image = 'media/photos/photo' . random_int(1, 37) . '.jpg';
         Company::create([
             'user_id' => $user->id,
@@ -72,7 +82,7 @@ class CompanyController extends Controller
         //Mail::to($request->email)->send();
 
 
-        return redirect()->back()->with('success', ['user created','Email with login details has been sent to '.$request->email]);
+        return redirect(route('users.index'))->with('success', ['user created','Email with login details has been sent to '.$request->email]);
 
     }
 
@@ -90,9 +100,9 @@ class CompanyController extends Controller
 
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
-            'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->sub_user->id),],
-            'bio' => ['nullable', 'max:255', new DescriptionPattern()],
-            'description' => ['nullable', 'max:255', new DescriptionPattern()],
+            'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->company->id),],
+            'bio' => ['nullable', new DescriptionPattern()],
+            'description' => ['nullable', new DescriptionPattern()],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){

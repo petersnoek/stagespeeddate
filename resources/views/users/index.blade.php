@@ -33,19 +33,19 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Students
+            Users
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Overview of all students.
+            Een overzicht van alle gebruikers
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-alt">
             <li class="breadcrumb-item">
-              <a class="link-fx" href="{{ route('home') }}">Dashboard</a>
+              <a class="link-fx" href="{{route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              Students
+              Users
             </li>
           </ol>
         </nav>
@@ -56,52 +56,49 @@
 
   <!-- Page Content -->
   <div class="content">
+
     <!-- Dynamic Table Full -->
     <div class="block block-rounded">
-      <div class="block-header block-header-default">
       <div class="block-content block-content-full">
-        <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('student.assign')}}">Assign Students</a>
+      @include('layouts.partials.messages')
+      <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('company.create')}}">Create Company Account</a>
         <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
         <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
           <thead>
             <tr>
+              <th class="text-center" style="width: 80px;">#</th>
               <th class="sorting_asc_disabled sorting_desc_disabled">Image</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>Name</th>
+              <th>Role</th>
               <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
-              <th>Teacher</th>
-              {{-- <th style="width: 15%;">Registered</th> --}}
+              <th style="width: 15%;">Verified</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($students as $student)
+            @foreach ($users as $user)
               <tr>
+                <td class="text-center">{{ $user->id }}</td>
                 <td style="padding: 3px;" class="fw-semibold d-flex justify-content-center">
-                  <img class="" style="width: 60px; height: 60px" src="{{asset($student->user->profilePicture)}}" alt="profile picture">
+                  <img class="" style="width: 60px; height: 60px" src="{{$user->profilePicture}}" alt="">
                 </td>
                 <td class="fw-semibold">
-                  <a href="javascript:void(0)">{{$student->user->first_name}}</a>
+                  <a href="javascript:void(0)">{{$user->first_name . ' ' . $user->last_name}}</a>
                 </td>
-                <td class="fw-semibold">
-                  <a href="javascript:void(0)">{{$student->user->last_name}}</a>
-                </td>
+                <td>{{$user->role}}</td>
                 <td class="d-none d-sm-table-cell">
-                    <span class="text-muted">{{$student->user->email}}</span>
+                  {{ $user->email }}
                 </td>
-                <td class="d-none d-sm-table-cell">
-                    @if(isset($student->teacher))
-                    <span class="text-muted">{{$student->teacher->user->fullname()}}</span>
-                    @endif
+                <td class="text-muted">
+                  {{ $user->email_verified_at }}
                 </td>
-                {{-- <td class="text-muted">
-                  {{$student->user->created_at}}
-                </td> --}}
               </tr>
             @endforeach
           </tbody>
         </table>
       </div>
     </div>
+    <!-- END Dynamic Table Full -->
+
   </div>
   <!-- END Page Content -->
 @endsection

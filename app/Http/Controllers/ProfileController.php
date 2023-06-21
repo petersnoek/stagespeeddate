@@ -22,7 +22,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('/profiles/profile');
+        return view('profiles/profile');
     }
 
     public function update()
@@ -40,7 +40,7 @@ class ProfileController extends Controller
                 'last_name' => ['nullable', 'max:255',  new LastNamePattern ],
                 'email' => ['nullable', 'email', 'string', Rule::unique('users')->ignore($user->id), new SchoolMailValidation],
                 'profilePicture' => ['image', 'mimes:jpeg,png,jpg'],
-                'CV' => ['mimes:pdf,doc,docx,zip'],
+                'CV' => ['mimes:pdf,doc,docx'],
             ]); 
         }
         else{
@@ -122,13 +122,15 @@ class ProfileController extends Controller
     {
         $student = Student::where('user_id', Auth::user()->id)->first();
 
-        $oldCV = $student->CV;
-        if($oldCV != null){
-            $check = explode('/', $oldCV)[1] ?? null;
-            unlink($oldCV);
-        }
-    
+        
         if($request->CV != null){
+            
+            $oldCV = $student->CV;
+            if($oldCV != null){
+                explode('/', $oldCV)[1] ?? null;
+                unlink($oldCV);
+            }
+
             $getcv = $request->CV->getClientOriginalName();
             $now = date('his', time());
             $now = Hashids::encode($now);
@@ -160,7 +162,7 @@ class ProfileController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect(route('profile.updatePasswordForm'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('profiles.updatePasswordForm'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         $user->password = Hash::make($request['password']);
@@ -168,20 +170,6 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect(route('profile'))->with('success', 'Password is ge-update');
-    }
-
-    public function downloadCv()
-    {
-        $student = Student::where('user_id', Auth::user()->id)->first();
-
-        $value = public_path($student->CV);
-
-        $cv = explode('/', $value)[1] ?? null;
-        $cv = explode(',', $cv)[1] ?? null;
-        
-        
-        // atm it downloads your own cv, and removes the hash used when storing when giving the name that is going to show up on the users pc.
-        return response()->download($value, $cv);
     }
 
 }

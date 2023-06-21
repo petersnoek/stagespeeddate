@@ -208,26 +208,30 @@
               @endif
 
               @if(Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
-              <a class="nav-main-link{{ request()->is(substr(route('students.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('students.index')}}">
+              <a class="nav-main-link{{ request()->is(substr(route('student.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('student.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Students</span>
               </a>
               @endif
               @if(Auth::user()->role == 'company')
-              <a class="nav-main-link{{ request()->is(substr(route('company.update'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.update')}}">
+              <a class="nav-main-link{{ request()->is(substr(route('company.show'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.show')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Update Company</span>
+                <span class="nav-main-link-name">Mijn Bedrijf</span>
               </a>
               <a class="nav-main-link{{ request()->is(substr(route('vacancy.create'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('vacancy.create')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Create Vacancy</span>
               </a>
+              <a class="nav-main-link{{ request()->is(substr(route('company.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.application.index' , ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Aanmeldingen</span>
+              </a>
               @endif
 
               @if((Auth::user()->role == 'admin'))
-              <a class="nav-main-link{{ request()->is(substr(route('company.create'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.create')}}">
+              <a class="nav-main-link{{ request()->is(substr(route('users.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('users.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Create Company Account</span>
+                <span class="nav-main-link-name">Users</span>
               </a>
               @endif
 
@@ -276,7 +280,7 @@
     <!-- END Sidebar -->
 
     <!-- Header -->
-    <header id="page-header">
+    <header id="page-header" style="position: absolute">
       <!-- Header Content -->
       <div class="content-header">
         <!-- Left Section -->
@@ -291,7 +295,7 @@
           <!-- Toggle Mini Sidebar -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
           <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
-            <i class="fa fa-fw fa-ellipsis-v"></i>
+            <i class="fa fa-fw fa-bars"></i>
           </button>
           <!-- END Toggle Mini Sidebar -->
 

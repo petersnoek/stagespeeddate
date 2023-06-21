@@ -31,4 +31,9 @@ class Vacancy extends Model
     public function applications(){
         return $this->hasMany(Application::class);
     }
+
+    public function application_count(){
+        $applications = $this->hasMany(Application::class)->get();
+        return count($applications);
+    }
 }

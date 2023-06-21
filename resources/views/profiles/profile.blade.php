@@ -23,7 +23,7 @@
 @php
   if(Auth::user()->role == 'student')
   {
-    $value = Auth::user()->sub_user->CV;
+    $value = Auth::user()->student->CV;
     if($value != ""){
       $cv = explode('/', $value)[1] ?? null;
       $cv = explode(',', $cv)[1] ?? null;
@@ -50,10 +50,10 @@
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
           <ol class="breadcrumb breadcrumb-alt">
             <li class="breadcrumb-item">
-              <a class="link-fx" href="/">Dashboard</a>
+              <a class="link-fx" href="{{route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-              <a class="link-fx" href="/profiles/profile">Profile</a>
+              <a class="link-fx" href="{{route('profile')}}">Profile</a>
             </li>
           </ol>
         </nav>
@@ -90,7 +90,7 @@
                           <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </p>
                         @endif
                         @if($cv != 'there is nothing here')
-                          <a type="text" class="form-control form-control-lg form-control-alt py-3" href="{{ route('profile.downloadCv') }}"> {{ $cv }} </a>
+                          <a type="text" class="form-control form-control-lg form-control-alt py-3" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode(Auth::user()->student->id)]) }}"> {{ $cv }} </a>
                         @endif
                     </div>
                     @endif
