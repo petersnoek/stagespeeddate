@@ -80,7 +80,7 @@ class ApplicationController extends Controller
         Application::create([
             'comment' => $request->comment,
             'vacancy_id' => Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->id,
-            'student_id' => Auth::user()->sub_user->id
+            'student_id' => Auth::user()->student->id
         ]);
 
         return redirect(route('home'))->with('success', 'Aanmelding bij '. Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->name  .' aangemaakt.');
