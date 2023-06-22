@@ -72,7 +72,7 @@
             </div>
             <div style="border-top: 1px gray solid;" class="pt-3 mt-5 block-content-full">
                 <div style="justify-content: space-between;" class="d-flex">
-                    <h4 class="p-3">Mijn Vacatures</h4>
+                    <h4 style="padding-left: 0px !important;" class="p-3">Mijn Vacatures</h4>
                     <a style="height: fit-content;" class="btn btn-alt-primary mt-2" href="{{route('vacancy.create')}}">Nieuwe Vacature</a>
                 </div>
                 <div>
