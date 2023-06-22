@@ -36,4 +36,13 @@ class Vacancy extends Model
         $applications = $this->hasMany(Application::class)->get();
         return count($applications);
     }
+
+    public function availability(){
+        if($this->available == 0){
+            return 'Inactief';
+        }
+        else if($this->available == 1){
+            return 'Actief';
+        }
+    }
 }
