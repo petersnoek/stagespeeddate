@@ -101,7 +101,7 @@ class CompanyController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
             'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->company->id),],
-            'bio' => ['nullable', new DescriptionPattern()],
+            'bio' => ['required', new DescriptionPattern()],
             'description' => ['nullable', new DescriptionPattern()],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      

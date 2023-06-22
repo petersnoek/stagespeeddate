@@ -11,7 +11,7 @@
                         <h1 style="padding: 0.5rem 1rem; padding-left: 0px" class="h3 fw-bold mb-2">
                             {{$company->name}}
                         </h1>
-                        <a style="width: fit-content; height: fit-content;" class="form-control form-control-lg form-control-alt" href="{{route('company.update')}}""><i class="fa fa-pen"></i></a>
+                        <a style="width: fit-content; height: fit-content;" class="form-control form-control-lg form-control-alt @if($company->name == 'New Company')bg-success-light @endif" href="{{route('company.update')}}"><i class="fa fa-pen"></i></a>
                     </div>
                     <h2 class="fs-base lh-base fw-medium text-muted mb-0">
                         {{$company->bio}}
@@ -39,8 +39,12 @@
         <div class="block block-rounded px-5 py-3">
             <div class=" block-content-full">
                 <div class="col-sm-8 col-xl-11">
+                @if($company->description != null)
                     <h5 style="margin: 0px; " class="p-1">Over ons bedrijf</h5>
                     <div class="p-2">{{$company->description}}</div>
+                @else
+                    <h5 style="margin: 0px; " class="p-1 text-muted"><i>dit bedrijf heeft nog geen beschrijving</i></h5>
+                @endif
                 </div>
             </div>
         </div>

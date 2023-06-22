@@ -85,7 +85,7 @@
                                     <br>
                                     <small>Tell us about your company in a short description.</small>
                                 </label>
-                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("bio",$errors)) {{'is-invalid'}} @endif" name="bio" placeholder="Bio">@if(old()){{old('bio')}}@else{{$company->bio}}@endif</textarea>
+                                <textarea style="max-height: 10rem" maxlength="255" type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("bio",$errors)) {{'is-invalid'}} @endif" name="bio" placeholder="Bio" required>@if(old()){{old('bio')}}@else{{$company->bio}}@endif</textarea>
                                 @if (count($errors) > 0 && array_key_exists("bio",$errors))
                                     @foreach($errors['bio'] as $error)
                                         <div class="invalid-feedback">
