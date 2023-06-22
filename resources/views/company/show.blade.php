@@ -37,7 +37,7 @@
                         <h1 style="padding: 0.5rem 1rem; padding-left: 0px" class="h3 fw-bold mb-2">
                             {{$company->name}}
                         </h1>
-                        <a style="width: fit-content; height: fit-content;" class="form-control form-control-lg form-control-alt @if($company->name == 'New Company')bg-success-light @endif" href="{{route('company.update')}}"><i class="fa fa-pen"></i></a>
+                        <a style="width: fit-content; height: fit-content;" class="form-control form-control-lg form-control-alt @if($company->name == 'New Company')bg-success-light @endif" href="{{route('company.update', ['company_id' => Hashids::encode(Auth::user()->company->id)])}}"><i class="fa fa-pen"></i></a>
                     </div>
                     <h2 class="fs-base lh-base fw-medium text-muted mb-0">
                         {{$company->bio}}
@@ -77,7 +77,7 @@
             <div style="border-top: 1px gray solid;" class="pt-3 mt-5 block-content-full">
                 <div style="justify-content: space-between;" class="d-flex">
                     <h4 style="padding-left: 0px !important;" class="p-3">Mijn Vacatures</h4>
-                    <a style="height: fit-content;" class="btn btn-alt-primary mt-2" href="{{route('vacancy.create')}}">Nieuwe Vacature</a>
+                    <a style="height: fit-content;" class="btn btn-alt-primary mt-2" href="{{route('vacancy.create', ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">Nieuwe Vacature</a>
                 </div>
                 <div>
                     <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
@@ -99,7 +99,7 @@
                                     @if($vacancy->application_count() == 0)
                                         nog geen aanmeldingen
                                     @else 
-                                        <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
+                                        <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['company_id' => Hashids::encode(Auth::user()->company->id), 'vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
                                     @endif 
                                     </span>
                                 </td>

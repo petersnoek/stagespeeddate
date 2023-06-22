@@ -52,7 +52,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
             Route::post('/Verstuur', [CompanyController::class, 'sendLogin'])->name('company.sendLogin');
         });
         
-        Route::middleware('company')->group(function () {/* idealy these would also pass a hashed id or even make it a group prefix*/
+        Route::middleware('company')->group(function () {
             Route::group(['prefix' => '/{company_id}'], function(){
                 Route::get('/', [CompanyController::class, 'show'])->name('company.show');
                 Route::get('/aanpassen', [CompanyController::class, 'update'])->name('company.update');
@@ -62,6 +62,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
                 Route::post('/vacature/opslaan', [VacancyController::class, 'store'])->name('vacancy.store');
 
                 Route::get('/vacature/{vacancy_id}/aanmeldingen', [ApplicationController::class, 'indexVacancy'])->name('vacancy.application.index');
+
                 Route::get('/aanmeldingen', [ApplicationController::class, 'indexCompany'])->name('company.application.index');
                 Route::get('/aanmeldingen/{application_id}', [ApplicationController::class, 'show'])->name('application.show');
                 Route::get('/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');

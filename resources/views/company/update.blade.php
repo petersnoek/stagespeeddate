@@ -49,7 +49,7 @@
             <div class="block-content block-content-full">
                 <div >
                     @include('layouts.partials.messages')
-                    <form method="POST" action="{{route('company.save')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('company.save', ['company_id' => Hashids::encode(Auth::user()->company->id)])}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="col-sm-8 col-xl-6">

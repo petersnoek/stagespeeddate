@@ -53,7 +53,7 @@ class VacancyController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect(route('vacancy.create'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('vacancy.create', ['company_id' => Hashids::encode(Auth::user()->company->id)]))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         $company_id = Company::where('user_id', Auth::user()->id)->first()->id;
