@@ -139,7 +139,7 @@
 
         <!-- Extra -->
         <div>
-          <!-- Dark Mode -->
+{{--           <!-- Dark Mode -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
           <a class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
             <i class="far fa-moon"></i>
@@ -176,7 +176,7 @@
             </div>
           </div>
           <!-- END Options -->
-
+ --}}
           <!-- Close Sidebar, Visible only on mobile screens -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
           <a class="d-lg-none btn btn-sm btn-alt-secondary ms-1" data-toggle="layout" data-action="sidebar_close" href="javascript:void(0)">

@@ -28,7 +28,7 @@ class VacancyController extends Controller
         ]);
 
         if($validator->fails()){
-            return redirect(route('home'))->with('error', 'Bedrijf bestaat niet');;
+            return redirect(route('home'))->with('danger', 'Bedrijf bestaat niet');;
         }
 
         $company_id = $company_id['company_id'];

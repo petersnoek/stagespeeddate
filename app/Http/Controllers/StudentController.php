@@ -30,7 +30,7 @@ class StudentController extends Controller
         ]);
         
         if($validator->fails()){
-            return redirect()->back()->with('error', 'Ongeldige invoer, student bestaat niet.');;
+            return redirect()->back()->with('danger', 'Ongeldige invoer, student bestaat niet.');;
         }
         
         $student_id = $student_id['student_id'][0];
