@@ -82,7 +82,7 @@ class CompanyController extends Controller
         //Mail::to($request->email)->send();
 
 
-        return redirect(route('users.index'))->with('success', ['user created','Email with login details has been sent to '.$request->email]);
+        return redirect(route('users.index'))->with('success', ['Bedrijfs account aangemaakt','Email met login details zijn is verstuurd naar '.$request->email]);
 
     }
 
@@ -126,6 +126,6 @@ class CompanyController extends Controller
             'updated_at' => now(),
         ]);
         
-        return redirect()->back()->with('success', 'Bedrijf gegevens geupdate');
+        return redirect()->back()->with('success', 'Bedrijf gegevens zijn bijgewerkt');
     }
 }

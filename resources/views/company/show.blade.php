@@ -97,7 +97,7 @@
                                 <td class="d-none d-sm-table-cell">
                                     <span class="text-muted">
                                     @if($vacancy->application_count() == 0)
-                                        N/A 
+                                        nog geen aanmeldingen
                                     @else 
                                         <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
                                     @endif 

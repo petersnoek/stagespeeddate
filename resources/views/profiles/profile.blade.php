@@ -41,10 +41,10 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Profile
+            Profiel
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Welcome to your profile {{Auth::user()->first_name}}, here you can see your credentials and change them if needed.
+            Welkom op je profiel {{Auth::user()->first_name}}, hier kan je je gegevens inzien en aanpassen.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -53,7 +53,7 @@
               <a class="link-fx" href="{{route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-              <a class="link-fx" href="{{route('profile')}}">Profile</a>
+              <a class="link-fx" href="{{route('profile')}}">Profiel</a>
             </li>
           </ol>
         </nav>
@@ -70,12 +70,12 @@
             <div class="d-flex justify-content-evenly">
                 <div class="col-sm-8 col-xl-6">
                     <div class="mb-4">
-                        <label for="">First Name: </label>
+                        <label for="">Voornaam: </label>
                         <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->first_name}} </p>
                     </div>
 
                     <div class="mb-4">
-                        <label for="">Last Name: </label>
+                        <label for="">Achternaam: </label>
                         <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{Auth::user()->last_name}} </p>
                     </div>
 
@@ -109,12 +109,12 @@
                     <div class="d-flex justify-content-center">
                         <form action="{{ route('profile.updateCredentialsForm') }}">
                             <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-right: 2.5px">
-                                update credentials
+                                Gegevens Aanpassen
                             </button>
                         </form>
                         <form action="{{ route('profile.updatePasswordForm') }}">
                             <button type="submit" class="btn btn-lg btn-alt-primary" style="margin-left: 2.5px">
-                                update password
+                                Wachtwoord Wijzigen
                             </button>
                         </form>
                     </div>

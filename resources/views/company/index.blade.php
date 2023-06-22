@@ -66,7 +66,7 @@
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th style="width: 15%;">Registered</th>
+              <th style="width: 15%;">Geregistreerd</th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +79,7 @@
                     <span class="text-muted">{{$company->email}}</span>
                 </td>
                 <td class="text-muted">
-                  {{ now() }}
+                  {{ $company->created_at }}
                 </td>
               </tr>
             @endforeach

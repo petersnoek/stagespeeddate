@@ -30,7 +30,7 @@ class StudentController extends Controller
         ]);
         
         if($validator->fails()){
-            return redirect()->back()->with('error', 'Student bestaat niet');;
+            return redirect()->back()->with('error', 'Ongeldige invoer, student bestaat niet.');;
         }
         
         $student_id = $student_id['student_id'][0];
@@ -64,7 +64,7 @@ class StudentController extends Controller
                 function ($attribute,$value, $fail) {
                 //check if student exists             
                 if(Student::where('id', Hashids::decode(substr($attribute,8)))->first() == null){
-                    $fail('Ongeldige invoer, student bestaat niet');
+                    $fail('Ongeldige invoer, student bestaat niet.');
                 }}],
         ],
         [
@@ -84,7 +84,7 @@ class StudentController extends Controller
             $student->save();
         }
 
-        return redirect(route('student.assign'))->with('success', count($request->student) . ' studenten bijgewerkt en gekoppeled aan ' . Auth::user()->first_name . ' ' . Auth::user()->last_name);
+        return redirect(route('student.assign'))->with('success', count($request->student) . ' studenten bijgewerkt en gekoppeled aan ' . Auth::user()->first_name . ' ' . Auth::user()->last_name . '.');
         
     }
 }

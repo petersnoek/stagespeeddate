@@ -65,7 +65,7 @@ class VacancyController extends Controller
             'available' => true
         ]);
 
-        return redirect(route('company.show', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacancy Aangemaakt.');
+        return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacature is aangemaakt.');
     }
 
 
