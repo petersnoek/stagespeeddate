@@ -218,13 +218,9 @@
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Mijn Bedrijf</span>
               </a>
-              <a class="nav-main-link{{ request()->is(substr(route('vacancy.create'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('vacancy.create')}}">
-                <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Create Vacancy</span>
-              </a>
               <a class="nav-main-link{{ request()->is(substr(route('company.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.application.index' , ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Aanmeldingen</span>
+                <span class="nav-main-link-name">Alle aanmeldingen</span>
               </a>
               @endif
 
