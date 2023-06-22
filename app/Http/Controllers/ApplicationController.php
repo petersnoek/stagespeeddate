@@ -40,12 +40,34 @@ class ApplicationController extends Controller
 
     public function create($vacancy_id){
 
+        $vacancy_id = ['vacancy_id' => Hashids::decode($vacancy_id),];
+
+        $validator = Validator::make($vacancy_id, [
+            'vacancy_id' => ['required', Rule::exists(Vacancy::class, 'id')],
+        ]);
+        
+        if($validator->fails()){
+            return redirect()->back()->with('error', 'Vacature bestaat niet');;
+        }
+
+        $vacancy_id = $vacancy_id['vacancy_id'];
+
+
+
         return view('application.create', [
-            'vacancy_id' => $vacancy_id
+            'vacancy' => Vacancy::where('id', $vacancy_id)->first()
         ]);
     }
 
     public function send(Request $request, $vacancy_id){
+
+        if(Application::where('student_id', Auth::user()->student->id)->where('vacancy_id', Hashids::decode($request->vacancy_id))->exists()){
+            return redirect(route('home'))->with('error', 'Je hebt je al aangemeld voor deze vacaturen');
+ 
+        }
+        if(Auth::user()->student->CV == null){
+            return redirect()->back()->withinput($request->all())->with('error', 'Upload eerst een CV naar je profiel pagina');
+        }
 
         $validate = Validator::make($request->all(), [
             'comment' => ['required', 'string', 'max:255', new CommentPattern()],
@@ -61,7 +83,7 @@ class ApplicationController extends Controller
             'student_id' => Auth::user()->sub_user->id
         ]);
 
-        return redirect()->back()->with('success', 'Aanmelding Aangemaakt.');
+        return redirect(route('home'))->with('success', 'Aanmelding bij '. Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->name  .' aangemaakt.');
     }
 
     public function indexCompany($company_id){
