@@ -48,8 +48,6 @@ Route::middleware('verified')->group(function () {//if user verified their email
     Route::group(['prefix' => '/companies'], function(){
         Route::middleware('admin')->group(function () {
             Route::get('/', [CompanyController::class, 'index'])->name('company.index');
-            Route::get('/create', [CompanyController::class, 'create'])->name('company.create');
-            Route::post('/sendLogin', [CompanyController::class, 'sendLogin'])->name('company.sendLogin');
         });
         
         Route::middleware('company')->group(function () {/* idealy these would also pass a hashed id or even make it a group prefix*/
@@ -87,9 +85,13 @@ Route::middleware('verified')->group(function () {//if user verified their email
         });
     });
     
-    Route::get('/users', [UserController::class, 'index'])->name('users.index')
-            ->middleware('admin');
-    
+    Route::middleware('admin')->group(function () {
+        Route::group(['prefix'=> '/gebruikers'], function(){
+            Route::get('/', [UserController::class, 'index'])->name('users.index');
+            Route::get('/aanmaken', [UserController::class, 'create'])->name('users.create');
+            Route::post('/versturen', [UserController::class, 'sendLogin'])->name('users.sendLogin');
+        });
+    });
     Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
     Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
 

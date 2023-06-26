@@ -8,7 +8,7 @@
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
                 <div class="flex-grow-1">
                     <h1 class="h3 fw-bold mb-2">
-                        Create a new Company account
+                        Maak een nieuw account
                     </h1>
                     <h2 class="fs-base lh-base fw-medium text-muted mb-0">
 
@@ -19,8 +19,11 @@
                         <li class="breadcrumb-item">
                             <a class="link-fx" href="{{ route('home') }}">Dashboard</a>
                         </li>
+                        <li class="breadcrumb-item">
+                            <a class="link-fx" href="{{ route('users.index') }}">Gebruikers</a>
+                        </li>
                         <li class="breadcrumb-item" aria-current="page">
-                            Update Company
+                            Nieuwe Gebruiker
                         </li>
                     </ol>
                 </nav>
@@ -34,11 +37,11 @@
             @include('layouts.partials.messages')
             <div class="block-content block-content-full d-flex justify-content-center">
                 <div class="col-sm-9 col-xl-7">
-                    <form method="POST" action="{{route('company.sendLogin')}}">
+                    <form method="POST" action="{{route('users.sendLogin')}}">
                         @csrf
                         <div class="mb-4">
                             <label>Email: </label>
-                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("email",$errors)) {{'is-invalid'}} @endif" name="email" placeholder="Company account email"  value="{{old('email')}}" required>
+                            <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("email",$errors)) {{'is-invalid'}} @endif" name="email" placeholder="address@domein.nl"  value="{{old('email')}}" required>
                         
                             @if (count($errors) > 0 && array_key_exists("email",$errors))
                                 @foreach($errors['email'] as $error)
@@ -47,10 +50,18 @@
                                     </div>
                                 @endforeach
                             @endif
+
+                            <label>Account type</label>
+                            <select type="text" class="form-select form-control-alt" name="type" required>
+                                <option value="">-</option>
+                                <option value="company">Bedrijf</option>
+                                <option value="teacher">Docent</option>
+                            </select>
+
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-lg btn-alt-primary">
-                                Create account
+                                Maak account
                             </button>
                         </div>
                         
