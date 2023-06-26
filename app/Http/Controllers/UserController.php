@@ -74,7 +74,7 @@ class UserController extends Controller
         //Mail::to($request->email)->send();
 
 
-        return redirect(route('users.index'))->with('success', ['Nieuw '.$request->type.' account aangemaakt','Een email met login gegevens is verstuurd naar '.$request->email . '.']);
+        return redirect(route('users.index'))->with('success', ['Nieuw \''.$request->type.'\' account aangemaakt','Een email met login gegevens is verstuurd naar '.$request->email . '.']);
 
     }
 }
