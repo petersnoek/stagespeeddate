@@ -61,7 +61,7 @@
     <div class="block block-rounded">
       <div class="block-content block-content-full">
       @include('layouts.partials.messages')
-      <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('company.create')}}">Bedrijfs Account Aanmaken</a>
+      <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('users.create')}}">Maak nieuw account</a>
         <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
         <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
           <thead>

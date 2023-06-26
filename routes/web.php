@@ -48,8 +48,6 @@ Route::middleware('verified')->group(function () {//if user verified their email
     Route::group(['prefix' => '/bedrijven'], function(){
         Route::middleware('admin')->group(function () {
             Route::get('/', [CompanyController::class, 'index'])->name('company.index');
-            Route::get('/aanmaken', [CompanyController::class, 'create'])->name('company.create');
-            Route::post('/Verstuur', [CompanyController::class, 'sendLogin'])->name('company.sendLogin');
         });
         
         Route::middleware('company')->group(function () {
@@ -94,11 +92,15 @@ Route::middleware('verified')->group(function () {//if user verified their email
         });
     });
     
-    Route::get('/gebruikers', [UserController::class, 'index'])->name('users.index')
-            ->middleware('admin');
-    
-    Route::get('/aanmelden/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
-    Route::post('aanmelden/{vacancy_id}/verstuur', [ApplicationController::class, 'send'])->name('application.send');
+    Route::middleware('admin')->group(function () {
+        Route::group(['prefix'=> '/gebruikers'], function(){
+            Route::get('/', [UserController::class, 'index'])->name('users.index');
+            Route::get('/aanmaken', [UserController::class, 'create'])->name('users.create');
+            Route::post('/versturen', [UserController::class, 'sendLogin'])->name('users.sendLogin');
+        });
+    });
+    Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
+    Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
 
     Route::get('{student_id}/downloadCV', [StudentController::class, 'downloadCv'])->name('student.downloadCv');
 

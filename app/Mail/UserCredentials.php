@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CompanyCredentials extends Mailable
+class UserCredentials extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -38,7 +38,7 @@ class CompanyCredentials extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.companyLogin',
+            markdown: 'emails.createdAccount',
             with: [
                 'data' => $this->data,
             ],
