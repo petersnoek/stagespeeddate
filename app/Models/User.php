@@ -62,18 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function company(){
         return $this->hasOne(Company::class);
     }
-    
-    public function sub_user(){
-        if($this->role == 'student'){
-            return $this->hasOne(Student::class);
-        }
-        else if($this->role == 'teacher'){
-            return $this->hasOne(Teacher::class);
-        }
-        else if($this->role == 'company'){
-            return $this->hasOne(Company::class);
-        }
-    }
+
 
 
 }

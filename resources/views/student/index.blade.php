@@ -33,10 +33,10 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Students
+            Studenten
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Overview of all students.
+            Een overzicht van alle studenten.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -45,7 +45,7 @@
               <a class="link-fx" href="{{ route('home') }}">Dashboard</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              Students
+              Studenten
             </li>
           </ol>
         </nav>
@@ -60,16 +60,16 @@
     <div class="block block-rounded">
       <div class="block-header block-header-default">
       <div class="block-content block-content-full">
-        <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('student.assign')}}">Assign Students</a>
+        <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('student.assign')}}">Studenten Toeweizen</a>
         <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
         <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
           <thead>
             <tr>
-              <th class="sorting_asc_disabled sorting_desc_disabled">Image</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
-              <th>Teacher</th>
+              <th class="sorting_asc_disabled sorting_desc_disabled">Foto</th>
+              <th>Voornaam</th>
+              <th>Achternaam</th>
+              <th class="d-none d-sm-table-cell" style="width: 30%;">E-mail</th>
+              <th>Docent</th>
               {{-- <th style="width: 15%;">Registered</th> --}}
             </tr>
           </thead>

@@ -114,7 +114,7 @@ class ProfileController extends Controller
             return $this->updateStudent($request);
         }
         else{
-            return redirect(route('profile'))->with('success', 'Profiel is ge-update');
+            return redirect(route('profile'))->with('success', 'Profiel is bijgewerkt');
         }
     }
 
@@ -144,7 +144,7 @@ class ProfileController extends Controller
         
         $student->save();
 
-        return redirect(route('profile'))->with('success', 'Profiel is ge-update');
+        return redirect(route('profile'))->with('success', 'Profiel is bijgewerkt');
     }
 
     public function updatePasswordForm()
@@ -169,7 +169,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect(route('profile'))->with('success', 'Password is ge-update');
+        return redirect(route('profile'))->with('success', 'Wachtwoord is bijgewerkt');
     }
 
 }

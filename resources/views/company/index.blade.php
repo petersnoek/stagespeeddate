@@ -33,10 +33,10 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Companies
+            Bedrijven
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Overview of all companies.
+            Een overzicht van alle bedrijven.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -45,7 +45,7 @@
               <a class="link-fx" href="javascript:void(0)">App</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              Companies
+              Bedrijven
             </li>
           </ol>
         </nav>
@@ -66,7 +66,7 @@
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th style="width: 15%;">Registered</th>
+              <th style="width: 15%;">Geregistreerd</th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +79,7 @@
                     <span class="text-muted">{{$company->email}}</span>
                 </td>
                 <td class="text-muted">
-                  {{ now() }}
+                  {{ $company->created_at }}
                 </td>
               </tr>
             @endforeach

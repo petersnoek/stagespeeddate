@@ -43,12 +43,8 @@
                     <h2>{{$application->student->user->fullname()}}</h2>
                     <div class="d-flex">
                       <label class='p-2'>CV:</label>
-                      <div>
-                      @if($application->student->CV != null)               
+                      <div>             
                         <a type="text" style="width: 200px" class="form-control form-control-lg form-control-alt text-truncate" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode($application->student->id)]) }}"> {{  explode(',', explode('/', $application->student->CV)[1])[1] }} </a>
-                      @else
-                        <p class="p-2">N/A</p>
-                      @endif
                       </div>
                     </div>
                 </div>

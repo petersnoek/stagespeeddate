@@ -139,7 +139,7 @@
 
         <!-- Extra -->
         <div>
-          <!-- Dark Mode -->
+{{--           <!-- Dark Mode -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
           <a class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
             <i class="far fa-moon"></i>
@@ -176,7 +176,7 @@
             </div>
           </div>
           <!-- END Options -->
-
+ --}}
           <!-- Close Sidebar, Visible only on mobile screens -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
           <a class="d-lg-none btn btn-sm btn-alt-secondary ms-1" data-toggle="layout" data-action="sidebar_close" href="javascript:void(0)">
@@ -203,22 +203,22 @@
               @if((Auth::user()->role == 'admin'))
               <a class="nav-main-link{{ request()->is(substr(route('company.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Companies</span>
+                <span class="nav-main-link-name">Bedrijven</span>
               </a>
               @endif
 
               @if(Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
               <a class="nav-main-link{{ request()->is(substr(route('student.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('student.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Students</span>
+                <span class="nav-main-link-name">Studenten</span>
               </a>
               @endif
               @if(Auth::user()->role == 'company')
-              <a class="nav-main-link{{ request()->is(substr(route('company.show'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.show')}}">
+              <a class="nav-main-link{{ request()->is(substr(route('company.show', ['company_id' => Hashids::encode(Auth::user()->company->id)]),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.show' , ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Mijn Bedrijf</span>
               </a>
-              <a class="nav-main-link{{ request()->is(substr(route('company.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.application.index' , ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">
+              <a class="nav-main-link{{ request()->is(substr(route('company.application.index', ['company_id' => Hashids::encode(Auth::user()->company->id)]),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.application.index' , ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Alle aanmeldingen</span>
               </a>
@@ -227,7 +227,7 @@
               @if((Auth::user()->role == 'admin'))
               <a class="nav-main-link{{ request()->is(substr(route('users.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('users.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
-                <span class="nav-main-link-name">Users</span>
+                <span class="nav-main-link-name">Gebruikers</span>
               </a>
               @endif
 
@@ -236,7 +236,7 @@
                 <span class="nav-main-link-name">Vacatures</span>
               </a>
             </li>
-            <li class="nav-main-heading">Various</li>
+            {{-- <li class="nav-main-heading">Various</li>
             <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
               <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
                 <i class="nav-main-link-icon si si-bulb"></i>
@@ -266,7 +266,7 @@
                 <i class="nav-main-link-icon si si-globe"></i>
                 <span class="nav-main-link-name">Landing</span>
               </a>
-            </li>
+            </li> --}}
           </ul>
         </div>
         <!-- END Side Navigation -->
@@ -328,7 +328,7 @@
 
             @if (Route::has('register'))
                 <button type="button" class="btn btn-sm btn-alt-secondary d-flex align-items-center mx-2">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registreren') }}</a>
                 </button>
             @endif
           @else
@@ -352,7 +352,7 @@
                   <a class="dropdown-item d-flex align-items-center justify-content-between" 
                     onclick="event.preventDefault();
                       document.getElementById('profile-form').submit();">
-                    <span class="fs-sm fw-medium">Profile</span>
+                    <span class="fs-sm fw-medium">Profiel</span>
                     {{-- <span class="badge rounded-pill bg-primary ms-2">1</span> --}}
                   </a>
                   <form id="profile-form" action="{{ route('profile') }}" method="GET" class="d-none">
@@ -373,7 +373,7 @@
                   <a class="dropdown-item d-flex align-items-center justify-content-between"
                     onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();">
-                    <span class="fs-sm fw-medium">{{ __('Log Out') }}</span>
+                    <span class="fs-sm fw-medium">{{ __('Uitloggen') }}</span>
                   </a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf

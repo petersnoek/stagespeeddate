@@ -45,54 +45,60 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::get('', [VacancyController::class, 'index'])->name('vacancy.index');
     });
 
-    Route::group(['prefix' => '/companies'], function(){
+    Route::group(['prefix' => '/bedrijven'], function(){
         Route::middleware('admin')->group(function () {
             Route::get('/', [CompanyController::class, 'index'])->name('company.index');
-            Route::get('/create', [CompanyController::class, 'create'])->name('company.create');
-            Route::post('/sendLogin', [CompanyController::class, 'sendLogin'])->name('company.sendLogin');
+            Route::get('/aanmaken', [CompanyController::class, 'create'])->name('company.create');
+            Route::post('/Verstuur', [CompanyController::class, 'sendLogin'])->name('company.sendLogin');
         });
         
-        Route::middleware('company')->group(function () {/* idealy these would also pass a hashed id or even make it a group prefix*/
-            Route::group(['prefix' => '/myCompany'], function(){
+        Route::middleware('company')->group(function () {
+            Route::group(['prefix' => '/{company_id}'], function(){
                 Route::get('/', [CompanyController::class, 'show'])->name('company.show');
-                Route::get('/update', [CompanyController::class, 'update'])->name('company.update');
-                Route::post('/save', [CompanyController::class, 'saveChanges'])->name('company.save'); 
+                Route::get('/aanpassen', [CompanyController::class, 'update'])->name('company.update');
+                Route::post('/opslaan', [CompanyController::class, 'saveChanges'])->name('company.save'); 
 
-                Route::get('/vacancy/create', [VacancyController::class, 'create'])->name('vacancy.create');
-                Route::post('/vacancy/store', [VacancyController::class, 'store'])->name('vacancy.store');
+                Route::get('/vacature/aanmaken', [VacancyController::class, 'create'])->name('vacancy.create');
+                Route::post('/vacature/opslaan', [VacancyController::class, 'store'])->name('vacancy.store');
 
                 Route::get('/vacature/{vacancy_id}/aanmeldingen', [ApplicationController::class, 'indexVacancy'])->name('vacancy.application.index');
+
+                Route::get('/aanmeldingen', [ApplicationController::class, 'indexCompany'])->name('company.application.index');
+                Route::get('/aanmeldingen/{application_id}', [ApplicationController::class, 'show'])->name('application.show');
+                Route::get('/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
+
             });
         });
+
         Route::get('/{company_id}/aanmeldingen', [ApplicationController::class, 'indexCompany'])->name('company.application.index');
         Route::get('/{company_id}/aanmeldingen/{application_id}', [ApplicationController::class, 'show'])->name('application.show');
         Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
         Route::get('/vacatures/details/{vacancy_id}', [VacancyController::class, 'details'])->name('vacancy.details');
-
+      
     });
 
-    Route::group(['prefix'=> '/profile'], function(){
+    Route::group(['prefix'=> '/profiel'], function(){
         Route::get('/', [ProfileController::class, 'index'])->name('profile');
 
-        Route::get('/update', [ProfileController::class, 'update'])->name('profile.updateCredentialsForm');
-        Route::post('/updateStore', [ProfileController::class, 'validateRequest'])->name('profile.update');
-        Route::get('/updatePassword', [ProfileController::class, 'updatePasswordForm'])->name('profile.updatePasswordForm');
-        Route::post('/updatePasswordStore', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+        Route::get('/aanpassen', [ProfileController::class, 'update'])->name('profile.updateCredentialsForm');
+        Route::post('/wijzigingenOpslaan', [ProfileController::class, 'validateRequest'])->name('profile.update');
+        Route::get('/wachtwoordWijzigen', [ProfileController::class, 'updatePasswordForm'])->name('profile.updatePasswordForm');
+        Route::post('/wachtwoordWijzigingenOpslaan', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
     });
     
     Route::middleware('teacher')->group(function(){
-        Route::group(['prefix'=> '/students'], function(){
+        Route::group(['prefix'=> '/studenten'], function(){
             Route::get('/', [StudentController::class, 'index'])->name('student.index');
-            Route::get('/assign', [StudentController::class, 'assignTeacher'])->name('student.assign');
-            Route::post('/assign/claim', [StudentController::class, 'claimByTeacher'])->name('student.claim');
+            Route::get('/toeweizen', [StudentController::class, 'assignTeacher'])->name('student.assign');
+            Route::post('/toeweizenOplsaan', [StudentController::class, 'claimByTeacher'])->name('student.claim');
         });
     });
     
-    Route::get('/users', [UserController::class, 'index'])->name('users.index')
+    Route::get('/gebruikers', [UserController::class, 'index'])->name('users.index')
             ->middleware('admin');
     
-    Route::get('/apply/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
-    Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
+    Route::get('/aanmelden/{vacancy_id}', [ApplicationController::class, 'create'])->name('application.create');
+    Route::post('aanmelden/{vacancy_id}/verstuur', [ApplicationController::class, 'send'])->name('application.send');
 
     Route::get('{student_id}/downloadCV', [StudentController::class, 'downloadCv'])->name('student.downloadCv');
 

@@ -42,7 +42,7 @@ class VacancyController extends Controller
 
         //if the validator fails you get redirected with a error message
         if($validator->fails()){
-            return redirect(route('home'))->with('error', 'Bedrijf bestaat niet');;
+            return redirect(route('home'))->with('danger', 'Bedrijf bestaat niet');;
         }
 
         $company_id = $company_id['company_id'];
@@ -70,7 +70,7 @@ class VacancyController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect(route('vacancy.create'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('vacancy.create', ['company_id' => Hashids::encode(Auth::user()->company->id)]))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
         //we retrieve the company_id by checking the logged in user, we check this id with the user_id in the company table.
@@ -83,7 +83,7 @@ class VacancyController extends Controller
             'available' => true
         ]);
 
-        return redirect(route('company.show', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacancy Aangemaakt.');
+        return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacature is aangemaakt.');
     }
 
 

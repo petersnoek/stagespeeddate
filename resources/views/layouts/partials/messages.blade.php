@@ -1,12 +1,12 @@
-@if(Session::get('success', false) || Session::get('error', false))
+@if(Session::get('success', false) || Session::get('danger', false))
         <?php 
             if(Session::get('success', false)){
             $data = Session::get('success'); 
             $style = 'success';
             $bullet = 'check';
             }
-            elseif(Session::get('error', false)){
-                $data = Session::get('error'); 
+            elseif(Session::get('danger', false)){
+                $data = Session::get('danger'); 
                 $style = 'danger';
                 $bullet = 'x';
             }

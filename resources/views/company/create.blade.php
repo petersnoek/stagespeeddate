@@ -8,7 +8,7 @@
             <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
                 <div class="flex-grow-1">
                     <h1 class="h3 fw-bold mb-2">
-                        Create a new Company account
+                        Maak een nieuw bedrijfs account
                     </h1>
                     <h2 class="fs-base lh-base fw-medium text-muted mb-0">
 
@@ -20,7 +20,7 @@
                             <a class="link-fx" href="{{ route('home') }}">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item" aria-current="page">
-                            Update Company
+                            Maak Bedrijfs Account
                         </li>
                     </ol>
                 </nav>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-lg btn-alt-primary">
-                                Create account
+                                Maak account
                             </button>
                         </div>
                         

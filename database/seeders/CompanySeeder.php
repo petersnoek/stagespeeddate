@@ -76,5 +76,12 @@ class CompanySeeder extends Seeder
             'user_id' => '150',
             'image' => 'media/photos/movella.jpg',
         ]);
+
+        //sleep 1 second and update updated_at timestamp for created_at and updated_at needing to be different to be displayed on dashboard
+        sleep(1);
+        foreach(Company::all() as $company){
+            $company->updated_at = now();
+            $company->save();
+        }
     }
 }

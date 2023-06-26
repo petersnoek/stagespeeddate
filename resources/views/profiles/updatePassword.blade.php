@@ -28,10 +28,10 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Change your password
+            Wijzig je Wachtwoord
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Here you can update your password, just click on the update button when you are done.
+            Hier kan je je wachtwoord wijzigen.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -40,10 +40,10 @@
               <a class="link-fx" href="{{route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-              <a class="link-fx" href="{{route('profile')}}">Profile</a>
+              <a class="link-fx" href="{{route('profile')}}">Profiel</a>
             </li>
             <li class="breadcrumb-item">
-              Update Password
+              Wachtwoord Wijzigen
             </li>
           </ol>
         </nav>
@@ -62,12 +62,12 @@
                 @csrf
                 <div class="col-sm-8 col-xl-6">
                     <div class="mb-4">
-                        <label for="">New password: </label>
+                        <label for="">Nieuw Wachtwoord: </label>
                         <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("password",$errors)) {{'is-invalid'}} @endif" name="password" placeholder="new password" confirmed autocomplete="new-password" required>
                     </div>
 
                     <div class="mb-4">
-                        <label for="">Confirm password: </label>
+                        <label for="">Bevestig Wachtwoord: </label>
                         <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("password",$errors)) {{'is-invalid'}} @endif" name="password_confirmation" placeholder="confirm password" autocomplete="new-password" required>
                         
                         @if (count($errors) > 0 && array_key_exists("password",$errors))
@@ -81,7 +81,7 @@
                 
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-lg btn-alt-primary">
-                            Save changes
+                            Wijzig Wachtwoord
                         </button>
                     </div>
 

@@ -13,7 +13,7 @@ use App\Rules\NamePattern;
 use App\Rules\DescriptionPattern;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
-use Hashids\Hashids;
+use Vinkla\Hashids\Facades\Hashids;
 
 use App\Models\User;
 
@@ -28,10 +28,25 @@ class CompanyController extends Controller
         ]);
     }
 
-    public function show() {
+    public function show($company_id) {
+
+        $company_id = ['company_id' => Hashids::decode($company_id)];
+        $validator = Validator::make($company_id, [
+            'company_id' => ['required', Rule::exists(Company::class, 'id')]
+        ]);
+
+        if($validator->fails()){
+            return redirect(route('home'))->with('danger', 'Bedrijf bestaat niet');
+        }
+        $company_id = $company_id['company_id'];
+
+        if(Company::where('user_id', Auth::user()->id)->first()->user_id != Auth::user()->id){
+            return redirect(route('home'))->with('danger', 'U heeft geen toegang tot deze pagina');
+        }
+
         
         return view('company.show', [
-            'company' => Company::where('user_id', Auth::user()->id)->first()
+            'company' => Company::where('id', $company_id)->first()
         ]);
     }
 
@@ -82,14 +97,30 @@ class CompanyController extends Controller
         //Mail::to($request->email)->send();
 
 
-        return redirect(route('users.index'))->with('success', ['user created','Email with login details has been sent to '.$request->email]);
+        return redirect(route('users.index'))->with('success', ['Bedrijfs account aangemaakt','Email met login details zijn is verstuurd naar '.$request->email]);
 
     }
 
 
     //returns the update page and the company that belongs to the logged in user.
-    public function update() {
-        $company = Company::where('user_id', Auth::user()->id)->first();
+    public function update($company_id) {
+
+        $company_id = ['company_id' => Hashids::decode($company_id)];
+        $validator = Validator::make($company_id, [
+            'company_id' => ['required', Rule::exists(Company::class, 'id')]
+        ]);
+
+        if($validator->fails()){
+            return redirect(route('home'))->with('danger', 'Bedrijf bestaat niet');
+        }
+        $company_id = $company_id['company_id'];
+
+        if(Company::where('user_id', Auth::user()->id)->first()->user_id != Auth::user()->id){
+            return redirect(route('home'))->with('danger', 'U heeft geen toegang tot deze pagina');
+        }
+
+
+        $company = Company::where('id', $company_id)->first();
         return view('company/update', [
             'company' => $company
         ]);
@@ -101,12 +132,12 @@ class CompanyController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
             'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->company->id),],
-            'bio' => ['nullable', new DescriptionPattern()],
+            'bio' => ['required', new DescriptionPattern()],
             'description' => ['nullable', new DescriptionPattern()],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){
-            return redirect(route('company.update'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('company.update', ['company_id' => Hashids::encode(Auth::user()->company->id)]))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
         if(isset($request->image)){
             $imageName = $request->image->hashName();
@@ -126,6 +157,6 @@ class CompanyController extends Controller
             'updated_at' => now(),
         ]);
         
-        return redirect()->back()->with('success', 'Bedrijf gegevens geupdate');
+        return redirect()->back()->with('success', 'Bedrijf gegevens zijn bijgewerkt');
     }
 }
