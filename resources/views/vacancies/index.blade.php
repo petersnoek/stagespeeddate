@@ -43,7 +43,7 @@
     @foreach($vacancies as $vacancy)
 
       <div class="col-md-6 col-xl-4">
-        <a href="{{route('vacancy.details', ['vacancy_id' => Hashids::encode($vacancy->id)])}}">
+        <a style="color: inherit;" href="{{route('vacancy.details', ['vacancy_id' => Hashids::encode($vacancy->id)])}}">
           <div class="block block-rounded h-100 mb-0 ">
             <div class="bg-gray my-0 block block-rounded">
               {{-- vv per vacancy application index route draft --}}
@@ -58,10 +58,12 @@
             <div class="block-content px-2 py-2 fs-sm text-muted">
               <p style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;" class="px-2 m-0 w-5 text-truncate text-wrap">{{$vacancy->bio}}</p>
             </div>
-            <button class="btn btn-sm m-3 btn-alt-secondary d-flex align-items-center"><a style="color:black" href="{{route('vacancy.details', ['vacancy_id' => Hashids::encode($vacancy->id)])}}">Meer info</a></button>
+            <button class="btn btn-sm m-3 btn-alt-secondary d-flex align-items-center" href="{{route('vacancy.details', ['vacancy_id' => Hashids::encode($vacancy->id)])}}">
+              Meer info
+            </button>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     
     @endforeach
     </div>
