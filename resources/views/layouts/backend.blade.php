@@ -230,11 +230,12 @@
                 <span class="nav-main-link-name">Gebruikers</span>
               </a>
               @endif
-
+              @if(Auth::user()->role != 'company')
               <a class="nav-main-link{{ request()->is(substr(route('vacancy.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('vacancy.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Vacatures</span>
               </a>
+              @endif
             </li>
             {{-- <li class="nav-main-heading">Various</li>
             <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">

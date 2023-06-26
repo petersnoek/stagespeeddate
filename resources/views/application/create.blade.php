@@ -43,7 +43,7 @@
                         @csrf
                         <div class="mb-4">
                             <h3>Motivatie</h3>
-                            <p>Schrijf hier in het kort over jezelf en waarom jij je graag zou willen aanmelden bij dit bedrijf. De onderstaande gegevens worden doorgestuurd naar het beddrijf.</p>
+                            <p>Schrijf hier in het kort over jezelf en waarom jij je graag zou willen aanmelden bij dit bedrijf. De onderstaande gegevens worden doorgestuurd naar het bedrijf.</p>
                             <ul>
                                 <li>Voor- en achternaam</li>
                                 <li>E-mail</li>

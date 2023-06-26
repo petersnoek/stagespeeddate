@@ -87,8 +87,8 @@ Route::middleware('verified')->group(function () {//if user verified their email
     Route::middleware('teacher')->group(function(){
         Route::group(['prefix'=> '/studenten'], function(){
             Route::get('/', [StudentController::class, 'index'])->name('student.index');
-            Route::get('/toeweizen', [StudentController::class, 'assignTeacher'])->name('student.assign');
-            Route::post('/toeweizenOplsaan', [StudentController::class, 'claimByTeacher'])->name('student.claim');
+            Route::get('/toewijzen', [StudentController::class, 'assignTeacher'])->name('student.assign');
+            Route::post('/toewijzenOplsaan', [StudentController::class, 'claimByTeacher'])->name('student.claim');
         });
     });
     

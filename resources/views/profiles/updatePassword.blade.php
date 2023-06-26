@@ -63,12 +63,12 @@
                 <div class="col-sm-8 col-xl-6">
                     <div class="mb-4">
                         <label for="">Nieuw Wachtwoord: </label>
-                        <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("password",$errors)) {{'is-invalid'}} @endif" name="password" placeholder="new password" confirmed autocomplete="new-password" required>
+                        <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("password",$errors)) {{'is-invalid'}} @endif" name="password" placeholder="nieuw wachtwoord" confirmed autocomplete="new-password" required>
                     </div>
 
                     <div class="mb-4">
                         <label for="">Bevestig Wachtwoord: </label>
-                        <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("password",$errors)) {{'is-invalid'}} @endif" name="password_confirmation" placeholder="confirm password" autocomplete="new-password" required>
+                        <input type="password" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("password",$errors)) {{'is-invalid'}} @endif" name="password_confirmation" placeholder="bevestig wachtwoord" autocomplete="new-password" required>
                         
                         @if (count($errors) > 0 && array_key_exists("password",$errors))
                             @foreach($errors['password'] as $error)
