@@ -97,26 +97,28 @@ class ApplicationController extends Controller
         }
         $company_id = $company_id['company_id'];
 
-        return view('application.index', [
+        
+
+        return view('application.indexCompany', [
             'applications' => Application::whereRelation('vacancy', 'company_id', $company_id)->get()
         ]);
     }
 
     /* per vacancy application index */
-    /* public function indexVacancy($vacancy_id){
+    public function indexVacancy($vacancy_id){
         $vacancy_id = ['vacancy_id' => Hashids::decode($vacancy_id)];
         $validator = Validator::make($vacancy_id, [
             'vacancy_id' => ['required', Rule::exists(Vacancy::class, 'id')]
         ]);
         
         if($validator->fails()){
-            return redirect(route('home'))->with('error', 'Vacaturen bestaat niet');;
+            return redirect(route('home'))->with('error', 'Vacature bestaat niet');;
         }
         $vacancy_id = $vacancy_id['vacancy_id'];
 
-        return view('application.index', [
+        return view('application.indexVacancy', [
             'applications' => Application::where('vacancy_id', $vacancy_id)->get()
         ]);
-    } */
+    }
 }
 

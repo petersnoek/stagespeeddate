@@ -64,9 +64,7 @@ $role = Auth::user()->role;
         <div class="block-content block-content-full">
             <div>
                 @include('layouts.partials.messages')
-                @if(Auth::user()->role = 'student')
                 <form method="POST" action="{{route('profile.update')}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
-                @endif
                     @csrf
                     
                     <div class="col-sm-8 col-xl-6">
