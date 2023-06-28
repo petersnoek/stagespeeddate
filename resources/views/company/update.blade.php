@@ -80,6 +80,19 @@
                             </div>
 
                             <div class="mb-4">
+                                <label for="">Locatie: </label>
+                                <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("location",$errors)) {{'is-invalid'}} @endif" name="location" placeholder="Company Location"  value="@if(isset($company->location)){{$company->location}}@endif">
+                            
+                                @if (count($errors) > 0 && array_key_exists("location",$errors))
+                                    @foreach($errors['location'] as $error)
+                                        <div class="invalid-feedback">
+                                            {{$error}}
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+
+                            <div class="mb-4">
                                 <label for="">Bio: 
                                     <i class="fa-circle-info fa-sharp fa-solid"></i>
                                     <br>

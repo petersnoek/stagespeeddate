@@ -39,6 +39,11 @@
                         </h1>
                         <a style="width: fit-content; height: fit-content;" class="form-control form-control-lg form-control-alt @if($company->name == 'New Company')bg-success-light @endif" href="{{route('company.update', ['company_id' => Hashids::encode(Auth::user()->company->id)])}}"><i class="fa fa-pen"></i></a>
                     </div>
+                    <div class="d-flex">
+                        <h5 style="padding: 0.5rem 1rem; padding-left: 0px" class="mb-2">
+                        Locatie: {{$company->location}}
+                        </h5>
+                    </div>
                     <h2 class="fs-base lh-base fw-medium text-muted mb-0">
                         {{$company->bio}}
                     </h2>
