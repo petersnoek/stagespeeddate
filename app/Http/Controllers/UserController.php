@@ -34,7 +34,7 @@ class UserController extends Controller
             return redirect(route('users.create'))->withinput($request->all())->with('errors', $validator->errors()->getmessages());
         }
         if($request->type != 'company' && $request->type != 'teacher'){
-            return redirect(route('users.create'))->withinput($request->all())->with('error', 'Ongeldig account type.');
+            return redirect(route('users.create'))->withinput($request->all())->with('danger', 'Ongeldig account type.');
         }
 
         

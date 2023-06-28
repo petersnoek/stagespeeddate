@@ -1,3 +1,29 @@
+@section('css')
+  <!-- Page JS Plugins CSS -->
+  <link rel="stylesheet" href="{{ asset('js/plugins/datatables-bs5/css/dataTables.bootstrap5.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('js/plugins/datatables-buttons-bs5/css/buttons.bootstrap5.min.css') }}">
+@endsection
+
+@section('js')
+  <!-- jQuery (required for DataTables plugin) -->
+  <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
+
+  <!-- Page JS Plugins -->
+  <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons/dataTables.buttons.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons-bs5/js/buttons.bootstrap5.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons-jszip/jszip.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/pdfmake.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons-pdfmake/vfs_fonts.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons/buttons.print.min.js') }}"></script>
+  <script src="{{ asset('js/plugins/datatables-buttons/buttons.html5.min.js') }}"></script>
+
+  <!-- Page JS Code -->
+  {{-- @vite(['resources/js/pages/datatables.js']) --}}
+  <script type="module" src="{{ asset('build/assets/datatables-ad71b457.js') }}"></script>
+@endsection
+
 @extends('layouts.backend')
 
 @section('content')
@@ -10,7 +36,7 @@
             Dashboard
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Welkom {{Auth::user()->first_name}}, hier is een overzicht van alle bedrijven.
+            Welkom {{Auth::user()->first_name}}, @if(Auth::user()->role != 'company')hier is een overzicht van alle bedrijven.@else hier is een overzicht van all uw vacatures @endif
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -31,6 +57,7 @@
   <!-- Page Content -->
   <div class="content">
   @include('layouts.partials.messages')
+    @if(Auth::user()->role != 'company')
     <div class="row items-push">
       @foreach($companies as $company)
         <a href="{{ route('company.vacancy.index', ['company_id' => Hashids::encode($company->id)]) }}" class="col-md-6 col-xl-4 mb-4" style="color: initial">
@@ -52,6 +79,48 @@
         </a>
       @endforeach
     </div>
+    @else
+      <div class="block block-rounded">
+      <div class="px-5 py-3 block-content-full">
+          <div style="justify-content: space-between;" class="d-flex">
+              <h4 style="padding-left: 0px !important;" class="p-3">Mijn Vacatures</h4>
+              <a style="height: fit-content;" class="btn btn-alt-primary mt-2" href="{{route('vacancy.create', ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">Nieuwe Vacature</a>
+          </div>
+          <div>
+              <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
+                  <thead>
+                      <tr>
+                      <th>Naam</th>
+                      <th>Aanmeldingen</th>
+                      <th style="width: 15%;">Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach(Auth::user()->company->vacancies as $vacancy)
+                      <tr>
+                          <td class="fw-semibold">
+                          <div>{{$vacancy->name}}</div>
+                          </td>
+                          <td class="d-none d-sm-table-cell">
+                              <span class="text-muted">
+                              @if($vacancy->application_count() == 0)
+                                  nog geen aanmeldingen
+                              @else 
+                                  <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['company_id' => Hashids::encode(Auth::user()->company->id), 'vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
+                              @endif 
+                              </span>
+                          </td>
+                          <td class="text-muted">
+                          {{$vacancy->availability()}}
+                          </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      </div>
+    @endif
   </div>
   <!-- END Page Content -->
 @endsection

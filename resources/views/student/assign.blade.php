@@ -33,7 +33,7 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Studenten Toeweizen
+            Studenten Toewijzen
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
             Een overzicht van alle niet-toegewezen studenten.
@@ -48,7 +48,7 @@
               <a class="link-fx" href="{{ route('student.index') }}">Studenten</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              Toeweizen
+              Toewijzen
             </li>
           </ol>
         </nav>
