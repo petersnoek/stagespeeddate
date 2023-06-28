@@ -34,10 +34,10 @@
     </div>
     <!-- END Hero -->
 
-    <div class="content">
+    <div class="content px-8">
         <div class="block block-rounded px-5 py-3">
             <div class="block-content block-content-full">
-                <div class="col-sm-8 col-xl-6">
+                <div>
                 @include('layouts.partials.messages')
                     <form method="POST" action="{{route('application.send', ['vacancy_id' => Hashids::encode($vacancy->id)])}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                         @csrf
@@ -49,18 +49,31 @@
                                 <li>E-mail</li>
                                 <li>CV</li>
                             </ul>
-                                <label for="">Jouw motivatie:</label>
-                                <br>
-                                <textarea spellcheck='true' class='form-control form-control-lg form-control-alt @if (count($errors) > 0 && array_key_exists("comment",$errors)) {{'is-invalid'}} @endif' required type="text" name="comment"></textarea>
-                                @if (count($errors) > 0 && array_key_exists("comment",$errors))
-                                    @foreach($errors['comment'] as $error)
-                                        <div class="invalid-feedback">
-                                            {{$error}}
-                                        </div>
-                                    @endforeach
-                                @endif
-                                <br>
-                                <input type="submit" class="btn btn-lg btn-alt-primary" value="verzend">
+                            <label >Motivatie Brief:</label>
+                                <div>
+                                    <input id="motiInput" style="opacity: 0;" class="position-absolute" type="file" name="motivation" onchange="motiLabel.innerHTML=this.files[0]['name']" accept="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                                    <label for="motiInput" style="float:left;" class="btn btn-lg btn-alt-primary text-muted py-3 @if (count($errors) > 0 && array_key_exists("motivation",$errors)) {{'is-invalid btn-alt-danger'}} @endif" required>Kies een bestand</label>
+                                    <label id="motiLabel" style="max-width:70%; margin-left: 10px;" class="text-truncate py-3">Geen bestand gekozen</label>
+                                    @if (count($errors) > 0 && array_key_exists("motivation",$errors))
+                                        @foreach($errors['motivation'] as $error)
+                                            <div class="invalid-feedback">
+                                                {{$error}}
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>                                                                                                 
+                            <label for="">Jouw bericht:</label>
+                            <br>
+                            <textarea spellcheck='true' class='form-control form-control-lg form-control-alt @if (count($errors) > 0 && array_key_exists("comment",$errors)) {{'is-invalid'}} @endif' required type="text" name="comment"></textarea>
+                            @if (count($errors) > 0 && array_key_exists("comment",$errors))
+                                @foreach($errors['comment'] as $error)
+                                    <div class="invalid-feedback">
+                                        {{$error}}
+                                    </div>
+                                @endforeach
+                            @endif
+                            <br>
+                            <input type="submit" class="btn btn-lg btn-alt-primary" value="verzend">
                         </div>
                     </form>
                 <div >

@@ -42,15 +42,31 @@
                 <div class="col-sm-9 col-xl-9">
                     <h2>{{$application->student->user->fullname()}}</h2>
                     <div class="d-flex">
-                      <label class='p-2'>CV:</label>
-                      <div>             
-                        <a type="text" style="width: 200px" class="form-control form-control-lg form-control-alt text-truncate" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode($application->student->id)]) }}"> {{  explode(',', explode('/', $application->student->CV)[1])[1] }} </a>
-                      </div>
+                        <div class="d-flex">
+                        <label class='p-2'>CV:</label>
+                        <div>
+                        @if($application->student->CV != null)               
+                            <a type="text" style="width: 200px" class="form-control form-control-lg form-control-alt text-truncate" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode($application->student->id)]) }}"> {{  explode(',', explode('/', $application->student->CV)[1])[1] }} </a>
+                        @else
+                            <p class="p-2">N/A</p>
+                        @endif
+                        </div>
+                        </div>
+                        <div class="d-flex">
+                        <label class='p-2'>Motivatie:</label>
+                        <div>
+                        @if($application->motivation != null)               
+                            <a type="text" style="width: 200px" class="form-control form-control-lg form-control-alt text-truncate" href="{{ route('application.downloadMotivation', ['application_id' => Hashids::encode($application->id)]) }}"> {{  explode(',', explode('/', $application->motivation)[1])[1] }} </a>
+                        @else
+                            <p class="p-2">N/A</p>
+                        @endif
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="block-content block-content-full">
-              <label>Motivatie:</label>
+              <label>Bericht:</label>
                 <div class="col-sm-9 col-xl-8 form-control form-control-lg  form-control-alt">
                     {{$application->comment}}
                 </div>
