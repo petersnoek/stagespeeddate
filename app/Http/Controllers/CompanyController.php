@@ -80,6 +80,7 @@ class CompanyController extends Controller
             'email' => ['nullable', 'email', Rule::unique('companies')->ignore(Auth::user()->company->id),],
             'bio' => ['required', new DescriptionPattern()],
             'description' => ['nullable', new DescriptionPattern()],
+            'location' => ['nullable', new Descriptionpattern()],
             'image' => ['image','mimes:jpeg,png,jpg'],
         ]);      
         if($validate->fails()){
@@ -99,6 +100,7 @@ class CompanyController extends Controller
             'email' => $request->email,
             'bio' => $request->bio,
             'description' => $request->description,
+            'location' => $request->location,
             'image' => $imagePath,
             'updated_at' => now(),
         ]);

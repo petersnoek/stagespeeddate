@@ -21,6 +21,7 @@ class Company extends Model
         'email',
         'bio',
         'description',
+        'location',
         'image',
     ];
 
