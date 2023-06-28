@@ -87,7 +87,7 @@
                     <div class="mb-4">
                         <label for="">CV: </label>
                         @if($cv == 'there is nothing here')
-                          <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{ $cv }} </p>
+                          <p type="text" class="form-control form-control-lg form-control-alt py-3">Nog geen CV geupload</p>
                         @endif
                         @if($cv != 'there is nothing here')
                           <a type="text" class="form-control form-control-lg form-control-alt py-3" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode(Auth::user()->student->id)]) }}"> {{ $cv }} </a>

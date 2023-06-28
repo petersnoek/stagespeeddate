@@ -110,8 +110,8 @@ $role = Auth::user()->role;
                             <div class="mb-4">
                             <label >CV:</label>
                                 <div>
-                                    <label for="cvInput" style="float:left;" class="btn btn-lg btn-alt-primary text-muted py-3">Choose File</label>
-                                    <label id="cvLabel" style="max-width:70%; margin-left: 10px;" class="text-truncate py-3">@if(Auth::user()->student->CV != ''){{explode(',', explode('/', Auth::user()->student->CV)[1])[1]}} @else No file chosen @endif</label>
+                                    <label for="cvInput" style="float:left;" class="btn btn-lg btn-alt-primary text-muted py-3">Kies een bestand</label>
+                                    <label id="cvLabel" style="max-width:70%; margin-left: 10px;" class="text-truncate py-3">@if(Auth::user()->student->CV != ''){{explode(',', explode('/', Auth::user()->student->CV)[1])[1]}} @else Geen bestand gekozen @endif</label>
                                     <input id="cvInput" class="invisible position-absolute @if (count($errors) > 0 && array_key_exists("CV",$errors)) {{'is-invalid'}} @endif" type="file" name="CV" onchange="cvLabel.innerHTML=this.files[0]['name']" accept="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     @if (count($errors) > 0 && array_key_exists("CV",$errors))
                                         @foreach($errors['CV'] as $error)
