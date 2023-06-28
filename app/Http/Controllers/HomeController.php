@@ -24,8 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        //only show companies that have been updated atleast once
         return view('dashboard', [
-            'companies' => Company::where('bio', '!=' ,null)->get()
+            'companies' => Company::whereRaw('created_at != updated_at')->get()
         ]);
     }
 }

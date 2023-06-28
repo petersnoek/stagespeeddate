@@ -32,6 +32,7 @@ class CompanySeeder extends Seeder
                 'name' => 'Big Corp ' . str::random(2),
                 'bio' => 'This is an example of a company bio, this is test data don\'t think too much about it',
                 'description' => /* str::random(250) */ $description,
+                'location' => 'Nederland',
                 'user_id' => $userId,
                 'image' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
             ]);
@@ -41,6 +42,7 @@ class CompanySeeder extends Seeder
             'name' => 'Xlab Cloud Services B.V.',
             'bio' => 'Ontwikkelen, produceren en uitgeven van software.',
             'description' => str::random(250),
+            'location' => 'Nederland',
             'user_id' => '110',
             'image' => 'media/photos/xlab.jpg',
         ]);
@@ -49,6 +51,7 @@ class CompanySeeder extends Seeder
             'name' => 'Koen Pack B.V.',
             'bio' => 'Groothandel in emballage.',
             'description' => str::random(250),
+            'location' => 'Nederland',
             'user_id' => '120',
             'image' => 'media/photos/koen.jpg',
         ]);
@@ -57,6 +60,7 @@ class CompanySeeder extends Seeder
             'name' => 'MKB Voice',
             'bio' => 'Reclamebureaus',
             'description' => str::random(250),
+            'location' => 'Nederland',
             'user_id' => '130',
             'image' => 'media/photos/mkb.jpg',
         ]);
@@ -65,6 +69,7 @@ class CompanySeeder extends Seeder
             'name' => 'COERS Online branding',
             'bio' => 'Ontwikkelen, produceren en uitgeven van software.',
             'description' => str::random(250),
+            'location' => 'Nederland',
             'user_id' => '140',
             'image' => 'media/photos/coers.jpg',
         ]);
@@ -73,8 +78,16 @@ class CompanySeeder extends Seeder
             'name' => 'Movella',
             'bio' => 'Groothandel in elektronische en telecommunicatieapparatuur en bijbehorende onderdelen.',
             'description' => str::random(250),
+            'location' => 'Nederland',
             'user_id' => '150',
             'image' => 'media/photos/movella.jpg',
         ]);
+
+        //sleep 1 second and update updated_at timestamp for created_at and updated_at needing to be different to be displayed on dashboard
+        sleep(1);
+        foreach(Company::all() as $company){
+            $company->updated_at = now();
+            $company->save();
+        }
     }
 }

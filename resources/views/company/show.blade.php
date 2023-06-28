@@ -37,7 +37,12 @@
                         <h1 style="padding: 0.5rem 1rem; padding-left: 0px" class="h3 fw-bold mb-2">
                             {{$company->name}}
                         </h1>
-                        <a style="width: fit-content; height: fit-content;" class="form-control form-control-lg form-control-alt" href="{{route('company.update')}}""><i class="fa fa-pen"></i></a>
+                        <a style="width: fit-content; height: fit-content;" class="form-control form-control-lg form-control-alt @if($company->name == 'New Company')bg-success-light @endif" href="{{route('company.update', ['company_id' => Hashids::encode(Auth::user()->company->id)])}}"><i class="fa fa-pen"></i></a>
+                    </div>
+                    <div class="d-flex">
+                        <h5 style="padding: 0.5rem 1rem; padding-left: 0px" class="mb-2">
+                        Locatie: {{$company->location}}
+                        </h5>
                     </div>
                     <h2 class="fs-base lh-base fw-medium text-muted mb-0">
                         {{$company->bio}}
@@ -66,14 +71,18 @@
             @include('layouts.partials.messages')   
             <div class=" block-content-full">
                 <div class="col-sm-8 col-xl-11">
+                @if($company->description != null)
                     <h5 style="margin: 0px; " class="p-1">Over ons bedrijf</h5>
                     <div class="p-2">{{$company->description}}</div>
+                @else
+                    <h5 style="margin: 0px; " class="p-1 text-muted"><i>dit bedrijf heeft nog geen beschrijving</i></h5>
+                @endif
                 </div>
             </div>
             <div style="border-top: 1px gray solid;" class="pt-3 mt-5 block-content-full">
                 <div style="justify-content: space-between;" class="d-flex">
                     <h4 style="padding-left: 0px !important;" class="p-3">Mijn Vacatures</h4>
-                    <a style="height: fit-content;" class="btn btn-alt-primary mt-2" href="{{route('vacancy.create')}}">Nieuwe Vacature</a>
+                    <a style="height: fit-content;" class="btn btn-alt-primary mt-2" href="{{route('vacancy.create', ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">Nieuwe Vacature</a>
                 </div>
                 <div>
                     <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
@@ -93,9 +102,9 @@
                                 <td class="d-none d-sm-table-cell">
                                     <span class="text-muted">
                                     @if($vacancy->application_count() == 0)
-                                        N/A 
+                                        nog geen aanmeldingen
                                     @else 
-                                        <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
+                                        <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['company_id' => Hashids::encode(Auth::user()->company->id), 'vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
                                     @endif 
                                     </span>
                                 </td>

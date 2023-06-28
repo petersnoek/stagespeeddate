@@ -15,35 +15,52 @@ use App\Rules\NamePattern;
 
 class VacancyController extends Controller
 {
+    //this returns the index view with all the vacancies that are available
     public function index(){
         return view('vacancies.index',[
             'vacancies' => Vacancy::all()->where('available', '=', true)
         ]);
     }
 
+    //this returns the vacancy details, you can see all the details of the vacancy here
+    public function details($vacancy_id){
+
+        $vacancy_id = Hashids::decode($vacancy_id);
+
+        return view('vacancies.details', [
+            'vacancy' => Vacancy::where('id', $vacancy_id)->first()
+        ]);
+    }
+
+    //returns all the vacancies that belong to 1 company
     public function indexCompany($company_id){
         $company_id = ['company_id' => Hashids::decode($company_id)];
+        //checks if the company with this id exist if not return with error
         $validator = Validator::make($company_id, [
             'company_id' => ['required', Rule::exists(Company::class, 'id')]
         ]);
 
+        //if the validator fails you get redirected with a error message
         if($validator->fails()){
-            return redirect(route('home'))->with('error', 'Bedrijf bestaat niet');;
+            return redirect(route('home'))->with('danger', 'Bedrijf bestaat niet');;
         }
 
         $company_id = $company_id['company_id'];
 
+        //if successful return the view with the vacancies that belong to the company that are currently available
         return view('vacancies.index',[
             'vacancies' => Vacancy::where('company_id', $company_id)->where('available', '=', true)->get(),
             'company' => Company::where('id', $company_id)->get()
         ]);
     }
 
+    //returns the view where u can create ur vacancy
     public function create(){
         return view('vacancies.create',[
         ]);
     }
 
+    //this is where your vacancy gets validated and stored in the database
     public function store(Request $request){
 
         $validate = Validator::make($request->all(), [
@@ -53,9 +70,10 @@ class VacancyController extends Controller
         ]);
 
         if($validate->fails()){
-            return redirect(route('vacancy.create'))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+            return redirect(route('vacancy.create', ['company_id' => Hashids::encode(Auth::user()->company->id)]))->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
+        //we retrieve the company_id by checking the logged in user, we check this id with the user_id in the company table.
         $company_id = Company::where('user_id', Auth::user()->id)->first()->id;
         Vacancy::create([
             'company_id' => $company_id,
@@ -65,8 +83,9 @@ class VacancyController extends Controller
             'available' => true
         ]);
 
-        return redirect(route('company.show', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacancy Aangemaakt.');
+        return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacature is aangemaakt.');
     }
 
 
 }
+

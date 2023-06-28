@@ -34,10 +34,10 @@ $role = Auth::user()->role;
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Update your credentials
+            Gegevens Aanpassen
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
-            Here you can change your credentials by updating the information in the fields, click on update when you are done.
+            Hier kan je je gegevens aanpassen, klik op opslaan als je klaar bent.
           </h2>
         </div>
         <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3" aria-label="breadcrumb">
@@ -46,10 +46,10 @@ $role = Auth::user()->role;
               <a class="link-fx" href="{{route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item">
-              <a class="link-fx" href="{{route('profile')}}">Profile</a>
+              <a class="link-fx" href="{{route('profile')}}">Profiel</a>
             </li>
             <li class="breadcrumb-item">
-              Update
+              Aanpassen
             </li>
           </ol>
         </nav>
@@ -69,7 +69,7 @@ $role = Auth::user()->role;
                     
                     <div class="col-sm-8 col-xl-6">
                         <div class="mb-4">
-                            <label for="">First Name: </label>
+                            <label for="">Voornaam: </label>
                             <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("first_name",$errors)) {{'is-invalid'}} @endif" name="first_name" placeholder="{{Auth::user()->first_name}}*"  value="@if(old()){{old('first_name')}}@else{{ Auth::user()->first_name }}@endif" required>
                         
                             @if (count($errors) > 0 && array_key_exists("first_name",$errors))
@@ -82,7 +82,7 @@ $role = Auth::user()->role;
                         </div>
 
                         <div class="mb-4">
-                            <label for="">Last Name: </label>
+                            <label for="">Achternaam: </label>
                             <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("last_name",$errors)) {{'is-invalid'}} @endif" name="last_name" placeholder="{{Auth::user()->last_name}}*"  value="@if(old()){{old('last_name')}}@else{{ Auth::user()->last_name }}@endif" required>
                         
                             @if (count($errors) > 0 && array_key_exists("last_name",$errors))
@@ -111,7 +111,7 @@ $role = Auth::user()->role;
                             <label >CV:</label>
                                 <div>
                                     <label for="cvInput" style="float:left;" class="btn btn-lg btn-alt-primary text-muted py-3">Choose File</label>
-                                    <label id="cvLabel" style="max-width:70%; margin-left: 10px;" class="text-truncate py-3">@if(Auth::user()->sub_user->CV != ''){{explode(',', explode('/', Auth::user()->sub_user->CV)[1])[1]}} @else No file chosen @endif</label>
+                                    <label id="cvLabel" style="max-width:70%; margin-left: 10px;" class="text-truncate py-3">@if(Auth::user()->student->CV != ''){{explode(',', explode('/', Auth::user()->student->CV)[1])[1]}} @else No file chosen @endif</label>
                                     <input id="cvInput" class="invisible position-absolute @if (count($errors) > 0 && array_key_exists("CV",$errors)) {{'is-invalid'}} @endif" type="file" name="CV" onchange="cvLabel.innerHTML=this.files[0]['name']" accept="application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
                                     @if (count($errors) > 0 && array_key_exists("CV",$errors))
                                         @foreach($errors['CV'] as $error)
@@ -133,7 +133,7 @@ $role = Auth::user()->role;
                                             {{-- image still stretches a bit cuz I can't not give it a width or height; this is like near impossible --}}
                                         </div>                                
                                 </div>
-                                <label for="profilePictureInput" style=" width:18rem;" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif">upload a profile picture</label>
+                                <label for="profilePictureInput" style=" width:18rem;" class="btn btn-lg btn-alt-primary rounded-0 rounded-bottom py-3 text-muted fw-normal @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif">Profiel foto</label>
                                 <input id="profilePictureInput" class="visually-hidden @if (count($errors) > 0 && array_key_exists("profilePicture",$errors)) {{'is-invalid'}} @endif" type="file" name="profilePicture" onchange="headerPreview.src=window.URL.createObjectURL(this.files[0])" accept="image/png, image/jpg, image/jpeg">
                                 @if (count($errors) > 0 && array_key_exists("profilePicture",$errors))
                                     @foreach($errors['profilePicture'] as $error)
@@ -146,7 +146,7 @@ $role = Auth::user()->role;
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-lg btn-alt-primary">
-                                Save changes
+                                Wijzigingen Opslaan
                             </button>
                         </div>
                     </div>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->tinyText('bio')->nullable();
             $table->mediumText('description')->nullable();
+            $table->string('location')->nullable();
             $table->string('image');
             $table->timestamps();
         });

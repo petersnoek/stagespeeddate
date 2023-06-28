@@ -27,7 +27,7 @@ class ApplicationController extends Controller
         ]);
         
         if($validator->fails()){
-            return redirect()->back()->with('error', 'Aanmelding bestaat niet');;
+            return redirect()->back()->with('danger', 'Aanmelding bestaat niet');;
         }
         $application_id = $slugs['application_id'];
 
@@ -47,7 +47,7 @@ class ApplicationController extends Controller
         ]);
         
         if($validator->fails()){
-            return redirect()->back()->with('error', 'Vacature bestaat niet');;
+            return redirect()->back()->with('danger', 'Vacature bestaat niet');;
         }
 
         $vacancy_id = $vacancy_id['vacancy_id'];
@@ -62,11 +62,11 @@ class ApplicationController extends Controller
     public function send(Request $request){
 
         if(Application::where('student_id', Auth::user()->student->id)->where('vacancy_id', Hashids::decode($request->vacancy_id))->exists()){
-            return redirect(route('home'))->with('error', 'Je hebt je al aangemeld voor deze vacaturen');
+            return redirect(route('home'))->with('danger', 'Je hebt je al aangemeld voor deze vacaturen');
  
         }
         if(Auth::user()->student->CV == null){
-            return redirect()->back()->withinput($request->all())->with('error', 'Upload eerst een CV in je profiel pagina');
+            return redirect()->back()->withinput($request->all())->with('danger', 'Upload eerst een CV naar je profiel pagina');
         }
 
         $validate = Validator::make($request->all(), [
@@ -102,7 +102,7 @@ class ApplicationController extends Controller
         ]);
         
         if($validator->fails()){
-            return redirect(route('home'))->with('error', 'Bedrijf bestaat niet');;
+            return redirect(route('home'))->with('danger', 'Bedrijf bestaat niet');;
         }
         $company_id = $company_id['company_id'];
 
@@ -121,7 +121,7 @@ class ApplicationController extends Controller
         ]);
         
         if($validator->fails()){
-            return redirect(route('home'))->with('error', 'Vacature bestaat niet');;
+            return redirect(route('home'))->with('danger', 'Vacature bestaat niet');;
         }
         $vacancy_id = $vacancy_id['vacancy_id'];
 

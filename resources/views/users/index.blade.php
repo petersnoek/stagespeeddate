@@ -33,7 +33,7 @@
       <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
         <div class="flex-grow-1">
           <h1 class="h3 fw-bold mb-2">
-            Users
+            Gebruikers
           </h1>
           <h2 class="fs-base lh-base fw-medium text-muted mb-0">
             Een overzicht van alle gebruikers
@@ -45,7 +45,7 @@
               <a class="link-fx" href="{{route('home')}}">Dashboard</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
-              Users
+              Gebruikers
             </li>
           </ol>
         </nav>
@@ -61,17 +61,17 @@
     <div class="block block-rounded">
       <div class="block-content block-content-full">
       @include('layouts.partials.messages')
-      <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('company.create')}}">Create Company Account</a>
+      <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('users.create')}}">Maak nieuw account</a>
         <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
         <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
           <thead>
             <tr>
               <th class="text-center" style="width: 80px;">#</th>
-              <th class="sorting_asc_disabled sorting_desc_disabled">Image</th>
-              <th>Name</th>
-              <th>Role</th>
-              <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
-              <th style="width: 15%;">Verified</th>
+              <th class="sorting_asc_disabled sorting_desc_disabled">Foto</th>
+              <th>Naam</th>
+              <th>Rol</th>
+              <th class="d-none d-sm-table-cell" style="width: 30%;">E-mail</th>
+              <th style="width: 15%;">Geverifieerd</th>
             </tr>
           </thead>
           <tbody>
