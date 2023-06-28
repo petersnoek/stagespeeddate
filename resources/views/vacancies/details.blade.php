@@ -36,7 +36,9 @@
                 <div class="col-sm-8 col-xl-6">
                     <div class="mb-4">
                         <h2 type="text" class="bold"> {{$vacancy->name}} </h2>
+                        <div style="margin-top: -20px;">{{$vacancy->company->location}}</div>
                     </div>
+                    
                     <div class="mb-4">
                         <h5 for="">Beschrijving</h5>
                         <p type="text" class="form-control form-control-lg form-control-alt py-3"> {{$vacancy->description}}</p>
