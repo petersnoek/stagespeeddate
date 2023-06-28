@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vacancy_id');
             $table->foreignId('student_id');
+            $table->string('motivation');
             $table->string('comment');
             $table->timestamps();
         });

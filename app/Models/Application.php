@@ -17,6 +17,7 @@ class Application extends Model
     protected $fillable = [
         'vacancy_id',
         'student_id',
+        'motivation',
         'comment'
     ];
 

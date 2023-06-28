@@ -59,28 +59,37 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function send(Request $request, $vacancy_id){
+    public function send(Request $request){
 
         if(Application::where('student_id', Auth::user()->student->id)->where('vacancy_id', Hashids::decode($request->vacancy_id))->exists()){
             return redirect(route('home'))->with('error', 'Je hebt je al aangemeld voor deze vacaturen');
  
         }
         if(Auth::user()->student->CV == null){
-            return redirect()->back()->withinput($request->all())->with('error', 'Upload eerst een CV naar je profiel pagina');
+            return redirect()->back()->withinput($request->all())->with('error', 'Upload eerst een CV in je profiel pagina');
         }
 
         $validate = Validator::make($request->all(), [
             'comment' => ['required', 'string', 'max:255', new CommentPattern()],
+            'motivation' => ['required','mimes:pdf,doc,docx'],
         ]);
 
         if($validate->fails()){
             return redirect()->back()->withinput($request->all())->with('errors', $validate->errors()->getmessages());
         }
 
+        $now = date('his', time());
+        $now = Hashids::encode($now);
+        
+        $motivationname = $now . ',' . $request->motivation->getClientOriginalName();;
+        $request->motivation->move(public_path('Motivations'), $motivationname);
+        $motivationPath = 'Motivations/' . $motivationname;
+
         Application::create([
-            'comment' => $request->comment,
             'vacancy_id' => Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->id,
-            'student_id' => Auth::user()->sub_user->id
+            'student_id' => Auth::user()->sub_user->id,
+            'motivation' => $motivationPath,
+            'comment' => $request->comment,
         ]);
 
         return redirect(route('home'))->with('success', 'Aanmelding bij '. Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->name  .' aangemaakt.');
@@ -119,6 +128,30 @@ class ApplicationController extends Controller
         return view('application.indexVacancy', [
             'applications' => Application::where('vacancy_id', $vacancy_id)->get()
         ]);
+    }
+
+    public function downloadMotivation($application_id)
+    {
+        $application_id = ['application_id' => Hashids::decode($application_id)];
+        $validator = Validator::make($application_id, [
+            'application_id' => ['required', Rule::exists(Application::class, 'id')]
+        ]);
+        
+        if($validator->fails()){
+            return redirect()->back()->with('error', 'Aanmelding bestaat niet');;
+        }
+        
+        $application_id = $application_id['application_id'][0];
+        
+        $application = Application::where('id', $application_id)->first();
+    
+        $value = public_path($application->motivation);
+
+        $motivation = explode('/', $value)[1] ?? null;
+        $motivation = explode(',', $motivation)[1] ?? null;
+        
+        
+        return response()->download($value, $motivation);
     }
 }
 

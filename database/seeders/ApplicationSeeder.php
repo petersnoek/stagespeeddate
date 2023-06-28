@@ -22,6 +22,7 @@ class ApplicationSeeder extends Seeder
         Application::factory()->create([
             'vacancy_id' => $vacancyIds,
             'student_id' => $studentIds,
+            'motivation' => 'Motivations/testdata',
             'comment' => str::random(30),
         ]);
     }

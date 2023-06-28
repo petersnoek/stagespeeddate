@@ -94,6 +94,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
     Route::post('apply/{vacancy_id}/send', [ApplicationController::class, 'send'])->name('application.send');
 
     Route::get('{student_id}/downloadCV', [StudentController::class, 'downloadCv'])->name('student.downloadCv');
+    Route::get('{application_id}/downloadMotivation', [ApplicationController::class, 'downloadMotivation'])->name('application.downloadMotivation');
 
 });
 
