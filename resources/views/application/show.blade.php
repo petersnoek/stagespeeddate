@@ -66,9 +66,24 @@
                 </div>
             </div>
             <div class="block-content block-content-full">
-              <label>Bericht:</label>
+                <label>Bericht:</label>
                 <div class="col-sm-9 col-xl-8 form-control form-control-lg  form-control-alt">
                     {{$application->comment}}
+                </div>
+            </div>
+            <div class="block-content block-content-full">
+                <div class="d-flex justify-content-end">
+                    @if($application->status == 'pending')
+                    <form method="POST" action="{{route('application.reply', ['company_id' => Hashids::encode($application->vacancy->company->id), 'application_id' => Hashids::encode($application->id)])}}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="application" value="{{Hashids::encode($application->id)}}">
+                        <button type="submit" class="btn btn-lg btn-alt-primary mx-3">Beantwoorden</button> 
+                    </form>
+                    @elseif($application->status == 'accepted')
+                        <button class="btn btn-lg btn-alt-success mx-3" disabled>Geaccepteerd</button> 
+                    @elseif($application->status == 'declined')
+                        <button class="btn btn-lg btn-alt-danger mx-3" disabled>Afgewezen</button> 
+                    @endif
                 </div>
             </div>
         </div>

@@ -130,6 +130,29 @@ class ApplicationController extends Controller
         ]);
     }
 
+    public function reply(Request $request) {
+
+        $request['application'] = Hashids::decode($request['application']);
+
+        
+        $validate = Validator::make($request->all(), [
+            'application' => ['required', Rule::exists(Application::class, 'id')],
+        ]);
+
+        if($validate->fails() || Application::where('id', $request->application)->first()->vacancy->company_id != Auth::user()->company->id){
+            return redirect()->back()->with('error', 'Aanmelding bestaat niet');
+        }
+
+
+        return view('application.reply', [
+            'application' => Application::where('id', $request->application)->first()
+        ]);
+
+    }
+
+    public function sendReply(Request $request) {
+        dd($request);
+    }
     public function downloadMotivation($application_id)
     {
         $application_id = ['application_id' => Hashids::decode($application_id)];

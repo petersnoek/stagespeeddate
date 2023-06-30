@@ -70,9 +70,10 @@ Route::middleware('verified')->group(function () {//if user verified their email
 
         Route::get('/{company_id}/aanmeldingen', [ApplicationController::class, 'indexCompany'])->name('company.application.index');
         Route::get('/{company_id}/aanmeldingen/{application_id}', [ApplicationController::class, 'show'])->name('application.show');
+        Route::post('/{company_id}/aanmeldingen/{application_id}/beantwoorden', [ApplicationController::class, 'reply'])->name('application.reply');
+        Route::post('/{company_id}/aanmeldingen/{application_id}/beantwoorden/versturen', [ApplicationController::class, 'sendReply'])->name('application.reply.send');
         Route::get('/{company_id}/vacatures', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
         Route::get('/vacatures/details/{vacancy_id}', [VacancyController::class, 'details'])->name('vacancy.details');
-      
     });
 
     Route::group(['prefix'=> '/profiel'], function(){
