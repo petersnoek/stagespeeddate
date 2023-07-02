@@ -74,11 +74,7 @@
             <div class="block-content block-content-full">
                 <div class="d-flex justify-content-end">
                     @if($application->status == 'pending')
-                    <form method="POST" action="{{route('application.reply', ['company_id' => Hashids::encode($application->vacancy->company->id), 'application_id' => Hashids::encode($application->id)])}}" enctype="multipart/form-data">
-                        @csrf
-                        <input type="hidden" name="application" value="{{Hashids::encode($application->id)}}">
-                        <button type="submit" class="btn btn-lg btn-alt-primary mx-3">Beantwoorden</button> 
-                    </form>
+                        <a href="{{route('application.reply', ['company_id' => Hashids::encode($application->vacancy->company->id), 'application_id' => Hashids::encode($application->id)])}}" class="btn btn-lg btn-alt-primary mx-3">Beantwoorden</a> 
                     @elseif($application->status == 'accepted')
                         <button class="btn btn-lg btn-alt-success mx-3" disabled>Geaccepteerd</button> 
                     @elseif($application->status == 'declined')

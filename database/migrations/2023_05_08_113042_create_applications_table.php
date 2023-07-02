@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('vacancy_id');
             $table->foreignId('student_id');
             $table->string('motivation');
-            $table->string('comment');
+            $table->tinyText('comment');
             $table->tinyText('reply')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();

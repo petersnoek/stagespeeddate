@@ -70,7 +70,7 @@ class ApplicationController extends Controller
         }
 
         $validate = Validator::make($request->all(), [
-            'comment' => ['required', 'string', 'max:255', new CommentPattern()],
+            'comment' => ['required', 'string', new CommentPattern()],
             'motivation' => ['required','mimes:pdf,doc,docx'],
         ]);
 
@@ -109,7 +109,7 @@ class ApplicationController extends Controller
         
 
         return view('application.indexCompany', [
-            'applications' => Application::whereRelation('vacancy', 'company_id', $company_id)->get()
+            'applications' => Application::whereRelation('vacancy', 'company_id', $company_id)->orderBy('status','desc')->orderBy('created_at', 'asc')->get()
         ]);
     }
 
@@ -126,32 +126,64 @@ class ApplicationController extends Controller
         $vacancy_id = $vacancy_id['vacancy_id'];
 
         return view('application.indexVacancy', [
-            'applications' => Application::where('vacancy_id', $vacancy_id)->get()
+            'applications' => Application::where('vacancy_id', $vacancy_id)->orderBy('status','desc')->orderBy('created_at', 'asc')->get()
         ]);
     }
 
-    public function reply(Request $request) {
+    public function reply($application_id) {
 
-        $request['application'] = Hashids::decode($request['application']);
+        $application_id = ['application_id' => Hashids::decode($application_id)];
 
         
-        $validate = Validator::make($request->all(), [
-            'application' => ['required', Rule::exists(Application::class, 'id')],
+        $validate = Validator::make($application_id, [
+            'application_id' => ['required', Rule::exists(Application::class, 'id')],
         ]);
 
-        if($validate->fails() || Application::where('id', $request->application)->first()->vacancy->company_id != Auth::user()->company->id){
+        $application_id = $application_id['application_id'];
+
+        if(Application::where('id', $application_id)->first()->status != 'pending'){
+            return redirect()->back()->with('error', 'Aanmelding is al beantwoord.');
+        }
+
+        if($validate->fails() || Application::where('id', $application_id)->first()->vacancy->company_id != Auth::user()->company->id){
             return redirect()->back()->with('error', 'Aanmelding bestaat niet');
         }
 
 
         return view('application.reply', [
-            'application' => Application::where('id', $request->application)->first()
+            'application' => Application::where('id', $application_id)->first()
         ]);
 
     }
 
     public function sendReply(Request $request) {
-        dd($request);
+        $request['application'] = Hashids::decode($request['application']);
+
+        $validate = Validator::make($request->all(), [
+            'application' => ['required', Rule::exists(Application::class, 'id')],
+            'comment' => ['required', 'string', new CommentPattern()]
+        ]);
+
+        if($validate->fails()){
+            return redirect()->back()->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+        }
+
+        $application = Application::where('id', $request->application)->first();
+
+        $application->reply = $request->comment;
+        if($request->accept){
+            $application->status = 'accepted';
+        }
+        else if($request->decline){
+            $application->status = 'declined';
+        }
+        else{
+            return redirect()->back()->withinput($request->all())->with('danger', 'Selecteer of u de aanmelding wilt Afwijzen of Accepteren.');
+        }
+
+        $application->save();
+        return redirect(route('home'))->with('success', 'Aanmelding van ' . $application->student->user->fullname() . ' beantwoord.');
+
     }
     public function downloadMotivation($application_id)
     {

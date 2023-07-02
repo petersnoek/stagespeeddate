@@ -47,11 +47,11 @@
                         @csrf
                         <div>
                             <div class="btn btn-alt-success">
-                                <input id="CheckAccept" type="checkbox" name="Accept" onchange="CheckDecline.checked=false">
+                                <input id="CheckAccept" type="checkbox" name="accept" onchange="CheckDecline.checked=false">
                                 <label for="CheckAccept">Accepteren</label>
                             </div>
                             <div class="btn btn-alt-danger">
-                                <input id="CheckDecline" type="checkbox" name="Decline" onchange="CheckAccept.checked=false">
+                                <input id="CheckDecline" type="checkbox" name="decline" onchange="CheckAccept.checked=false">
                                 <label for="CheckDecline">Afweizen</label>
                             </div>
                         </div>
