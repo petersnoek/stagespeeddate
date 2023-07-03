@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class UserCredentials extends Mailable
+class ApplicationAproved extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,7 +28,7 @@ class UserCredentials extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Stagespeeddate Inlog Gegevens',
+            subject: 'Aanmelding van '. $this->data['application']->student->user->fullname() . ' is goedgekeurd!',
         );
     }
 
@@ -38,7 +38,7 @@ class UserCredentials extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.createdAccount',
+            markdown: 'emails.applicationAproved',
             with: [
                 'data' => $this->data,
             ],

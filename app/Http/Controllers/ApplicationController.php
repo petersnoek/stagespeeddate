@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Application;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicationAproved;
 use App\Models\Vacancy;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
@@ -173,6 +175,12 @@ class ApplicationController extends Controller
         $application->reply = $request->comment;
         if($request->accept){
             $application->status = 'accepted';
+
+            $mailInfo = [
+                'application' => $application,
+            ];
+    
+            Mail::to($application->student->teacher->user->email)->send(new ApplicationAproved($mailInfo));
         }
         else if($request->decline){
             $application->status = 'declined';
