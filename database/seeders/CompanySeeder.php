@@ -32,7 +32,7 @@ class CompanySeeder extends Seeder
                 'name' => 'Big Corp ' . str::random(2),
                 'bio' => 'This is an example of a company bio, this is test data don\'t think too much about it',
                 'description' => /* str::random(250) */ $description,
-                'location' => 'Nederland',
+                'location' => 'Mollenburgseweg 82, 4205 NB Gorinchem',
                 'user_id' => $userId,
                 'image' => 'media/photos/photo' . random_int(1, 37) . '.jpg',
             ]);
@@ -42,7 +42,7 @@ class CompanySeeder extends Seeder
             'name' => 'Xlab Cloud Services B.V.',
             'bio' => 'Ontwikkelen, produceren en uitgeven van software.',
             'description' => str::random(250),
-            'location' => 'Nederland',
+            'location' => 'Computerweg 11, 3542 DP Utrecht',
             'user_id' => '110',
             'image' => 'media/photos/xlab.jpg',
         ]);
@@ -51,7 +51,7 @@ class CompanySeeder extends Seeder
             'name' => 'Koen Pack B.V.',
             'bio' => 'Groothandel in emballage.',
             'description' => str::random(250),
-            'location' => 'Nederland',
+            'location' => 'De Loetenweg 8, 1187 WB Amstelveen',
             'user_id' => '120',
             'image' => 'media/photos/koen.jpg',
         ]);
@@ -60,7 +60,7 @@ class CompanySeeder extends Seeder
             'name' => 'MKB Voice',
             'bio' => 'Reclamebureaus',
             'description' => str::random(250),
-            'location' => 'Nederland',
+            'location' => 'Minervum 7162 A, 4817 ZN Breda',
             'user_id' => '130',
             'image' => 'media/photos/mkb.jpg',
         ]);
@@ -69,7 +69,7 @@ class CompanySeeder extends Seeder
             'name' => 'COERS Online branding',
             'bio' => 'Ontwikkelen, produceren en uitgeven van software.',
             'description' => str::random(250),
-            'location' => 'Nederland',
+            'location' => 'Emmaplein 2 Y, 5211 VW \'s-Hertogenbosch',
             'user_id' => '140',
             'image' => 'media/photos/coers.jpg',
         ]);
@@ -78,7 +78,7 @@ class CompanySeeder extends Seeder
             'name' => 'Movella',
             'bio' => 'Groothandel in elektronische en telecommunicatieapparatuur en bijbehorende onderdelen.',
             'description' => str::random(250),
-            'location' => 'Nederland',
+            'location' => 'Pantheon 6 a, 7521 PR Enschede',
             'user_id' => '150',
             'image' => 'media/photos/movella.jpg',
         ]);
