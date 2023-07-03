@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         //only show companies that have been updated atleast once
         return view('dashboard', [
-            'companies' => Company::whereRaw('created_at != updated_at')->get()
+            'companies' => Company::whereRaw('created_at != updated_at')->orderBy('name','asc')->get()
         ]);
     }
 }
