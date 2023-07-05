@@ -18,7 +18,7 @@ class VacancyController extends Controller
     //this returns the index view with all the vacancies that are available
     public function index(){
         return view('vacancies.index',[
-            'vacancies' => Vacancy::all()->where('available', '=', true)
+            'vacancies' => Vacancy::all()->where('available', '=', true)->sortBy('name')
         ]);
     }
 
@@ -49,7 +49,7 @@ class VacancyController extends Controller
 
         //if successful return the view with the vacancies that belong to the company that are currently available
         return view('vacancies.index',[
-            'vacancies' => Vacancy::where('company_id', $company_id)->where('available', '=', true)->get(),
+            'vacancies' => Vacancy::where('company_id', $company_id)->where('available', '=', true)->orderBy('name', 'asc')->get(),
             'company' => Company::where('id', $company_id)->get()
         ]);
     }
