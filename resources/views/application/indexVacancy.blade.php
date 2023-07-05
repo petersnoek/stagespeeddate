@@ -71,6 +71,7 @@
               <th class="text-center sorting_asc_disabled sorting_desc_disabled" style="width: 80px;"></th>
               <th>Naam</th>
               <th>Datum Aanmelding</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -83,7 +84,16 @@
                     <div>{{$application->student->user->fullname()}}</div>
                   </td>
                   <td class="text-muted">
-                    {{$application->vacancy->created_at}}
+                    {{$application->created_at}}
+                  </td>
+                  <td>
+                    @if($application->status == 'pending')
+                    <p class="m-0">Niet beantwoord</p>
+                    @elseif($application->status == 'accepted')
+                    <p class="text-success m-0">Geaccepteerd</p>
+                    @elseif($application->status == 'declined')
+                    <p class="text-danger m-0">Afgewezen</p>
+                    @endif
                   </td>
               </tr>
             @endforeach

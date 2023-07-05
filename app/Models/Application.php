@@ -18,7 +18,9 @@ class Application extends Model
         'vacancy_id',
         'student_id',
         'motivation',
-        'comment'
+        'comment',
+        'reply',
+        'status'
     ];
 
     public function vacancy(){

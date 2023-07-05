@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Application;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ApplicationAproved;
 use App\Models\Vacancy;
 use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
@@ -70,7 +72,7 @@ class ApplicationController extends Controller
         }
 
         $validate = Validator::make($request->all(), [
-            'comment' => ['required', 'string', 'max:255', new CommentPattern()],
+            'comment' => ['required', 'string', new CommentPattern()],
             'motivation' => ['required','mimes:pdf,doc,docx'],
         ]);
 
@@ -87,7 +89,7 @@ class ApplicationController extends Controller
 
         Application::create([
             'vacancy_id' => Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->id,
-            'student_id' => Auth::user()->sub_user->id,
+            'student_id' => Auth::user()->student->id,
             'motivation' => $motivationPath,
             'comment' => $request->comment,
         ]);
@@ -109,7 +111,7 @@ class ApplicationController extends Controller
         
 
         return view('application.indexCompany', [
-            'applications' => Application::whereRelation('vacancy', 'company_id', $company_id)->get()
+            'applications' => Application::whereRelation('vacancy', 'company_id', $company_id)->orderBy('status','desc')->orderBy('created_at', 'asc')->get()
         ]);
     }
 
@@ -126,10 +128,71 @@ class ApplicationController extends Controller
         $vacancy_id = $vacancy_id['vacancy_id'];
 
         return view('application.indexVacancy', [
-            'applications' => Application::where('vacancy_id', $vacancy_id)->get()
+            'applications' => Application::where('vacancy_id', $vacancy_id)->orderBy('status','desc')->orderBy('created_at', 'asc')->get()
         ]);
     }
 
+    public function reply($application_id) {
+
+        $application_id = ['application_id' => Hashids::decode($application_id)];
+
+        
+        $validate = Validator::make($application_id, [
+            'application_id' => ['required', Rule::exists(Application::class, 'id')],
+        ]);
+
+        $application_id = $application_id['application_id'];
+
+        if(Application::where('id', $application_id)->first()->status != 'pending'){
+            return redirect()->back()->with('error', 'Aanmelding is al beantwoord.');
+        }
+
+        if($validate->fails() || Application::where('id', $application_id)->first()->vacancy->company_id != Auth::user()->company->id){
+            return redirect()->back()->with('error', 'Aanmelding bestaat niet');
+        }
+
+
+        return view('application.reply', [
+            'application' => Application::where('id', $application_id)->first()
+        ]);
+
+    }
+
+    public function sendReply(Request $request) {
+        $request['application'] = Hashids::decode($request['application']);
+
+        $validate = Validator::make($request->all(), [
+            'application' => ['required', Rule::exists(Application::class, 'id')],
+            'comment' => ['required', 'string', new CommentPattern()]
+        ]);
+
+        if($validate->fails()){
+            return redirect()->back()->withinput($request->all())->with('errors', $validate->errors()->getmessages());
+        }
+
+        $application = Application::where('id', $request->application)->first();
+
+        $application->reply = $request->comment;
+        if($request->accept){
+            $application->status = 'accepted';
+
+            $mailInfo = [
+                'application' => $application,
+            ];
+    
+            Mail::to($application->student->teacher->user->email)->send(new ApplicationAproved($mailInfo));
+        }
+        else if($request->decline){
+            $application->status = 'declined';
+        }
+        else{
+            return redirect()->back()->withinput($request->all())->with('danger', 'Selecteer of u de aanmelding wilt Afwijzen of Accepteren.');
+        }
+
+        $application->save();
+        return redirect(route('home'))->with('success', 'Aanmelding van ' . $application->student->user->fullname() . ' beantwoord.');
+
+    }
     public function downloadMotivation($application_id)
     {
         $application_id = ['application_id' => Hashids::decode($application_id)];

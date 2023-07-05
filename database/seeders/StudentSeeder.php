@@ -22,6 +22,7 @@ class StudentSeeder extends Seeder
         Student::factory()->create([
             'user_id' => $userIds[0],
             'teacher_id' => $teacherIds[0],
+            'CV' => 'CV/aAjVP,CV test data.pdf'
         ]);
 
         array_shift($userIds); //gets rid of the first userid in the array
