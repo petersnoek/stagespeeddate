@@ -89,7 +89,7 @@ class ApplicationController extends Controller
 
         Application::create([
             'vacancy_id' => Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->id,
-            'student_id' => Auth::user()->sub_user->id,
+            'student_id' => Auth::user()->student->id,
             'motivation' => $motivationPath,
             'comment' => $request->comment,
         ]);
