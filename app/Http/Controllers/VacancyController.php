@@ -32,10 +32,10 @@ class VacancyController extends Controller
         ]);
     }
 
-    //returns all the vacancies that belong to 1 company
+    //returns all the vacancies that belong to specified company
     public function indexCompany($company_id){
+        //unhash and validate the slug id for wether or not it's an existing company
         $company_id = ['company_id' => Hashids::decode($company_id)];
-        //checks if the company with this id exist if not return with error
         $validator = Validator::make($company_id, [
             'company_id' => ['required', Rule::exists(Company::class, 'id')]
         ]);

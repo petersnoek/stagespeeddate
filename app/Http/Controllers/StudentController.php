@@ -46,8 +46,9 @@ class StudentController extends Controller
         // atm it downloads your own cv, and removes the hash used when storing when giving the name that is going to show up on the users pc.
         return response()->download($value, $cv);
     }
-
+    /* student index page of students that aren't assigned to a teacher yet */
     public function assignTeacher() {
+        //get all students that aren't assigned to a teacher
         $users = User::where('role','student')->get();
         $students = Student::whereBelongsTo($users)->where('teacher_id', null)->get();
         
@@ -56,8 +57,8 @@ class StudentController extends Controller
         ]);
     }
 
+    /* set students teacher_id */
     public function claimByTeacher(Request $request) {
-        /* dd($request->student); */
         $validator = Validator::make($request->all(), [
             'student' => ['present','array'],
             'student.*' => [
@@ -75,6 +76,7 @@ class StudentController extends Controller
             return redirect(route('student.assign'))->with('errors', $validator->errors()->getmessages());
         }
 
+        //get the array keys of request->student which are the hashed student ids and update the student's attached teacher_id
         $hashedIds = array_keys($request->student);
         foreach($hashedIds as $studentid){
 

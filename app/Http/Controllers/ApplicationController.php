@@ -97,7 +97,9 @@ class ApplicationController extends Controller
         return redirect(route('home'))->with('success', 'Aanmelding bij '. Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->name  .' aangemaakt.');
     }
 
+    /* index of applications for the specified company */
     public function indexCompany($company_id){
+        //unhash and validate the slug id for wether or not it's an existing company
         $company_id = ['company_id' => Hashids::decode($company_id)];
         $validator = Validator::make($company_id, [
             'company_id' => ['required', Rule::exists(Company::class, 'id')]
@@ -109,14 +111,15 @@ class ApplicationController extends Controller
         $company_id = $company_id['company_id'];
 
         
-
+        // return the view with all applications who's vacancies have company_id = $company_id
         return view('application.indexCompany', [
             'applications' => Application::whereRelation('vacancy', 'company_id', $company_id)->orderBy('status','desc')->orderBy('created_at', 'asc')->get()
         ]);
     }
 
-    /* per vacancy application index */
+    /* index of applications for the specified vacancy*/
     public function indexVacancy($vacancy_id){
+        //unhash and validate the slug id for wether or not it's an existing vacancy
         $vacancy_id = ['vacancy_id' => Hashids::decode($vacancy_id)];
         $validator = Validator::make($vacancy_id, [
             'vacancy_id' => ['required', Rule::exists(Vacancy::class, 'id')]
@@ -127,38 +130,42 @@ class ApplicationController extends Controller
         }
         $vacancy_id = $vacancy_id['vacancy_id'];
 
+
         return view('application.indexVacancy', [
             'applications' => Application::where('vacancy_id', $vacancy_id)->orderBy('status','desc')->orderBy('created_at', 'asc')->get()
         ]);
     }
 
+    /* go to reply view for specified application */
     public function reply($application_id) {
-
+        //unhash and validate the slug id for wether or not it's an existing application
         $application_id = ['application_id' => Hashids::decode($application_id)];
 
-        
         $validate = Validator::make($application_id, [
             'application_id' => ['required', Rule::exists(Application::class, 'id')],
         ]);
 
         $application_id = $application_id['application_id'];
-
-        if(Application::where('id', $application_id)->first()->status != 'pending'){
-            return redirect()->back()->with('error', 'Aanmelding is al beantwoord.');
-        }
-
+    
+        //on validation fail or if the application doesn't belong to the loggedin users company
         if($validate->fails() || Application::where('id', $application_id)->first()->vacancy->company_id != Auth::user()->company->id){
             return redirect()->back()->with('error', 'Aanmelding bestaat niet');
+        }
+    
+        //check if the application is pending
+        if(Application::where('id', $application_id)->first()->status != 'pending'){
+            return redirect()->back()->with('error', 'Aanmelding is al beantwoord.');
         }
 
 
         return view('application.reply', [
             'application' => Application::where('id', $application_id)->first()
         ]);
-
     }
 
+    /* add a reply to a pending application */
     public function sendReply(Request $request) {
+        //unhash and validate the slug id for wether or not it's an existing application
         $request['application'] = Hashids::decode($request['application']);
 
         $validate = Validator::make($request->all(), [
@@ -174,6 +181,7 @@ class ApplicationController extends Controller
 
         $application->reply = $request->comment;
         if($request->accept){
+            //if application is accepted, set status to 'accepted' and create and send an email to the student's teacher
             $application->status = 'accepted';
 
             $mailInfo = [
@@ -183,16 +191,19 @@ class ApplicationController extends Controller
             Mail::to($application->student->teacher->user->email)->send(new ApplicationAproved($mailInfo));
         }
         else if($request->decline){
+            //if application is declined set status to 'declined'
             $application->status = 'declined';
         }
         else{
+            //if application is neither accepted nor declined send back with an error
             return redirect()->back()->withinput($request->all())->with('danger', 'Selecteer of u de aanmelding wilt Afwijzen of Accepteren.');
         }
-
+        //save application changes(reply and status) and return to dashboard with success
         $application->save();
         return redirect(route('home'))->with('success', 'Aanmelding van ' . $application->student->user->fullname() . ' beantwoord.');
 
     }
+
     public function downloadMotivation($application_id)
     {
         $application_id = ['application_id' => Hashids::decode($application_id)];

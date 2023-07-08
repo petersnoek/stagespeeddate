@@ -24,9 +24,9 @@ class CompanyController extends Controller
             'companies' => Company::all()->sortBy('name')
         ]);
     }
-
+    /* got to specified company page */
     public function show($company_id) {
-
+        //unhash and validate the slug id for wether or not it's an existing company
         $company_id = ['company_id' => Hashids::decode($company_id)];
         $validator = Validator::make($company_id, [
             'company_id' => ['required', Rule::exists(Company::class, 'id')]
@@ -36,7 +36,7 @@ class CompanyController extends Controller
             return redirect(route('home'))->with('danger', 'Bedrijf bestaat niet');
         }
         $company_id = $company_id['company_id'];
-
+        //check if logged in user is owner of company
         if(Company::where('user_id', Auth::user()->id)->first()->user_id != Auth::user()->id){
             return redirect(route('home'))->with('danger', 'U heeft geen toegang tot deze pagina');
         }
