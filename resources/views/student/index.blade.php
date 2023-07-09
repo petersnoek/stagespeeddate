@@ -60,7 +60,9 @@
     <div class="block block-rounded">
       <div class="block-header block-header-default">
       <div class="block-content block-content-full">
-        <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('student.assign')}}">Studenten Toeweizen</a>
+        @if(Auth::user()->role == 'teacher')
+          <a class="btn btn-lg btn-alt-primary mb-4" href="{{route('student.assign')}}">Studenten Toeweizen</a>
+        @endif
         <!-- DataTables init on table by adding .js-dataTable-full class, functionality is initialized in js/pages/tables_datatables.js -->
         <table class="table table-bordered table-striped table-vcenter js-dataTable-full fs-sm">
           <thead>
