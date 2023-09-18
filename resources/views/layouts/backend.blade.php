@@ -18,7 +18,12 @@
 
   <!-- Modules -->
   @yield('css')
-  @vite(['resources/sass/main.scss', 'resources/js/oneui/app.js'])
+  @vite(['resources/sass/main.scss', 'resources/js/oneui/app.js']) --}}
+      {{-- instead of vite use vvv (the hash string is gonna be different with each dev so that's a bit annoying) --}}
+      {{-- just load the main-xxxxx.css and both app-xxxxx.js that are in the public/build/assets folder --}}
+      {{--     <link rel="stylesheet" href="{{ asset('build/assets/main-0fad32d9.css') }}"> --}}
+      {{-- <script type="module" src="{{ asset('build/assets/app-e08ee194.js') }}"></script> --}}
+      {{-- <script type="module" src="{{ asset('build/assets/app-ca7bfba6.js') }}"></script> --}}
 
   <!-- Alternatively, you can also include a specific color theme after the main stylesheet to alter the default color theme of the template -->
   {{-- @vite(['resources/sass/main.scss', 'resources/sass/oneui/themes/amethyst.scss', 'resources/js/oneui/app.js']) --}}
@@ -128,13 +133,13 @@
           <span class="smini-visible">
             <i class="fa fa-circle-notch text-primary"></i>
           </span>
-          <span class="smini-hide fs-5 tracking-wider">One<span class="fw-normal">UI</span></span>
+          <span class="smini-hide fs-8 tracking-wider">{{ config('app.name', 'Laravel') }}</span>
         </a>
         <!-- END Logo -->
 
         <!-- Extra -->
         <div>
-          <!-- Dark Mode -->
+{{--           <!-- Dark Mode -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
           <a class="btn btn-sm btn-alt-secondary" data-toggle="layout" data-action="dark_mode_toggle" href="javascript:void(0)">
             <i class="far fa-moon"></i>
@@ -171,7 +176,7 @@
             </div>
           </div>
           <!-- END Options -->
-
+ --}}
           <!-- Close Sidebar, Visible only on mobile screens -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
           <a class="d-lg-none btn btn-sm btn-alt-secondary ms-1" data-toggle="layout" data-action="sidebar_close" href="javascript:void(0)">
@@ -189,12 +194,50 @@
         <div class="content-side">
           <ul class="nav-main">
             <li class="nav-main-item">
-              <a class="nav-main-link{{ request()->is('dashboard') ? ' active' : '' }}" href="/dashboard">
+            
+              <a class="nav-main-link{{ request()->is('/') ? ' active' : '' }}" href="{{route('home')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
                 <span class="nav-main-link-name">Dashboard</span>
               </a>
+
+              @if((Auth::user()->role == 'admin'))
+              <a class="nav-main-link{{ request()->is(substr(route('company.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.index')}}">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Bedrijven</span>
+              </a>
+              @endif
+
+              @if(Auth::user()->role == 'teacher' || Auth::user()->role == 'admin')
+              <a class="nav-main-link{{ request()->is(substr(route('student.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('student.index')}}">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Studenten</span>
+              </a>
+              @endif
+              @if(Auth::user()->role == 'company')
+              <a class="nav-main-link{{ request()->is(substr(route('company.show', ['company_id' => Hashids::encode(Auth::user()->company->id)]),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.show' , ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Mijn Bedrijf</span>
+              </a>
+              <a class="nav-main-link{{ request()->is(substr(route('company.application.index', ['company_id' => Hashids::encode(Auth::user()->company->id)]),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.application.index' , ['company_id' => Hashids::encode(Auth::user()->company->id)])}}">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Alle aanmeldingen</span>
+              </a>
+              @endif
+
+              @if((Auth::user()->role == 'admin'))
+              <a class="nav-main-link{{ request()->is(substr(route('users.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('users.index')}}">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Gebruikers</span>
+              </a>
+              @endif
+              @if(Auth::user()->role != 'company')
+              <a class="nav-main-link{{ request()->is(substr(route('vacancy.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('vacancy.index')}}">
+                <i class="nav-main-link-icon si si-cursor"></i>
+                <span class="nav-main-link-name">Vacatures</span>
+              </a>
+              @endif
             </li>
-            <li class="nav-main-heading">Various</li>
+            {{-- <li class="nav-main-heading">Various</li>
             <li class="nav-main-item{{ request()->is('pages/*') ? ' open' : '' }}">
               <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
                 <i class="nav-main-link-icon si si-bulb"></i>
@@ -220,11 +263,11 @@
             </li>
             <li class="nav-main-heading">More</li>
             <li class="nav-main-item open">
-              <a class="nav-main-link" href="/">
+              <a class="nav-main-link" href="/landing">
                 <i class="nav-main-link-icon si si-globe"></i>
                 <span class="nav-main-link-name">Landing</span>
               </a>
-            </li>
+            </li> --}}
           </ul>
         </div>
         <!-- END Side Navigation -->
@@ -234,7 +277,7 @@
     <!-- END Sidebar -->
 
     <!-- Header -->
-    <header id="page-header">
+    <header id="page-header" style="position: absolute">
       <!-- Header Content -->
       <div class="content-header">
         <!-- Left Section -->
@@ -249,19 +292,19 @@
           <!-- Toggle Mini Sidebar -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
           <button type="button" class="btn btn-sm btn-alt-secondary me-2 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
-            <i class="fa fa-fw fa-ellipsis-v"></i>
+            <i class="fa fa-fw fa-bars"></i>
           </button>
           <!-- END Toggle Mini Sidebar -->
 
           <!-- Open Search Section (visible on smaller screens) -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-          <button type="button" class="btn btn-sm btn-alt-secondary d-md-none" data-toggle="layout" data-action="header_search_on">
+          {{-- <button type="button" class="btn btn-sm btn-alt-secondary d-md-none" data-toggle="layout" data-action="header_search_on">
             <i class="fa fa-fw fa-search"></i>
-          </button>
+          </button> --}}
           <!-- END Open Search Section -->
 
           <!-- Search Form (visible on larger screens) -->
-          <form class="d-none d-md-inline-block" action="/dashboard" method="POST">
+          {{-- <form class="d-none d-md-inline-block" action="/dashboard" method="POST">
             @csrf
             <div class="input-group input-group-sm">
               <input type="text" class="form-control form-control-alt" placeholder="Search.." id="page-header-search-input2" name="page-header-search-input2">
@@ -269,7 +312,7 @@
                 <i class="fa fa-fw fa-search"></i>
               </span>
             </div>
-          </form>
+          </form> --}}
           <!-- END Search Form -->
         </div>
         <!-- END Left Section -->
@@ -277,46 +320,73 @@
         <!-- Right Section -->
         <div class="d-flex align-items-center">
           <!-- User Dropdown -->
-          <div class="dropdown d-inline-block ms-2">
-            <button type="button" class="btn btn-sm btn-alt-secondary d-flex align-items-center" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img class="rounded-circle" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="Header Avatar" style="width: 21px;">
-              <span class="d-none d-sm-inline-block ms-2">John</span>
-              <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block ms-1 mt-1"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown">
-              <div class="p-3 text-center bg-body-light border-bottom rounded-top">
-                <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
-                <p class="mt-2 mb-0 fw-medium">John Smith</p>
-                <p class="mb-0 text-muted fs-sm fw-medium">Web Developer</p>
-              </div>
-              <div class="p-2">
-                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                  <span class="fs-sm fw-medium">Inbox</span>
-                  <span class="badge rounded-pill bg-primary ms-2">3</span>
-                </a>
-                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                  <span class="fs-sm fw-medium">Profile</span>
-                  <span class="badge rounded-pill bg-primary ms-2">1</span>
-                </a>
-                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                  <span class="fs-sm fw-medium">Settings</span>
-                </a>
-              </div>
-              <div role="separator" class="dropdown-divider m-0"></div>
-              <div class="p-2">
-                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                  <span class="fs-sm fw-medium">Lock Account</span>
-                </a>
-                <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                  <span class="fs-sm fw-medium">Log Out</span>
-                </a>
+          @guest
+            @if (Route::has('login'))
+                <button type="button" class="btn btn-sm btn-alt-secondary d-flex align-items-center mx-2">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                </button>
+            @endif
+
+            @if (Route::has('register'))
+                <button type="button" class="btn btn-sm btn-alt-secondary d-flex align-items-center mx-2">
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registreren') }}</a>
+                </button>
+            @endif
+          @else
+            <div class="dropdown d-inline-block ms-2">
+              <button type="button" class="btn btn-sm btn-alt-secondary d-flex align-items-center" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="rounded-circle" src="{{ asset(Auth::user()->profilePicture) }}" alt="Header Avatar" style="width: 21px; height: 21px;">
+                <span class="d-none d-sm-inline-block ms-2">{{ Auth::user()->first_name }}</span>
+                <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block ms-1 mt-1"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown">
+                <div class="p-3 text-center bg-body-light border-bottom rounded-top">
+                  <img class="img-avatar img-avatar48 img-avatar-thumb" src="{{ asset(Auth::user()->profilePicture) }}" alt="">
+                  <p class="mt-2 mb-0 fw-medium">{{ Auth::user()->first_name }}</p>
+                  <p class="mb-0 text-muted fs-sm fw-medium">{{ Auth::user()->email }}</p>
+                </div>
+                <div class="p-2">
+                  {{-- <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                    <span class="fs-sm fw-medium">Inbox</span>
+                    <span class="badge rounded-pill bg-primary ms-2">3</span>
+                  </a> --}}
+                  <a class="dropdown-item d-flex align-items-center justify-content-between" 
+                    onclick="event.preventDefault();
+                      document.getElementById('profile-form').submit();">
+                    <span class="fs-sm fw-medium">Profiel</span>
+                    {{-- <span class="badge rounded-pill bg-primary ms-2">1</span> --}}
+                  </a>
+                  <form id="profile-form" action="{{ route('profile') }}" method="GET" class="d-none">
+                    @csrf
+                  </form>
+                  {{-- <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                    <span class="fs-sm fw-medium">Settings</span>
+                  </a> --}}
+                </div>
+                <div role="separator" class="dropdown-divider m-0"></div>
+                <div class="p-2">
+                  {{-- <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                    <span class="fs-sm fw-medium">Lock Account</span>
+                  </a> --}}
+                  {{-- <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                    <span class="fs-sm fw-medium">Log Out</span>
+                  </a> --}}
+                  <a class="dropdown-item d-flex align-items-center justify-content-between"
+                    onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                    <span class="fs-sm fw-medium">{{ __('Uitloggen') }}</span>
+                  </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
+          @endguest
           <!-- END User Dropdown -->
 
           <!-- Notifications Dropdown -->
-          <div class="dropdown d-inline-block ms-2">
+          {{-- <div class="dropdown d-inline-block ms-2">
             <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-fw fa-bell"></i>
               <span class="text-primary">•</span>
@@ -399,14 +469,14 @@
                 </a>
               </div>
             </div>
-          </div>
+          </div> --}}
           <!-- END Notifications Dropdown -->
 
           <!-- Toggle Side Overlay -->
           <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-          <button type="button" class="btn btn-sm btn-alt-secondary ms-2" data-toggle="layout" data-action="side_overlay_toggle">
+          {{-- <button type="button" class="btn btn-sm btn-alt-secondary ms-2" data-toggle="layout" data-action="side_overlay_toggle">
             <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
-          </button>
+          </button> --}}
           <!-- END Toggle Side Overlay -->
         </div>
         <!-- END Right Section -->
@@ -414,7 +484,7 @@
       <!-- END Header Content -->
 
       <!-- Header Search -->
-      <div id="page-header-search" class="overlay-header bg-body-extra-light">
+      {{-- <div id="page-header-search" class="overlay-header bg-body-extra-light">
         <div class="content-header">
           <form class="w-100" action="/dashboard" method="POST">
             @csrf
@@ -427,7 +497,7 @@
             </div>
           </form>
         </div>
-      </div>
+      </div> --}}
       <!-- END Header Search -->
 
       <!-- Header Loader -->
