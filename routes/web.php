@@ -100,6 +100,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::group(['prefix'=> '/gebruikers'], function(){
             Route::get('/', [UserController::class, 'index'])->name('users.index');
             Route::get('/aanmaken', [UserController::class, 'create'])->name('users.create');
+            Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
             Route::post('/versturen', [UserController::class, 'sendLogin'])->name('users.sendLogin');
         });
     });

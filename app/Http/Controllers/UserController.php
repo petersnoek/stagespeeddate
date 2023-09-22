@@ -25,6 +25,16 @@ class UserController extends Controller
         return view('users.create');
     }
 
+    // delete user
+    public function delete($id)
+    {
+        $users = User::findOrFail($id);
+        $users->delete();
+    
+        return redirect(route('users.index'))->with('success', ['User verwijderd.']);
+    
+    }
+
     public function sendLogin(Request $request) {
         $email = ['email' => $request->email];
         $validator = Validator::make($email, [
