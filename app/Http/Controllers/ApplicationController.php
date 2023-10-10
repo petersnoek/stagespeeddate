@@ -40,32 +40,28 @@ class ApplicationController extends Controller
 
     }
 
-    public function create($vacancy_id){
-
-        $vacancy_id = ['vacancy_id' => Hashids::decode($vacancy_id),];
-
-        $validator = Validator::make($vacancy_id, [
-            'vacancy_id' => ['required', Rule::exists(Vacancy::class, 'id')],
-        ]);
-        
-        if($validator->fails()){
+    public function create($company_id, $vacancy_id){
+        $vacancy = Vacancy::find($vacancy_id);
+        if($vacancy == null){
             return redirect()->back()->with('danger', 'Vacature bestaat niet');;
         }
 
-        $vacancy_id = $vacancy_id['vacancy_id'];
-
-
-
         return view('application.create', [
-            'vacancy' => Vacancy::where('id', $vacancy_id)->first()
+            'vacancy' => $vacancy
         ]);
     }
 
     public function send(Request $request){
 
-        if(Application::where('student_id', Auth::user()->student->id)->where('vacancy_id', Hashids::decode($request->vacancy_id))->exists()){
-            return redirect(route('home'))->with('danger', 'Je hebt je al aangemeld voor deze vacaturen');
- 
+        // does this student have another application for this vacancy?
+        $student_id = Auth::user()->student->id;
+        $vacancy_id = $request->vacancy_id;
+
+        if(Application::where([
+            ['student_id', $student_id],
+            ['vacancy_id', $vacancy_id]
+            ])->exists()){
+            return redirect(route('home'))->with('danger', 'Je hebt je al aangemeld voor deze vacature.');
         }
         if(Auth::user()->student->CV == null){
             return redirect()->back()->withinput($request->all())->with('danger', 'Upload eerst een CV naar je profiel pagina');
@@ -88,13 +84,15 @@ class ApplicationController extends Controller
         $motivationPath = 'Motivations/' . $motivationname;
 
         Application::create([
-            'vacancy_id' => Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->id,
-            'student_id' => Auth::user()->student->id,
+            'vacancy_id' => $vacancy_id,
+            'student_id' => $student_id,
             'motivation' => $motivationPath,
             'comment' => $request->comment,
         ]);
 
-        return redirect(route('home'))->with('success', 'Aanmelding bij '. Vacancy::where('id', Hashids::decode($request->vacancy_id))->first()->name  .' aangemaakt.');
+        $vacancy_name = Vacancy::find($vacancy_id)->name;
+
+        return redirect(route('home'))->with('success', 'Aanmelding bij '. $vacancy_name  .' aangemaakt.');
     }
 
     public function indexCompany($company_id){

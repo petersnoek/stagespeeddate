@@ -17,15 +17,21 @@ class VacancyController extends Controller
 {
     //this returns the index view with all the vacancies that are available
     public function index(){
+        $results = Vacancy::all()->where('available', '=', true)->sortBy('name');
         return view('vacancies.index',[
-            'vacancies' => Vacancy::all()->where('available', '=', true)->sortBy('name')
+            'vacancies' => $results
         ]);
     }
 
+    // http://stagespeeddate.test/bedrijven/2/vacatures/8/details
+            
     //this returns the vacancy details, you can see all the details of the vacancy here
-    public function details($vacancy_id){
+    public function details($company_id, $vacancy_id){
 
-        $vacancy_id = Hashids::decode($vacancy_id);
+        // $vacancy_id = Hashids::decode($vacancy_id);
+        $vac = Vacancy::where('id', $vacancy_id)->first();
+        
+        // todo: check if a vacancy was found, or show error message that vacancy id was not found
 
         return view('vacancies.details', [
             'vacancy' => Vacancy::where('id', $vacancy_id)->first()
@@ -35,6 +41,7 @@ class VacancyController extends Controller
     //returns all the vacancies that belong to 1 company
     public function indexCompany($company_id){
         $company_id = ['company_id' => Hashids::decode($company_id)];
+        dd($company_id);
         //checks if the company with this id exist if not return with error
         $validator = Validator::make($company_id, [
             'company_id' => ['required', Rule::exists(Company::class, 'id')]
