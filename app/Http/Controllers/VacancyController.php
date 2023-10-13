@@ -27,7 +27,6 @@ class VacancyController extends Controller
             
     //this returns the vacancy details, you can see all the details of the vacancy here
     public function details($company_id, $vacancy_id){
-
         // $vacancy_id = Hashids::decode($vacancy_id);
         $vac = Vacancy::where('id', $vacancy_id)->first();
         
@@ -41,7 +40,6 @@ class VacancyController extends Controller
     //returns all the vacancies that belong to 1 company
     public function indexCompany($company_id){
         $company_id = ['company_id' => Hashids::decode($company_id)];
-        dd($company_id);
         //checks if the company with this id exist if not return with error
         $validator = Validator::make($company_id, [
             'company_id' => ['required', Rule::exists(Company::class, 'id')]

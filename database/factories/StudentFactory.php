@@ -20,7 +20,6 @@ class StudentFactory extends Factory
             'user_id' => '',
             'teacher_id' => '',
             'CV' => '',
-            'vacancy' => 0,
         ];
     }
 }

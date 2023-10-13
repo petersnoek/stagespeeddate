@@ -42,6 +42,9 @@ class ApplicationController extends Controller
 
     public function create($company_id, $vacancy_id){
         $vacancy = Vacancy::find($vacancy_id);
+        if(Auth::user()->Student->getApplicationCount() == 4){
+            return redirect(route('home'))->with('danger', 'Je kan niet bij meer dan 4 vacatures inschrijven');;
+        }
         if($vacancy == null){
             return redirect()->back()->with('danger', 'Vacature bestaat niet');;
         }

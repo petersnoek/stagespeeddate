@@ -35,4 +35,8 @@ class Student extends Model
     public function applications(){
         return $this->hasMany(Application::class);
     }
+
+    public function getApplicationCount(){
+        return $this->hasMany(Application::class)->count();
+    }
 }
