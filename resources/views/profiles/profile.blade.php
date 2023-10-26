@@ -93,9 +93,17 @@
                           <a type="text" class="form-control form-control-lg form-control-alt py-3" href="{{ route('student.downloadCv', ['student_id' => Hashids::encode(Auth::user()->student->id)]) }}"> {{ $cv }} </a>
                         @endif
                     </div>
+                    <label for="">heb je al een stage bedrijf: </label>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3">
+                          @if(Auth::user()->stage == 1) 
+                           ja
+                          @endif
+                          @if(Auth::user()->stage == 0) 
+                           nee
+                          @endif
+                        </p>                    
                     @endif
                 </div>
-
                 <div class="col-sm-8 col-xl-5">
                     <div class="mb-4 d-flex justify-content-center"> <!-- to change the postion of the picture frame, change the translate in the first div below this line, first % is horizontal movement, second % is vertical movement -->
                         <div style="overflow-y:hidden; height:18rem; width: 18rem;" class="form-control form-control-alt rounded-0 rounded-top py-3 pb-0">

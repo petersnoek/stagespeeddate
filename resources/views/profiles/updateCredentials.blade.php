@@ -106,6 +106,7 @@ $role = Auth::user()->role;
                                 @endforeach
                             @endif
                         </div>
+                        
                         @if( $role == 'student' )
                             <div class="mb-4">
                             <label >CV:</label>
@@ -120,10 +121,17 @@ $role = Auth::user()->role;
                                             </div>
                                         @endforeach
                                     @endif
-                                </div>                                                                                                 
+                                </div>  
+                                                                                                                               
                             </div>
-                        @endif
+                        @endif  
+                        <label for="">heb je al een stage bedrijf: </label>
+                        <p type="text" class="form-control form-control-lg form-control-alt py-3">
+                        <input type="checkbox" id="stage" name="stage" value="1" {{ old('stage') ? 'checked' : '' }} />
+                            <label for="chose">Yes</label>
+                        </p>                    
                     </div>
+                    
                     <div class="col-sm-8 col-xl-5">
                         <div class="mb-4 d-flex justify-content-center"> <!-- to change the postion of the picture frame, change the translate in the first div below this line, first % is horizontal movement, second % is vertical movement -->
                             <div>
@@ -144,6 +152,7 @@ $role = Auth::user()->role;
                                 @endif
                             </div>
                         </div>
+                        <div class="mb-4">
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-lg btn-alt-primary">
                                 Wijzigingen Opslaan
