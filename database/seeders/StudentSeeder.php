@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Student;
 use App\Models\Teacher;
 
+
 class StudentSeeder extends Seeder
 {
     /**

@@ -65,6 +65,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
                     Route::post('/{application_id}/beantwoorden/versturen', [ApplicationController::class, 'sendReply'])->name('application.reply.send');
                 });
             });
+            // http://stagespeeddate.test/bedrijven/2/vacatures/8/details
             Route::group(['prefix' => '/vacatures'], function(){
                 Route::middleware('company')->group(function () {
                     Route::get('/', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');

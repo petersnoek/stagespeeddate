@@ -39,7 +39,7 @@
             <div class="block-content block-content-full">
                 <div>
                 @include('layouts.partials.messages')
-                    <form method="POST" action="{{route('application.send', ['vacancy_id' => Hashids::encode($vacancy->id), 'company_id' => Hashids::encode($vacancy->company->id)])}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('application.send', ['vacancy_id' => $vacancy->id, 'company_id' => $vacancy->company->id])}}" class="d-flex justify-content-evenly" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-4">
                             <h3>Motivatie</h3>
@@ -75,7 +75,7 @@
                             <br>
                             <input type="submit" class="btn btn-lg btn-alt-primary" value="verzend">
                         </div>
-                    </form>
+                    </form> 
                 <div >
 
                 </div>

@@ -49,7 +49,7 @@
                         <p type="text" class="form-control form-control-lg form-control-alt py-3">Niet Beschikbaar</p>
                     @endif -->
                     @if(Auth::user()->role == "student" && $vacancy->available == 1)
-                        <button class="btn btn-sm p-2 btn-alt-secondary d-flex align-items-center"><a style="color:black" href="{{route('application.create', ['vacancy_id' => Hashids::encode($vacancy->id), 'company_id' => Hashids::encode($vacancy->company->id)])}}">Aanmelden</a></button>
+                        <button class="btn btn-sm p-2 btn-alt-secondary d-flex align-items-center"><a style="color:black" href="{{route('application.create', ['vacancy_id' => $vacancy->id, 'company_id' => $vacancy->company->id] )}}">Aanmelden</a></button>
                     @endif
                 </div>
             </div>
