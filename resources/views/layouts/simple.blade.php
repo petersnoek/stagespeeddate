@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-  <title>OneUI - Bootstrap 5 Admin Template &amp; UI Framework</title>
+  <title>{{ config('app.name')  }}</title>
 
-  <meta name="description" content="OneUI - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-  <meta name="author" content="pixelcave">
+  <meta name="description" content="Website for internship companies and interns looking for a company.">
+  <meta name="author" content="Da Vinci Collecege">
   <meta name="robots" content="noindex, nofollow">
 
   <!-- Icons -->
