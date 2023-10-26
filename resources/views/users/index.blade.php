@@ -91,7 +91,7 @@
                 </td>
                 <td class="text-muted">
                   {{ $user->email_verified_at }}
-                </td>
+                </td> 
                 <th>
                   <a class="btn btn-lg btn-primary" href="{{route('users.Update')}}">Update</a>
                 </th>
