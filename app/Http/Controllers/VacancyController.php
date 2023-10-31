@@ -7,8 +7,10 @@ use App\Models\Vacancy;
 use App\Models\Company;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\VacanciesCreation;
 use App\Rules\DescriptionPattern;
 use App\Rules\NamePattern;
 
@@ -82,6 +84,14 @@ class VacancyController extends Controller
             'description' => $request->description,
             'available' => true
         ]);
+
+        $mailinfo = [
+            'company' => $request->name,
+            'bio' => $request->bio,
+            'description' => $request->description,
+        ];
+
+        Mail::to('docenttestmail@gmail.com')->send(new VacanciesCreation($mailinfo));
 
         return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacature is aangemaakt.');
     }
