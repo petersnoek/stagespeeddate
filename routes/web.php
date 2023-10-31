@@ -65,6 +65,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
                     Route::post('/{application_id}/beantwoorden/versturen', [ApplicationController::class, 'sendReply'])->name('application.reply.send');
                 });
             });
+            // http://stagespeeddate.test/bedrijven/2/vacatures/8/details
             Route::group(['prefix' => '/vacatures'], function(){
                 Route::middleware('company')->group(function () {
                     Route::get('/', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
@@ -100,6 +101,8 @@ Route::middleware('verified')->group(function () {//if user verified their email
         Route::group(['prefix'=> '/gebruikers'], function(){
             Route::get('/', [UserController::class, 'index'])->name('users.index');
             Route::get('/aanmaken', [UserController::class, 'create'])->name('users.create');
+            Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
+            Route::get('/Update', [UserController::class, 'Update'])->name('users.Update');
             Route::post('/versturen', [UserController::class, 'sendLogin'])->name('users.sendLogin');
         });
     });

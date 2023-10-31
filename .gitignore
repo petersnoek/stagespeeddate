@@ -17,3 +17,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/public/Motivations
+============
+MailHog_windows_386.exe
+MailHog_windows_amd64.exe
+/public/CompanyImage
+/public/CompanyImage/*
+
