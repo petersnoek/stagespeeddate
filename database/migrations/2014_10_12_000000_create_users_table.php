@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('role');
             $table->string('profilePicture');
+            $table->boolean('stage');  
             $table->rememberToken();
             $table->timestamps();
         });

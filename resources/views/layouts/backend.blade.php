@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ config('app.locale') }}">
+{{--<html lang="{{ config('app.locale') }}">--}}
 
 <head>
   <meta charset="utf-8">
@@ -18,7 +18,7 @@
 
   <!-- Modules -->
   @yield('css')
-  @vite(['resources/sass/main.scss', 'resources/js/oneui/app.js']) --}}
+  @vite(['resources/sass/main.scss', 'resources/js/oneui/app.js']) 
       {{-- instead of vite use vvv (the hash string is gonna be different with each dev so that's a bit annoying) --}}
       {{-- just load the main-xxxxx.css and both app-xxxxx.js that are in the public/build/assets folder --}}
       {{--     <link rel="stylesheet" href="{{ asset('build/assets/main-0fad32d9.css') }}"> --}}
@@ -200,6 +200,7 @@
                 <span class="nav-main-link-name">Dashboard</span>
               </a>
 
+{{--          TODO: Alle request()->is() regels, kunnen drastisch verkort worden door de Illuminate\Support\Facades\Route package te gebruiken, success!    --}}
               @if((Auth::user()->role == 'admin'))
               <a class="nav-main-link{{ request()->is(substr(route('company.index'),strlen(route('home'))+ 1)) ? ' active' : '' }}" href="{{route('company.index')}}">
                 <i class="nav-main-link-icon si si-cursor"></i>
@@ -484,7 +485,7 @@
       <!-- END Header Content -->
 
       <!-- Header Search -->
-      {{-- <div id="page-header-search" class="overlay-header bg-body-extra-light">
+       <div id="page-header-search" class="overlay-header bg-body-extra-light">
         <div class="content-header">
           <form class="w-100" action="/dashboard" method="POST">
             @csrf
@@ -497,7 +498,7 @@
             </div>
           </form>
         </div>
-      </div> --}}
+      </div>
       <!-- END Header Search -->
 
       <!-- Header Loader -->
