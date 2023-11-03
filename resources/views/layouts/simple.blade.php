@@ -8,7 +8,7 @@
   <title>{{ config('app.name')  }}</title>
 
   <meta name="description" content="Website for internship companies and interns looking for a company.">
-  <meta name="author" content="Da Vinci Collecege">
+  <meta name="author" content="Da Vinci College">
   <meta name="robots" content="noindex, nofollow">
 
   <!-- Icons -->

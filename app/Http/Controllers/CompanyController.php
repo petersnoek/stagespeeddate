@@ -7,13 +7,14 @@ use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use App\Rules\NamePattern;
 use App\Rules\DescriptionPattern;
 use Illuminate\Validation\Rule;
-
 use Vinkla\Hashids\Facades\Hashids;
 
 use App\Models\User;
+use App\Mail\CompanyCreation;
 
 
 

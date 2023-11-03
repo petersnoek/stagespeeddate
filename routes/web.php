@@ -109,4 +109,3 @@ Route::middleware('verified')->group(function () {//if user verified their email
     Route::get('{application_id}/downloadMotivatie', [ApplicationController::class, 'downloadMotivation'])->name('application.downloadMotivation');
 
 });
-

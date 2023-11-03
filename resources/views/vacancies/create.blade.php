@@ -65,6 +65,23 @@
                                 @endif
                             </div>
 
+                            <div class="dropdown">
+                                <label for="niveau">Niveau:</label>
+                                <select name="niveau" id="niveau" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists('niveau', $errors)) {{ 'is-invalid' }} @endif" required>
+                                    <option value="" disabled selected>Select Niveau</option>
+                                    <option value="Niveau 3" @if (old('niveau') === 'Niveau 3') selected @endif>Niveau 3</option>
+                                    <option value="Niveau 4" @if (old('niveau') === 'Niveau 4') selected @endif>Niveau 4</option>
+
+                                    @if (count($errors) > 0 && array_key_exists('niveau', $errors))
+                                        @foreach($errors['niveau'] as $error)
+                                            <div class="invalid-feedback">
+                                                {{ $error }}
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>   
+
                             <div class="mb-4">
                                 <label for="">Bio: 
                                     <i class="fa-circle-info fa-sharp fa-solid"></i>
