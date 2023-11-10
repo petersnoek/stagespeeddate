@@ -70,6 +70,7 @@ class VacancyController extends Controller
 
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
+            'niveau' => ['required'],
             'bio' => ['nullable', 'max:255', new DescriptionPattern()],
             'description' => ['nullable', 'max:255', new DescriptionPattern()],
         ]);
@@ -83,6 +84,7 @@ class VacancyController extends Controller
         Vacancy::create([
             'company_id' => $company_id,
             'name' => $request->name,
+            'niveau' => $request->niveau,
             'bio' => $request->bio,
             'description' => $request->description,
             'available' => true

@@ -69,8 +69,8 @@
                                 <label for="niveau">Niveau:</label>
                                 <select name="niveau" id="niveau" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists('niveau', $errors)) {{ 'is-invalid' }} @endif" required>
                                     <option value="" disabled selected>Select Niveau</option>
-                                    <option value="Niveau 3" @if (old('niveau') === 'Niveau 3') selected @endif>Niveau 3</option>
-                                    <option value="Niveau 4" @if (old('niveau') === 'Niveau 4') selected @endif>Niveau 4</option>
+                                    <option value=3 @if (old('niveau') === 3) selected @endif>3</option>
+                                    <option value=4 @if (old('niveau') === 4) selected @endif>4</option>
 
                                     @if (count($errors) > 0 && array_key_exists('niveau', $errors))
                                         @foreach($errors['niveau'] as $error)

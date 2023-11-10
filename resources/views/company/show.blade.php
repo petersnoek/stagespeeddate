@@ -103,6 +103,7 @@
                             <tr>
                             <th>Naam</th>
                             <th>Aanmeldingen</th>
+                            <th>Niveau</th>
                             <th style="width: 15%;">Status</th>
                             <th>Acties</th>
                             </tr>
@@ -120,6 +121,11 @@
                                     @else 
                                         <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['company_id' => Hashids::encode(Auth::user()->company->id), 'vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
                                     @endif 
+                                    </span>
+                                </td>
+                                <td class="fw-semibold">
+                                    <span class="text-muted">
+                                        {{$vacancy->niveau}}
                                     </span>
                                 </td>
                                 <td class="text-muted">
