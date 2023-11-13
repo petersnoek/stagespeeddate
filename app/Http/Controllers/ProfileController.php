@@ -94,6 +94,7 @@ class ProfileController extends Controller
         $user->last_name = $request->input('last_name');
         $user->email = $request->input('email');
         $user->profilePicture = $imagePath;
+        $user->stage = (($request->input('stage')!==null)?1:0);
         $user->updated_at = now();
 
 

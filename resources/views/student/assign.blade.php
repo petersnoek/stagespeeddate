@@ -89,6 +89,7 @@
                 <th>Voornaam</th>
                 <th>Achternaam</th>
                 <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
+                <th>stage</th>
               </tr>
             </thead>
             <tbody>
@@ -108,6 +109,15 @@
                   </td>
                   <td class="d-none d-sm-table-cell">
                     <span class="text-muted">{{$student->user->email}}</span>
+                  </td>
+                  <td class="fw-semibold">
+                    <a href="javascript:void(0)"></a>
+                    @if($student->user->stage == 1) 
+                      ja
+                    @endif
+                    @if($student->user->stage == 0) 
+                      nee
+                    @endif
                   </td>
                 </tr>
               @endforeach

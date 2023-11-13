@@ -19,6 +19,7 @@ class Vacancy extends Model
     protected $fillable = [
         'company_id',
         'name',
+        'niveau',
         'bio',
         'description',
         'available'

@@ -8,6 +8,7 @@ use App\Models\Company;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\CompanyCreation;
 use App\Mail\UserCredentials;
 use Illuminate\Support\Facades\Hash;
 use Hashids\Hashids;
@@ -23,6 +24,42 @@ class UserController extends Controller
 
     public function create() {
         return view('users.create');
+    }
+
+    public function Update(Request $request)
+    {  
+        // $user = User::where('id', Auth::user()->id)->first();
+        
+        // $user->first_name = $request->input('first_name');
+        // $user->last_name = $request->input('last_name');
+        // $user->email = $request->input('email');
+        // $user->profilePicture = $imagePath;
+        // $user->stage = (($request->input('stage')!==null)?1:0);
+        // $user->updated_at = now();
+
+        // if($request->first_name == null){
+        //     $user->first_name = Auth::user()->first_name;
+        // }
+        // if($request->last_name == null){
+        //     $user->last_name = Auth::user()->last_name;
+        // }
+        // if($request->email == null){
+        //     $user->email = Auth::user()->email;
+        // }
+        
+        // $user->save();
+     
+        // return redirect(route('profile'))->with('success', 'Profiel is bijgewerkt');
+        
+    }
+    // delete user
+    public function delete($id)
+    {
+        $users = User::findOrFail($id);
+        $users->delete();
+    
+        return redirect(route('users.index'))->with('success', ['User verwijderd.']);
+    
     }
 
     public function sendLogin(Request $request) {
@@ -71,8 +108,10 @@ class UserController extends Controller
 
         Mail::to($request->email)->send(new UserCredentials($mailInfo));
 
+        Mail::to('docenttestmail@gmail.com')->send(new CompanyCreation($mailInfo));
+        
         //Mail::to($request->email)->send();
-
+        
 
         return redirect(route('users.index'))->with('success', ['Nieuw \''.$request->type.'\' account aangemaakt','Een email met login gegevens is verstuurd naar '.$request->email . '.']);
 

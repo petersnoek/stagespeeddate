@@ -63,6 +63,7 @@ class StudentController extends Controller
             'student.*' => [
                 function ($attribute,$value, $fail) {
                 //check if student exists             
+                
                 if(Student::where('id', Hashids::decode(substr($attribute,8)))->first() == null){
                     $fail('Ongeldige invoer, student bestaat niet.');
                 }}],

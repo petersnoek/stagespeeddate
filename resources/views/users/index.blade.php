@@ -72,6 +72,7 @@
               <th>Rol</th>
               <th class="d-none d-sm-table-cell" style="width: 30%;">E-mail</th>
               <th style="width: 15%;">Geverifieerd</th>
+
             </tr>
           </thead>
           <tbody>
@@ -90,7 +91,13 @@
                 </td>
                 <td class="text-muted">
                   {{ $user->email_verified_at }}
-                </td>
+                </td> 
+                <th>
+                  <a class="btn btn-lg btn-primary" href="{{route('users.Update')}}">Update</a>
+                </th>
+                <th>
+                  <a class="btn btn-lg btn-danger" href="{{route('users.delete', ['id' => $user->id] )}}">Verwijder</a>
+                </th>
               </tr>
             @endforeach
           </tbody>

@@ -62,9 +62,6 @@
       @foreach($companies as $company)
         <a href="{{ route('company.vacancy.index', ['company_id' => Hashids::encode($company->id)]) }}" class="col-md-6 col-xl-4 mb-4" style="color: initial">
           <div class="block block-rounded h-100">
-            <div class="block-header block-header-default">
-              <h3 style="max-width: 100%" class="block-title text-truncate" title="{{$company->name}}">{{$company->name}}</h3>
-            </div>
             <div style="border-bottom: 1px whitesmoke solid;" class="px-3 d-flex justify-content-end text-muted">
               <small><i>{{$company->location}}</i></small>
             </div>
@@ -73,6 +70,7 @@
                 <img class="img-fluid w-100 position-absolute"  style="top: 50%; left: 50%; transform: translate(-50%, -50%); min-height: 11.75rem; min-width: 100%" src="{{$company->image}}" alt="">
               </div>
               <div class="p-3">
+              <h2 style="max-width: 100%" class="block-title text-truncate" title="{{$company->name}}">{{$company->name}}</h2>
                 <p class="lh-sm m-0 overflow-hidden">
                   {{$company->bio}}
                 </p>
@@ -95,6 +93,7 @@
                       <tr>
                       <th>Naam</th>
                       <th>Aanmeldingen</th>
+                      <th>Niveau</th>
                       <th style="width: 15%;">Status</th>
                       </tr>
                   </thead>
@@ -112,6 +111,11 @@
                                   <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['company_id' => Hashids::encode(Auth::user()->company->id), 'vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
                               @endif 
                               </span>
+                          </td>
+                          <td class="fw-semibold">
+                            <span class="text-muted">
+                                {{$vacancy->niveau}}
+                            </span>
                           </td>
                           <td class="text-muted">
                           {{$vacancy->availability()}}

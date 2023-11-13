@@ -35,10 +35,13 @@ class VacancySeeder extends Seeder
                 if(rand(1,70) > 25){
                     $available = true;
                 }
+
+                $niveau = 0;
                 
                 Vacancy::factory()->create([
                     'company_id' => $company_id,
                     'name' => Company::where('id',$company_id)->first()->name . ' Stage '.$i/* str::random(8) */,
+                    'niveau' => $niveau,
                     'bio' => $bio,
                     'description' => $description /* str::random(90) */,
                     'available' => $available,

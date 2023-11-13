@@ -17,15 +17,20 @@ class VacancyController extends Controller
 {
     //this returns the index view with all the vacancies that are available
     public function index(){
+        $results = Vacancy::all()->where('available', '=', true)->sortBy('name');
         return view('vacancies.index',[
-            'vacancies' => Vacancy::all()->where('available', '=', true)->sortBy('name')
+            'vacancies' => $results
         ]);
     }
 
+    // http://stagespeeddate.test/bedrijven/2/vacatures/8/details
+            
     //this returns the vacancy details, you can see all the details of the vacancy here
-    public function details($vacancy_id){
-
-        $vacancy_id = Hashids::decode($vacancy_id);
+    public function details($company_id, $vacancy_id){
+        // $vacancy_id = Hashids::decode($vacancy_id);
+        $vac = Vacancy::where('id', $vacancy_id)->first();
+        
+        // todo: check if a vacancy was found, or show error message that vacancy id was not found
 
         return view('vacancies.details', [
             'vacancy' => Vacancy::where('id', $vacancy_id)->first()
@@ -65,6 +70,7 @@ class VacancyController extends Controller
 
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
+            'niveau' => ['required'],
             'bio' => ['nullable', 'max:255', new DescriptionPattern()],
             'description' => ['nullable', 'max:255', new DescriptionPattern()],
         ]);
@@ -78,6 +84,7 @@ class VacancyController extends Controller
         Vacancy::create([
             'company_id' => $company_id,
             'name' => $request->name,
+            'niveau' => $request->niveau,
             'bio' => $request->bio,
             'description' => $request->description,
             'available' => true

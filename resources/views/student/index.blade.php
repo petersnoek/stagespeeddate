@@ -70,7 +70,8 @@
               <th class="sorting_asc_disabled sorting_desc_disabled">Foto</th>
               <th>Voornaam</th>
               <th>Achternaam</th>
-              <th class="d-none d-sm-table-cell" style="width: 30%;">E-mail</th>
+              <th class="d-none d-sm-table-cell" style="width: 23%;">E-mail</th>
+              <th>stage</th>
               <th>Docent</th>
               {{-- <th style="width: 15%;">Registered</th> --}}
             </tr>
@@ -89,6 +90,15 @@
                 </td>
                 <td class="d-none d-sm-table-cell">
                     <span class="text-muted">{{$student->user->email}}</span>
+                </td>
+                <td class="fw-semibold">
+                  <a href="javascript:void(0)"></a>
+                  @if($student->user->stage == 1) 
+                      ja
+                    @endif
+                    @if($student->user->stage == 0) 
+                      nee
+                    @endif
                 </td>
                 <td class="d-none d-sm-table-cell">
                     @if(isset($student->teacher))
