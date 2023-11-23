@@ -90,6 +90,7 @@
                 <th>Achternaam</th>
                 <th class="d-none d-sm-table-cell" style="width: 30%;">Email</th>
                 <th>stage</th>
+                <th>status</th>
               </tr>
             </thead>
             <tbody>
@@ -118,6 +119,7 @@
                     @if($student->user->stage == 0) 
                       nee
                     @endif
+                  </td>
                   </td>
                 </tr>
               @endforeach

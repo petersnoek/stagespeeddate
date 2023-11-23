@@ -79,7 +79,7 @@ Route::middleware('verified')->group(function () {//if user verified their email
         });        
     });
 
-    Route::group(['prefix'=> '/profiel'], function(){
+    Route::group(['prefix'=> '/profiel'], function(){   
         Route::get('/', [ProfileController::class, 'index'])->name('profile');
 
         Route::get('/aanpassen', [ProfileController::class, 'update'])->name('profile.updateCredentialsForm');
@@ -103,6 +103,8 @@ Route::middleware('verified')->group(function () {//if user verified their email
             Route::get('/delete/{id}', [UserController::class, 'delete'])->name('users.delete');
             Route::get('/Update', [UserController::class, 'Update'])->name('users.Update');
             Route::post('/versturen', [UserController::class, 'sendLogin'])->name('users.sendLogin');
+            Route::get('/import', [UserController::class, 'import'])->name('users.import');
+            Route::post('/', [UserController::class, 'bulkImport'])->name('users.bulkImport');
         });
     });
     

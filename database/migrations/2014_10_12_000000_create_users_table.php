@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('role');
             $table->string('profilePicture');
-            $table->boolean('stage');  
+            $table->boolean('stage')->nullable();  
             $table->rememberToken();
             $table->timestamps();
         });
