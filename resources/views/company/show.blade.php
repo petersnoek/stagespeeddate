@@ -118,7 +118,7 @@
                                     <span class="text-muted">
                                     @if($vacancy->application_count() == 0)
                                         nog geen aanmeldingen
-                                    @else 
+                                    @else
                                         <a style="width:fit-content; height: fit-content;" class="btn btn-alt-primary" href="{{route('vacancy.application.index', ['company_id' => Hashids::encode(Auth::user()->company->id), 'vacancy_id' => Hashids::encode($vacancy->id)])}}">{{$vacancy->application_count()}}</a> 
                                     @endif 
                                     </span>
@@ -133,14 +133,12 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
-                                            <i class="fa fa-fw fa-pencil-alt">
-                                            </i>
-                                        </button>  
-                                        <button type="button" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete">
-                                            <i class="fa fa-fw fa-times">
-                                            </i>    
-                                        </button>
+                                        <a href="{{ route('vacancy.edit', ['company_id' => $vacancy->company_id, 'vacancy_id' => $vacancy->id]) }}" class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Edit" data-bs-original-title="Edit">
+                                            <i class="fa fa-fw fa-pencil-alt"></i>
+                                        </a> 
+                                        <a class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip" aria-label="Delete" data-bs-original-title="Delete" href="{{ route('vacancy.delete', ['company_id' => $vacancy->company_id, 'vacancy_id' => $vacancy->id]) }}" onclick="return confirm('Are you sure you want to delete this vacancy?')">
+                                            <i class="fa fa-fw fa-times"></i>    
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

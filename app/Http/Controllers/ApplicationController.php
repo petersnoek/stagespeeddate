@@ -16,7 +16,6 @@ use App\Rules\CommentPattern;
 
 class ApplicationController extends Controller
 {
-
     public function show($company_id, $application_id){
 
         $slugs = [

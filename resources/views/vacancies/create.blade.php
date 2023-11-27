@@ -53,7 +53,7 @@
                         
                         <div class="col-sm-8 col-xl-6">
                             <div class="mb-4">
-                                <label for="">Naam: </label>
+                                <label for="">Naam: *</label>
                                 <input type="text" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists("name",$errors)) {{'is-invalid'}} @endif" name="name" placeholder="Vacancy name*" value="@if(old()){{old('name')}}@endif" required>
                             
                                 @if (count($errors) > 0 && array_key_exists("name",$errors))
@@ -65,8 +65,8 @@
                                 @endif
                             </div>
 
-                            <div class="dropdown">
-                                <label for="niveau">Niveau:</label>
+                            <div class="dropdown" style="margin-bottom: 20px;">
+                                <label for="niveau">Niveau: *</label>
                                 <select name="niveau" id="niveau" class="form-control form-control-lg form-control-alt py-3 @if (count($errors) > 0 && array_key_exists('niveau', $errors)) {{ 'is-invalid' }} @endif" required>
                                     <option value="" disabled selected>Select Niveau</option>
                                     <option value=3 @if (old('niveau') === 3) selected @endif>3</option>

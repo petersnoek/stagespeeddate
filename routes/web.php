@@ -71,6 +71,9 @@ Route::middleware('verified')->group(function () {//if user verified their email
                     Route::get('/', [VacancyController::class, 'indexCompany'])->name('company.vacancy.index');
                     Route::get('/aanmaken', [VacancyController::class, 'create'])->name('vacancy.create');
                     Route::post('/opslaan', [VacancyController::class, 'store'])->name('vacancy.store');
+                    Route::get('/delete/{vacancy_id}', [VacancyController::class, 'delete'])->name('vacancy.delete');
+                    Route::get('/vacancies/{vacancy_id}/edit', [VacancyController::class, 'edit'])->name('vacancy.edit');
+                    Route::post('/vacancies/{vacancy_id}/edit', [VacancyController::class, 'update'])->name('vacancy.update');
                     Route::get('/{vacancy_id}/aanmeldingen', [ApplicationController::class, 'indexVacancy'])->name('vacancy.application.index');
                 });
                 Route::get('{vacancy_id}/details', [VacancyController::class, 'details'])->name('vacancy.details');

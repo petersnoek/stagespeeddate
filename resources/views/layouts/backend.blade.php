@@ -514,6 +514,17 @@
     </header>
     <!-- END Header -->
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <p><strong>Fout:</strong></p>
+            <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+    @endif
+
     <!-- Main Container -->
     <main id="main-container">
       @yield('content')

@@ -11,6 +11,7 @@ use Vinkla\Hashids\Facades\Hashids;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\DescriptionPattern;
 use App\Rules\NamePattern;
+use Illuminate\Support\Facades\Log;
 
 
 class VacancyController extends Controller
@@ -65,6 +66,21 @@ class VacancyController extends Controller
         ]);
     }
 
+    public function delete($company_id, $vacancy_id)
+    {   
+        $vacancy = Vacancy::findOrFail($vacancy_id);
+        $vacancy->delete();
+
+        return redirect()->back();
+    }
+
+    public function edit($company_id, $vacancy_id)
+    {
+        $vacancy = Vacancy::findOrFail($vacancy_id);
+
+        return view('vacancies.edit', ['vacancy' => $vacancy]);
+    }
+
     //this is where your vacancy gets validated and stored in the database
     public function store(Request $request){
 
@@ -92,6 +108,30 @@ class VacancyController extends Controller
 
         return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacature is aangemaakt.');
     }
+
+    public function update(Request $request, $company_id, $vacancy_id){
+        $validate = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255', new NamePattern()],
+            'niveau' => ['required'],
+        //    'bio' => ['nullable', 'max:255', new DescriptionPattern()],
+        //    'description' => ['nullable', 'max:255', new DescriptionPattern()],
+        ]);
+
+        if($validate->fails()){
+            return redirect(route('vacancy.edit', ['company_id' => $company_id, 'vacancy_id' => $vacancy_id] ))->withinput($request->all())->with('errors', $validate->errors() );
+        }
+
+        $vac = Vacancy::find($vacancy_id);
+        $vac->name = $request->name;
+        $vac->niveau = $request->niveau;
+        // $vac->bio = $request->bio;
+        // $vac->description = $request->description;
+        $vac->save();
+
+        return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacature is bijgewerkt.');
+
+    }
+
 
 
 }
