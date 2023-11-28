@@ -24,6 +24,10 @@
   <!-- Page JS Code -->
   {{-- @vite(['resources/js/pages/datatables.js']) --}}
   <script type="module" src="{{ asset('build/assets/datatables-ad71b457.js') }}"></script>
+
+
+
+
 @endsection
 
 @section('content')

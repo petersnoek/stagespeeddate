@@ -28,6 +28,22 @@
   <!-- Alternatively, you can also include a specific color theme after the main stylesheet to alter the default color theme of the template -->
   {{-- @vite(['resources/sass/main.scss', 'resources/sass/oneui/themes/amethyst.scss', 'resources/js/oneui/app.js']) --}}
   @yield('js')
+
+  <style>
+        small {
+            position: absolute;
+            color: whitesmoke;
+            background: #1F2937;
+            padding: 4px;
+            margin: 4px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        label:hover small{
+            display: initial;
+        }
+    </style>
 </head>
 
 <body>

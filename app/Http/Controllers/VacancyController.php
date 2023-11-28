@@ -113,8 +113,8 @@ class VacancyController extends Controller
         $validate = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255', new NamePattern()],
             'niveau' => ['required'],
-        //    'bio' => ['nullable', 'max:255', new DescriptionPattern()],
-        //    'description' => ['nullable', 'max:255', new DescriptionPattern()],
+            'bio' => ['nullable', 'max:255', new DescriptionPattern()],
+            'description' => ['nullable', new DescriptionPattern()],
         ]);
 
         if($validate->fails()){
@@ -124,8 +124,8 @@ class VacancyController extends Controller
         $vac = Vacancy::find($vacancy_id);
         $vac->name = $request->name;
         $vac->niveau = $request->niveau;
-        // $vac->bio = $request->bio;
-        // $vac->description = $request->description;
+        $vac->bio = $request->bio;
+        $vac->description = $request->description;
         $vac->save();
 
         return redirect(route('company.vacancy.index', ['company_id' => Hashids::encode($company_id)]))->with('success', 'Vacature is bijgewerkt.');
