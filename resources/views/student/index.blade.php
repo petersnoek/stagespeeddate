@@ -73,6 +73,7 @@
               <th class="d-none d-sm-table-cell" style="width: 23%;">E-mail</th>
               <th>stage</th>
               <th>Docent</th>
+              <th>Status</th>
               {{-- <th style="width: 15%;">Registered</th> --}}
             </tr>
           </thead>
@@ -105,6 +106,18 @@
                     <span class="text-muted">{{$student->teacher->user->fullname()}}</span>
                     @endif
                 </td>
+                @foreach($student->applications as $application)
+                    <a href="javascript:void(0)"></a>
+                    <td>
+                    @if($application->status == 'pending')
+                    <p class="m-0">Niet beantwoord</p>
+                    @elseif($application->status == 'accepted')
+                    <p class="text-success m-0">Geaccepteerd</p>
+                    @elseif($application->status == 'declined')
+                    <p class="text-danger m-0">Afgewezen</p>
+                    @endif
+                    </td>
+                @endforeach
                 {{-- <td class="text-muted">
                   {{$student->user->created_at}}
                 </td> --}}

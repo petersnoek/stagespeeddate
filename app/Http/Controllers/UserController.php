@@ -20,7 +20,36 @@ class UserController extends Controller
             'users' => User::all(),
         ]);
     }
+    public function import(){
+        return view('users.import');
+    }
+    public function bulkImport(Request $request){
+         $validator = validator::make ($request->all(), [
+            'file' => 'required',
+         ]);
 
+         if($validator -> fails()){
+             return back()->withErrors($validator)->withInput();
+         }
+
+         $file = $request->file(key: 'file');
+         $csvdata = file_get_contents($file);
+         $rows = array_map('str_getcsv', explode("\n", $csvdata));
+         $header = array_shift($rows);
+         foreach ($rows as $row) {
+             $row = array_combine($header, $row);
+            // dd($row);
+             User::create([
+                'first_name' =>  $row['name/first'],
+                'last_name' =>  $row['name/last'],
+                'email' => $row['email'],
+                'password' => Hash::make('password123'),
+                'role' => $row['teacher'],
+                'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
+            ]);  
+        } 
+        return redirect(route('users.import'));
+    }
     public function create() {
         return view('users.create');
     }
@@ -75,7 +104,7 @@ class UserController extends Controller
 
         
         $hashids = new Hashids('', 8); // pad to length 8
-        $tempPassword = $hashids->encode(rand(1,10000)); 
+        
 
         $user = User::create([
             'first_name' => 'Gast',

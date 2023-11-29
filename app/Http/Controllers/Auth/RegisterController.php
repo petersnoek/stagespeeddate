@@ -12,6 +12,7 @@ use App\Rules\SchoolMailValidation;
 use Illuminate\Validation\Rule;
 use App\Models\Student;
 use App\Rules\LastNamePattern;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterController extends Controller
 {
@@ -57,8 +58,9 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255', 'alpha'],
             'last_name' => ['required', 'string', 'max:255', new LastNamePattern()],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users', new SchoolMailValidation],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'confirmed', Password::min(8)->symbols(1)->mixedCase(2)],
             'role' => ['string'],
+            'phone' => ['required|min:8|max:11|regex:/^([0-9\s\-\+\(\)]*)$/'],
         ]);
     }
 
