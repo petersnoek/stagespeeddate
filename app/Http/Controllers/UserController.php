@@ -45,7 +45,7 @@ class UserController extends Controller
                 'email' => $row['email'],
                 'password' => Hash::make('password123'),
                 'role' => $row['teacher'],
-                'profilePicture' => '',
+                'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
             ]);  
         } 
         return redirect(route('users.import'));
@@ -104,7 +104,7 @@ class UserController extends Controller
 
         
         $hashids = new Hashids('', 8); // pad to length 8
-        $tempPassword = $hashids->encode(rand(1,10000)); 
+        
 
         $user = User::create([
             'first_name' => 'Gast',
