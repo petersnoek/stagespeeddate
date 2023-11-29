@@ -52,6 +52,7 @@
               </div>
               <div style="border-radius: 0.375rem 0.375rem 0px 0px" class="block-header block-header-default">
                 <h3 class="block-title">{{$vacancy->name}}</h3>
+                <h3 class="block-title text-end">niveau {{$vacancy->niveau}}</h3>
               </div>
             </div>
             <div class="block-content px-2 py-2 fs-sm text-muted">
