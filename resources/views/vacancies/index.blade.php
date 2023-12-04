@@ -31,6 +31,16 @@
             </li>
           </ol>
         </nav>
+      </div> 
+      <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle bg-gray btn-alt-secondary" data-bs-toggle="dropdown" aria-expanded="true">
+          Filter
+        </button>
+        <ul class="mt-3 dropdown-menu dropdown-menu-start">
+          <li><a class="dropdown-item" type="button" href="http://stagespeeddate.test/vacatures?filtercolumn=id&filtervalue=4">niveau 4</a></li>
+          <li><a class="dropdown-item" type="button" href="http://stagespeeddate.test/vacatures?filtercolumn=id&filtervalue=3">niveau 3</a></li>
+          <li><a class="dropdown-item" type="button" href="http://stagespeeddate.test/vacatures?sort=niveau&filtercolumn=niveau&filtervalue=0">niveau 0</a></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -45,6 +55,7 @@
       <div class="col-md-6 col-xl-4">
         <a style="color: inherit;" href="{{route('vacancy.details', ['vacancy_id' => $vacancy->id, 'company_id' => $vacancy->company->id])}}">
           <div class="block block-rounded h-100 mb-0 ">
+            
             <div class="bg-gray my-0 block block-rounded">
               <div class="bg-gray block-header w-2 py-0 px-2">
                 <div style="max-width: 65%" class="text-truncate" >{{$vacancy->company->name}}</div>
