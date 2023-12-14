@@ -32,6 +32,17 @@
     </div>
     <!-- END Hero -->
 
+    <!-- <div class="content px-5">
+        <div class="block block-rounded px-5 py-3">
+            @include('layouts.partials.messages')
+            <div class="block-content block-content-full pb-0 d-flex justify-content-center">
+                <div class="col-sm-9 col-xl-3">
+                    <img style="width: 8rem; height: 8rem;" src="{{asset($application->student->user->profilePicture)}}">
+                </div>
+            </div>
+        </div>
+    </div> -->
+
     <div class="content px-8">
         <div class="block block-rounded px-5 py-3">
             @include('layouts.partials.messages')
