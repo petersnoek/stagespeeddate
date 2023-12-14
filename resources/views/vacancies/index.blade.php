@@ -31,6 +31,16 @@
             </li>
           </ol>
         </nav>
+      </div> 
+      <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle bg-gray btn-alt-secondary" data-bs-toggle="dropdown" aria-expanded="true">
+          Filter
+        </button>
+        <ul class="mt-3 dropdown-menu dropdown-menu-start">
+          <li><a class="dropdown-item" type="button" href="http://stagespeeddate.test/vacatures?filtercolumn=id&filtervalue=4">niveau 4</a></li>
+          <li><a class="dropdown-item" type="button" href="http://stagespeeddate.test/vacatures?filtercolumn=id&filtervalue=3">niveau 3</a></li>
+          <li><a class="dropdown-item" type="button" href="http://stagespeeddate.test/vacatures?sort=niveau&filtercolumn=niveau&filtervalue=0">niveau 0</a></li>
+        </ul>
       </div>
     </div>
   </div>

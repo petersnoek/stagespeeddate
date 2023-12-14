@@ -16,8 +16,23 @@ use App\Rules\NamePattern;
 class VacancyController extends Controller
 {
     //this returns the index view with all the vacancies that are available
-    public function index(){
-        $results = Vacancy::all()->where('available', '=', true)->sortBy('name');
+    // http://stagespeeddate.test/vacatures?sort=niveau
+    // http://stagespeeddate.test/vacatures?sort=niveau&filtercolumn=niveau&filtervalue=3
+    public function index(Request $request){
+        // check if URL has a "sort" parameter. if so, update sort_column to it
+        $sort = $request->get('sort');
+        $sort_column = 'name';
+        if (isset($sort) && $sort == 'niveau') $sort_column = 'niveau';
+
+        // check if a filtercolumn and filtervalue are in the URL, if so, add extra where clause
+        $filtercolumn = $request->get('filtercolumn');
+        $filtervalue = $request->get('filtervalue');
+        if(isset($filtercolumn) && isset($filtervalue)) {
+            // extra where clause
+            $results = Vacancy::all()->where('available', '=', true)->where($filtercolumn, '=', $filtervalue)->sortBy($sort_column);
+        } else {
+            $results = Vacancy::all()->where('available', '=', true)->sortBy($sort_column);            
+        }
         return view('vacancies.index',[
             'vacancies' => $results
         ]);
