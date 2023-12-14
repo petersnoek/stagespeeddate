@@ -30,7 +30,7 @@
                         <small>Een korte beschrijving van de vacature</small>
                     </label>
                     <textarea rows=4 class="form-control" id="bio" name="bio">{{ $vacancy->bio }}</textarea>
-                    <p>Characters used: <span id="charUsed">{{ strlen($vacancy->bio) }}</span></p>
+                    <p>Characters used: <span id="charUsed">{{ strlen($vacancy->bio) }}</span>/255</p>
                 </div>
 
                 <div class="mb-4">
@@ -50,14 +50,10 @@
     <script>
         const bioTextarea = document.getElementById('bio');
         const charUsedSpan = document.getElementById('charUsed');
-        const charRemainingSpan = document.getElementById('charRemaining');
 
         bioTextarea.addEventListener('input', function () {
             const currentLength = bioTextarea.value.length;
-            const remainingLength = 255 - currentLength;
-
             charUsedSpan.textContent = currentLength;
-            charRemainingSpan.textContent = remainingLength;
         });
     </script>
 
