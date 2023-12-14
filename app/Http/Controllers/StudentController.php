@@ -30,7 +30,7 @@ class StudentController extends Controller
         ]);
         
         if($validator->fails()){
-            return redirect()->back()->with('danger', 'Ongeldige invoer, student bestaat niet.');;
+            return redirect()->back()->with('danger', 'Ongeldige invoer, student bestaat niet.');
         }
         
         $student_id = $student_id['student_id'][0];
@@ -46,6 +46,26 @@ class StudentController extends Controller
         // atm it downloads your own cv, and removes the hash used when storing when giving the name that is going to show up on the users pc.
         return response()->download($value, $cv);
     }
+
+    public function assignNiveau() {
+        $users = User::where('role','student')->get();
+        $students = Student::whereBelongsTo($users)->get();
+        
+        return view('student/niveauAssign', [
+            'students' => $students
+        ]);
+    }
+
+    public function niveauSave(Request $request){
+        $users = User::where('role','student')->get();
+        $students = Student::whereBelongsTo($users)->get();
+        $niveau = $request->toewijzenNiveau;
+        dd($request->get('toewijzenNiveau'));
+
+        return view('student/index', [
+            'students' => $students
+        ])->with('success',[' studenten bijgewerkt en gekoppeled aan.']);
+            }
 
     public function assignTeacher() {
         $users = User::where('role','student')->get();
