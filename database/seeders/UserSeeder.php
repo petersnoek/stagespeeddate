@@ -21,7 +21,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('Admin123'),
             'role' => 'admin',
             'profilePicture' => 'media/usericons/Icon4.png',
-            'stage' => 0
+            'stage' => 0,
+            'Phonenumber' => 06
         ]);
 
         User::factory()->create([
@@ -31,7 +32,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('Teacher123'),
             'role' => 'teacher',
             'profilePicture' => 'media/usericons/Icon10.png',
-            'stage' => 0
+            'stage' => 0,
+            'Phonenumber' => 06
         ]);
 
         User::factory()->create([
@@ -41,7 +43,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('Company123'),
             'role' => 'company',
             'profilePicture' => 'media/usericons/Icon7.png',
-            'stage' => 0
+            'stage' => 0,
+            'Phonenumber' => 06
         ]);
         User::factory()->create([
             'first_name' => 'Company2',
@@ -50,7 +53,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('Company123'),
             'role' => 'company',
             'profilePicture' => 'media/usericons/Icon8.png',
-            'stage' => 0
+            'stage' => 0,
+            'Phonenumber' => 06
         ]);
 
         User::factory()->create([
@@ -60,7 +64,8 @@ class UserSeeder extends Seeder
             'password' => Hash::make('Student123'),
             'role' => 'student',
             'profilePicture' => 'media/usericons/Icon9.png',
-            'stage' => 0
+            'stage' => 0,
+            'Phonenumber' => 06
         ]);
         
         for($x=2; $x < 6; $x++){
@@ -71,7 +76,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('Student123'),
                 'role' => 'student',
                 'profilePicture' => 'media/usericons/Icon' . random_int(1, 10) . '.png',
-                'stage' => 0
+                'stage' => 0,
+                'Phonenumber' => 06           
             ]);
         }
     }

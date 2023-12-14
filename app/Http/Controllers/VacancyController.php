@@ -15,7 +15,9 @@ use App\Rules\NamePattern;
 
 class VacancyController extends Controller
 {
+
     //this returns the index view with all the vacancies that are available
+
     // http://stagespeeddate.test/vacatures?sort=niveau
     // http://stagespeeddate.test/vacatures?sort=niveau&filtercolumn=niveau&filtervalue=3
     public function index(Request $request){
@@ -33,6 +35,7 @@ class VacancyController extends Controller
         } else {
             $results = Vacancy::all()->where('available', '=', true)->sortBy($sort_column);            
         }
+
         return view('vacancies.index',[
             'vacancies' => $results
         ]);

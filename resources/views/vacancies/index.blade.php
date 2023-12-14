@@ -55,6 +55,7 @@
       <div class="col-md-6 col-xl-4">
         <a style="color: inherit;" href="{{route('vacancy.details', ['vacancy_id' => $vacancy->id, 'company_id' => $vacancy->company->id])}}">
           <div class="block block-rounded h-100 mb-0 ">
+            
             <div class="bg-gray my-0 block block-rounded">
               <div class="bg-gray block-header w-2 py-0 px-2">
                 <div style="max-width: 65%" class="text-truncate" >{{$vacancy->company->name}}</div>
@@ -62,6 +63,7 @@
               </div>
               <div style="border-radius: 0.375rem 0.375rem 0px 0px" class="block-header block-header-default">
                 <h3 class="block-title">{{$vacancy->name}}</h3>
+                <h3 class="block-title text-end">niveau {{$vacancy->niveau}}</h3>
               </div>
             </div>
             <div class="block-content px-2 py-2 fs-sm text-muted">
